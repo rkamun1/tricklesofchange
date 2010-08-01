@@ -11,6 +11,15 @@ module SampleApp
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+	
+	
+	### Part of a Spork hack. See http://bit.ly/arY19y
+    if Rails.env.test?
+      initializer :after => :initialize_dependency_mechanism do
+        # Work around initializer in railties/lib/rails/application/bootstrap.rb
+        ActiveSupport::Dependencies.mechanism = :load
+      end
+    end
 
     # Add additional load paths for your own custom dirs
     # config.load_paths += %W( #{config.root}/extras )
