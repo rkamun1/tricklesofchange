@@ -1,6 +1,9 @@
-# Ruby on Rails Tutorial: first application
+#Sample Application
 
-This is the first application for
-[*Ruby on Rails Tutorial: Learn Rails by Example*](http://railstutorial.org/) 
-by [Michael Hartl](http://michaelhartl.com/).
+This is a cloned [twitter] (http://twitter.com/) project. The aim of this project ois to showcase my Ruby and Rails skills. Feel free to peruse through it at will
+
+#Project Details
+This project is build using RESTful techniques and following TDD/BDD practices implemented using RSpec. The project users RSpec for both unit testing and intergration testing. Feel free to visit the /spec folder to view the test implementation
+
+The project is hosted and may be test driven at [chirp.touchinspiration.com](http://chirp.touchinspiration.com).
 
