@@ -1,13 +1,15 @@
 # == Schema Information
-# Schema version: 20100801185357
+# Schema version: 20100813035004
 #
 # Table name: users
 #
-#  id         :integer(4)      not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id                 :integer(4)      not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  encrypted_password :string(255)
+#  salt               :string(255)
 #
 
 #TODO: add unique username and password requirement to the database.   
@@ -20,7 +22,7 @@ class User < ActiveRecord::Base
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :name, :presence => true,
-                   :length => {:maximum => 20}
+                   :length => {:maximum => 30}
   validates :email,:presence => true, 
                    :format => {:with => email_regex},
                    :uniqueness => {:case_sensitive => false}
