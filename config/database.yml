@@ -18,6 +18,7 @@ test:
 production:
   adapter: mysql
   socket: /var/run/mysqld/mysqld.sock
-  database: railsDB
-  user: root
+  host: rubydb.touchinspiration.com
+  database: ti_chirp
+  user: rubyapps
   password: dolphins
