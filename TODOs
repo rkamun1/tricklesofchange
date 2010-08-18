@@ -3,3 +3,4 @@ TODO: Learn how to use HTTPS in Rails, and then secure the Sessions controller n
 - Change settings to dashboard, this will be a list of different aspects of the users account - accounts, bank, etc etc
 - Change the redirect on edit to the users profile, not the root....
 - Make the paginate AJAXified
+- Allow users to delete their own profiles.
