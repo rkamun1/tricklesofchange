@@ -1,14 +1,15 @@
-SampleApp::Application.routes.draw do |map|
+SampleApp::Application.routes.draw do
   
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]
 
-  match :signin,  :to => 'sessions#new'
-  match :signout, :to => 'sessions#destroy'
-	match :signup,	:to => 'users#new' 
-	match :contact, :to => 'pages#contact'
-  match :about,   :to => 'pages#about'
+#match 'products/:id/purchase' => 'catalog#purchase'
+  match '/signin'  => 'sessions#new'
+  match '/signout' => 'sessions#destroy'
+	match '/signup'	=> 'users#new' 
+	match '/contact' => 'pages#contact'
+  match '/about'  => 'pages#about'
   
   root :to => 'pages#home'
 
