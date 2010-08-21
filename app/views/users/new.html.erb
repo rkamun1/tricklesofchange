@@ -18,6 +18,11 @@
     <%= f.label :password_confirmation, "Confirmation" %><br />
     <%= f.password_field :password_confirmation %>
   </div>
+  <div class="field">
+    <%= f.label :daily_bank %><br />
+    <%= f.text_field :daily_bank %>
+  </div>
+  
   <div class="actions">
     <%= f.submit "Sign up" %> or <%= link_to "Sign in!", signin_path %>
   </div>

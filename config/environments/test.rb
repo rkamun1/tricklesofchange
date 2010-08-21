@@ -1,4 +1,4 @@
-SampleApp::Application.configure do
+Tricklesofchange::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
   # The test environment is used exclusively to run your application's
@@ -16,6 +16,7 @@ SampleApp::Application.configure do
 
   # Raise exceptions instead of rendering exception templates
   config.action_dispatch.show_exceptions = false
+  config.active_support.deprecation = :stderr
 
   # Disable request forgery protection in test environment
   config.action_controller.allow_forgery_protection    = false

@@ -1,5 +1,5 @@
 .container {
-  width: 710px;
+  width: 750px;
 }
 
 body {
@@ -7,14 +7,17 @@ body {
 }
 
 header {
+  background-color: #fff;
   padding-top: 20px;
 }
 
 header img {
-  padding: 1em;
   background: #fff;
 }
 
+label{
+    font-weight:normal;
+}
 section {
   margin-top: 1em;
   font-size: 120%;
@@ -74,6 +77,17 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
+/*index page*/
+
+#slideshow{
+    border:1px solid orange;
+}
+#signin{
+    left:500px;
+    position: relative;
+    width: 200px;
+}
+
 /* Sign up button */
 
 a.signup_button {
@@ -95,6 +109,18 @@ a.signup_button {
   -moz-border-radius:    10px;
   -webkit-border-radius: 10px;
   border-radius:         10px;
+}
+
+.round-top {
+  -moz-border-radius:    0 0 10px 10px;
+  -webkit-border-radius: 0 0 10px 10px;
+  border-radius:         0 0 10px 10px;
+}
+
+.round-bottom {
+  -moz-border-radius:    10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  border-radius:         10px 10px 0 0;
 }
 
 /* User show page */
@@ -127,7 +153,7 @@ td.sidebar {
 
 /* Sign Up User show page */
 div.field, div.actions {
-  margin-bottom: 10px;
+  
 }
 
 /*Show the list of users page*/
@@ -241,7 +267,7 @@ form.new_micropost textarea {
 footer {
   text-align: center;
   margin-top: 10px;
-  width: 710px;
+  width: 750px;
   margin-left: auto;
   margin-right: auto;
 }

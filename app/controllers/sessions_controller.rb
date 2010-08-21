@@ -1,9 +1,11 @@
 class SessionsController < ApplicationController
+  before_filter :already_signed_in, :only => [:new]
+  
  def new
-    @title = "Sign in"
+    @title = "Welcome"
   end
 
-  def create
+  def create    #create a session consists of signing in
     user = User.authenticate(params[:session][:email],
                            params[:session][:password])
     if user.nil?

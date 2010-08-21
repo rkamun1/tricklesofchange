@@ -1,20 +1,17 @@
-SampleApp::Application.routes.draw do
+Tricklesofchange::Application.routes.draw do
   
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :microposts, :only => [:create, :destroy]
 
-#match 'products/:id/purchase' => 'catalog#purchase'
   match '/signin'  => 'sessions#new'
   match '/signout' => 'sessions#destroy'
 	match '/signup'	=> 'users#new' 
 	match '/contact' => 'pages#contact'
   match '/about'  => 'pages#about'
+  #match '/dashboard' => 'users#show', :as => :user
   
-  root :to => 'pages#home'
+  root :to => 'sessions#new'
 
-  
-  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

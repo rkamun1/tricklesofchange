@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "LayoutLinks" do
   
-  it "should have a Home page at '/'" do
+  it "should have a Welcome page at '/'" do
   	get '/'
-  	response.should have_selector('title', :content=> "Home")
+  	response.should have_selector('title', :content=> "Welcome")
   end	
   
   it "should have a Contact page at '/contact'" do
@@ -23,10 +23,9 @@ describe "LayoutLinks" do
   end
   
   describe "when not signed in" do
-    it "should have a signin link" do
+    it "should land on the sign in/welcome page" do
       visit root_path
-      response.should have_selector("a", :href => signin_path,
-                                         :content => "Sign in")
+      response.should have_selector('title', :content=>"Welcome")
     end
   end
 
@@ -49,6 +48,23 @@ describe "LayoutLinks" do
      visit root_path
      response.should have_selector("a", :href => user_path(@user),
                                         :content => "Profile")
+    end
+    
+    it "should redirect to profile page" do
+      visit root_path
+      response.should have_selector('title', :content => @user.name)
+    end
+    
+    describe "when signed in and admin" do
+      before(:each) do
+        @user.toggle!(:admin)
+      end
+      
+      it "should have a profile link" do
+        visit root_path
+        response.should have_selector("a", :href => users_path,
+                                        :content => "Users")
+      end
     end
   end
 end

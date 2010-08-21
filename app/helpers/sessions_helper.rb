@@ -20,6 +20,14 @@ module SessionsHelper
   def current_user?(user)
     user == current_user
   end
+
+  def admin?
+    current_user.admin?
+  end 
+  
+  def already_signed_in
+    redirect_to current_user if signed_in?
+  end
   
   def authenticate
     deny_access unless signed_in?
@@ -27,7 +35,7 @@ module SessionsHelper
   
   def deny_access
     store_location
-    flash[:notice] = "Please sign in to access this page."
+    flash[:notice] = "Please sign in to access that page."
     redirect_to signin_path
   end
 
@@ -57,5 +65,5 @@ module SessionsHelper
     def remember_token
       cookies.signed[:remember_token] || [nil, nil]
     end
-
+    
 end

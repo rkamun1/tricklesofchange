@@ -18,11 +18,10 @@
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation
-  
-  has_many :microposts, :dependent => :destroy
+  attr_accessible :name, :email, :password, :password_confirmation, :daily_bank
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  daily_bank_regex = /^([\$]?)([0-9]*\.?[0-9]{0,2})$/i
 
   validates :name, :presence => true,
                    :length => {:maximum => 30}
@@ -32,6 +31,13 @@ class User < ActiveRecord::Base
   validates :password, :presence => true,
                        :confirmation => true,
                        :length       => { :within => 6..10 }
+  validates :daily_bank, :presence => true,
+                         :format => {:with => daily_bank_regex}
+  validates_numericality_of :daily_bank, 
+                            :greater_than => 1,
+                            :less_than => 999,
+                            :message => "should be a number between 1 and 999; 2 decimal places optional."
+                         
 
   before_save :encrypt_password
   

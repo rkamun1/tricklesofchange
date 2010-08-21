@@ -24,11 +24,6 @@ describe UsersController do
       response.should be_success
     end
     
-    it "should have the right title" do
-      get :new
-      response.should have_selector("title", :content => "Sign Up")
-    end
-    
     it "should find the right user" do
       get :show, :id => @user
       assigns(:user).should == @user
@@ -47,18 +42,9 @@ describe UsersController do
       get :show, :id => @user
       response.should have_selector("h1>img", :class => "gravatar")
     end
-    
-    it "should show the user's microposts" do
-      mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
-      mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
-      get :show, :id => @user
-      response.should have_selector("span.content", :content => mp1.content)
-      response.should have_selector("span.content", :content => mp2.content)
-    end
   end
   
   describe "GET 'index'" do
-
     describe "for non-signed-in users" do
       it "should deny access" do
         get :index
@@ -99,7 +85,7 @@ describe UsersController do
     describe "failure" do
       before(:each) do
         @attr = {:name=>"", :email=>"", :password=>"", 
-                 :password_confirmation=>"" }
+                 :password_confirmation=>"", :daily_bank => ""}
       end
       
       it "should not create a user" do
@@ -124,7 +110,8 @@ describe UsersController do
         @attr = { :name => "New User", 
                   :email => "user@example.com",
                   :password => "foobar", 
-                  :password_confirmation => "foobar" }
+                  :password_confirmation => "foobar",
+                  :daily_bank => "20"}
       end
 
       it "should create a user" do
@@ -140,7 +127,7 @@ describe UsersController do
       
       it "should have a welcome message" do
         post :create, :user => @attr
-        flash[:success].should =~ /welcome to the chirp/i
+        flash[:success].should =~ /welcome/i
       end
       
       it "should sign the user in" do
@@ -198,7 +185,7 @@ describe UsersController do
     describe "success" do
       before(:each) do
         @attr = { :name => "New Name", :email => "user@example.org",
-                  :password => "barbaz", :password_confirmation => "barbaz" }
+                  :password => "barbaz", :password_confirmation => "barbaz", :daily_bank => "20"}
       end
       
       it "should change the user's attributes" do
@@ -207,6 +194,7 @@ describe UsersController do
         @user.reload
         @user.name.should  == user.name
         @user.email.should == user.email
+        @user.daily_bank.should == user.daily_bank
       end
 
       it "should redirect to the user show page" do
@@ -277,7 +265,6 @@ describe UsersController do
     end
 
     describe "as an admin user" do
-
       before(:each) do
         admin = Factory(:user, :email => "admin@example.com", :admin => true)
         test_sign_in(admin)

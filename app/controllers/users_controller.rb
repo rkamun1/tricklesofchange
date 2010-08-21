@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:index, :edit, :update]
   before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => :destroy
+  before_filter :admin_user,   :only => [:destroy, :index]
 
   def new
     @title = "Sign Up"
@@ -15,7 +15,6 @@ class UsersController < ApplicationController
 
   def show 
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
   end
   
@@ -23,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Chirp!"
+      flash[:success] = "Welcome!"
       redirect_to @user 
     else
       @title = "Sign Up"
@@ -52,10 +51,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
   
-  def feed
-    # This is preliminary. See Chapter 12 for the full implementation.
-    Micropost.where("user_id = ?", id)
-  end
 
   private    
     def correct_user

@@ -1,0 +1,29 @@
+Exception encountered: #<SyntaxError: /home/touchinspiration/my_projects/Ruby/tricklesofchange/spec/controllers/users_controller_spec.rb:114: syntax error, unexpected tSYMBEG, expecting '}'
+                  :daily_bank => "20"}
+                   ^
+/home/touchinspiration/my_projects/Ruby/tricklesofchange/spec/controllers/users_controller_spec.rb:114: syntax error, unexpected '}', expecting keyword_end
+/home/touchinspiration/my_projects/Ruby/tricklesofchange/spec/controllers/users_controller_spec.rb:286: syntax error, unexpected $end, expecting keyword_end>
+backtrace:
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/activesupport-3.0.0.rc/lib/active_support/dependencies.rb:219:in `require'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/activesupport-3.0.0.rc/lib/active_support/dependencies.rb:219:in `block in require'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/activesupport-3.0.0.rc/lib/active_support/dependencies.rb:205:in `block in load_dependency'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/activesupport-3.0.0.rc/lib/active_support/dependencies.rb:570:in `new_constants_in'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/activesupport-3.0.0.rc/lib/active_support/dependencies.rb:205:in `load_dependency'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/activesupport-3.0.0.rc/lib/active_support/dependencies.rb:219:in `require'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/rspec-core-2.0.0.beta.18/lib/rspec/core/configuration.rb:288:in `block in require_files_to_run'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/rspec-core-2.0.0.beta.18/lib/rspec/core/configuration.rb:288:in `map'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/rspec-core-2.0.0.beta.18/lib/rspec/core/configuration.rb:288:in `require_files_to_run'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/rspec-core-2.0.0.beta.18/lib/rspec/core/command_line.rb:18:in `run'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/rspec-core-2.0.0.beta.18/lib/rspec/monkey/spork/test_framework/rspec.rb:4:in `run_tests'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/spork-0.8.4/lib/spork/run_strategy/forking.rb:13:in `block in run'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/spork-0.8.4/lib/spork/forker.rb:21:in `block in initialize'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/spork-0.8.4/lib/spork/forker.rb:18:in `fork'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/spork-0.8.4/lib/spork/forker.rb:18:in `initialize'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/spork-0.8.4/lib/spork/run_strategy/forking.rb:9:in `new'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/spork-0.8.4/lib/spork/run_strategy/forking.rb:9:in `run'
+/home/touchinspiration/.rvm/gems/ruby-1.9.2-head/gems/spork-0.8.4/lib/spork/server.rb:47:in `run'
+/home/touchinspiration/.rvm/rubies/ruby-1.9.2-head/lib/ruby/1.9.1/drb/drb.rb:1558:in `perform_without_block'
+/home/touchinspiration/.rvm/rubies/ruby-1.9.2-head/lib/ruby/1.9.1/drb/drb.rb:1518:in `perform'
+/home/touchinspiration/.rvm/rubies/ruby-1.9.2-head/lib/ruby/1.9.1/drb/drb.rb:1592:in `block (2 levels) in main_loop'
+/home/touchinspiration/.rvm/rubies/ruby-1.9.2-head/lib/ruby/1.9.1/drb/drb.rb:1588:in `loop'
+/home/touchinspiration/.rvm/rubies/ruby-1.9.2-head/lib/ruby/1.9.1/drb/drb.rb:1588:in `block in main_loop'

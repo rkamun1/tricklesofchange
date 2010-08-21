@@ -1,7 +1,7 @@
 module ApplicationHelper
  # Return a title on a per-page basis.
   def title
-    base_title = "Chirp : A Sample App"
+    base_title = "Trickles of Change"
     if @title.nil?
       base_title
     else
