@@ -16,7 +16,7 @@ describe UsersController do
   
   describe "GET 'show'" do
     before(:each) do
-      @user = Factory(:user)
+      @user = test_sign_in(Factory(:user))
     end
     
     it "should be successful" do
@@ -42,6 +42,34 @@ describe UsersController do
       get :show, :id => @user
       response.should have_selector("h1>img", :class => "gravatar")
     end
+
+#    TODO:it "should have a daily bank" do
+#      get :show, :id => @user
+#      response.should include("Daily Bank")
+#    end
+    
+    it "should show the user's accounts" do
+      acct1 = Factory(:account, :user => @user, 
+                                :details => "Foo bar", 
+                                :cost => "200", 
+                                :allotment => "10")
+      acct2 = Factory(:account, :user => @user, 
+                                :details => "Bar foo", 
+                                :cost => "100", 
+                                :allotment => "5")
+      get :show, :id => @user
+      response.should have_selector("div#accountshdr", :content => "accounts")
+      response.should have_selector("td.details", :content => acct1.details)
+      response.should have_selector("td.cost", :content => acct1.cost.to_s)
+      response.should have_selector("td.allotment", :content => acct1.allotment.to_s)
+      response.should have_selector("td.accrued", :content => acct1.accrued.to_s)
+      #TODO:response.should have_selector("span.remaining", :content => acct1.remaining)
+      response.should have_selector("td.details", :content => acct2.details)
+      response.should have_selector("td.cost", :content => acct2.cost.to_s)
+      response.should have_selector("td.allotment", :content => acct2.allotment.to_s)
+      response.should have_selector("td.accrued", :content => acct2.accrued.to_s)
+      #TODO:response.should have_selector("span.remaining", :content => acct2.remaining)
+    end
   end
   
   describe "GET 'index'" do
@@ -53,12 +81,28 @@ describe UsersController do
       end
     end
 
-    describe "for signed-in users" do
+    describe "for signed-in non-admin users" do
       before(:each) do
         @user = test_sign_in(Factory(:user))
+      end
+
+      it "should be unsuccessful" do
+        get :index
+        response.should_not be_success
+      end
+
+      it "should be redirect to user's profile page" do
+        get :index
+        #TODO: check that it redirects to the user's profile page.
+      end
+    end
+
+    describe "for signed-in admin users" do
+      before(:each) do
+        @user = test_sign_in(Factory(:user))
+        @user.toggle(:admin)
         second = Factory(:user, :email => "another@example.com")
         third  = Factory(:user, :email => "another@example.net")
-
         @users = [@user, second, third]
       end
 
@@ -224,9 +268,14 @@ describe UsersController do
         put :update, :id => @user, :user => {}
         response.should redirect_to(signin_path)
       end
+
+      it "should deny access to 'show'" do
+        put :show, :id => @user, :user => {}
+        response.should redirect_to(signin_path)
+      end
     end
     
-    describe "for signed-in users" do
+    describe "for different signed-in user" do
       before(:each) do
         wrong_user = Factory(:user, :email => "user@example.net")
         test_sign_in(wrong_user)
@@ -234,6 +283,11 @@ describe UsersController do
 
       it "should require matching users for 'edit'" do
         get :edit, :id => @user
+        response.should redirect_to(root_path)
+      end
+      
+      it "should require matching users for 'show'" do
+        put :show, :id => @user, :user => {}
         response.should redirect_to(root_path)
       end
 

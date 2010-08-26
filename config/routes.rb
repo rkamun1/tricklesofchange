@@ -1,6 +1,7 @@
 Tricklesofchange::Application.routes.draw do
-  
+    
   resources :users
+  resources :accounts, :except => [:show]
   resources :sessions, :only => [:new, :create, :destroy]
 
   match '/signin'  => 'sessions#new'
@@ -8,7 +9,7 @@ Tricklesofchange::Application.routes.draw do
 	match '/signup'	=> 'users#new' 
 	match '/contact' => 'pages#contact'
   match '/about'  => 'pages#about'
-  #match '/dashboard' => 'users#show', :as => :user
+  #match '/dashboard' => 'users#show', :as => :dashboard
   
   root :to => 'sessions#new'
 

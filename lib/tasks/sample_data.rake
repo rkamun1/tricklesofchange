@@ -10,9 +10,9 @@ namespace :db do
                  :password_confirmation => "foobar",
                  :daily_bank => 20)
     admin.toggle!(:admin)            
-    99.times do |n|
+    49.times do |n|
       name  = Faker::Name.name
-      email = "example-#{n+1}@railstutorial.org"
+      email = Faker::Internet.email
       password  = "password"
       daily_bank = 20.75
       User.create!(:name => name,
@@ -20,6 +20,14 @@ namespace :db do
                    :password => password,
                    :password_confirmation => password,
                    :daily_bank => daily_bank)
+    end
+    
+    User.all.each do |user|
+      5.times do
+        user.accounts.create!(:details => Faker::Lorem.sentence(2), 
+                                :cost => 5 + rand(1000),
+                                :allotment => 1 + rand(20))
+      end
     end
   end
 end

@@ -1,14 +1,33 @@
-<table class="profile" summary="Profile information">
-  <tr>
-    <td class="main">
+<div class="profile" summary="Profile information">
+  <div class="main">
+    <div id= "details">
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
-    <td class="sidebar round">
-      <strong>Name</strong> <%= @user.name %><br />
-      <strong>URL</strong> <%= link_to user_path(@user), @user %><br />
-    </td>
-  </tr>
-</table>
+      <strong>URL: </strong> <%= link_to user_path(@user), @user %><br />
+      <strong>Daily Bank: </strong> <%= number_to_currency(@user.daily_bank, :unit => "$") %><br />
+      <strong>Stash: </strong> <%= number_to_currency(@user.stash?||0, :unit => "$") %><br />
+      <%= link_to "edit", edit_user_path(current_user) %> <%= link_to "reset", :confirm => "You sure?" %>
+    </div> 
+    <div>
+      <%unless @user.accounts.empty? %>
+        <div id = "accounts">
+              <div id = "accountshdr">accounts</div> 
+              <div id="addaccount"><%= link_to "add account", new_account_path %></div>
+          <table id = "accountstable">
+            <tr id ="header">
+              <td>Details</td>
+              <td>Cost</td>
+              <td>Allotment</td>
+              <td>Accrued</td>
+              <td></td>
+            </tr>  
+            <%= render @accounts %>
+          </table>  
+        </div>
+      <% end %>
+    </div> 
+  </div>
+</div>
 

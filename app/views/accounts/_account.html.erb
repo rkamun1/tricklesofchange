@@ -1,0 +1,14 @@
+<%- row_class = cycle("odd", "even") -%>
+<tr class = "<%= row_class %>">
+  <td class="details"><%= account.details %></td>
+  <td class="cost"><%= number_to_currency(account.cost) %></td>
+  <td class="allotment"><%= number_to_percentage(account.allotment, :precision => 2) %></td>
+  <td class="accrued"><%= number_to_currency(account.accrued? || 0 )%></td>
+  <td><%= link_to "edit", edit_account_path(account) %>
+  <%= link_to "delete", account_path(account), :method => :delete,
+                                 :confirm => "You sure you want to delete #{account.details}",
+                                 :title => "Delete #{account.details}" %></td>
+  
+</tr>
+
+

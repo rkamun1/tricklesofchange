@@ -26,7 +26,7 @@ describe "LayoutLinks" do
     it "should land on the sign in/welcome page" do
       visit root_path
       response.should have_selector('title', :content=>"Welcome")
-    end
+    end        
   end
 
   describe "when signed in" do
@@ -55,7 +55,7 @@ describe "LayoutLinks" do
       response.should have_selector('title', :content => @user.name)
     end
     
-    describe "when signed in and admin" do
+    describe "when admin" do
       before(:each) do
         @user.toggle!(:admin)
       end
@@ -64,6 +64,33 @@ describe "LayoutLinks" do
         visit root_path
         response.should have_selector("a", :href => users_path,
                                         :content => "Users")
+      end
+    end
+    
+    describe "when on profile page" do
+      before(:each) do
+        @acct1 = Factory(:account, :user => @user, 
+                                  :details => "Foo bar", 
+                                  :cost => "200", 
+                                  :allotment => "10")
+      end
+      
+      it "should have an add account link" do
+        visit users_path
+        response.should have_selector("a", :href => new_account_path,
+                                           :content => "add account")
+      end      
+      
+      it "should have an edit account link" do
+        visit users_path
+        response.should have_selector("a", :href => edit_account_path(@acct1),
+                                           :content => "edit")
+      end      
+      
+      it "should have an delete account link" do
+        visit users_path
+        response.should have_selector("a", :href => account_path(@acct1),
+                                           :content => "delete")
       end
     end
   end

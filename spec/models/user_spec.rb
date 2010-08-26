@@ -180,4 +180,23 @@ describe User do
       @user.should be_admin
     end
   end
+  
+  describe "account associations" do
+    before(:each) do
+      @user = User.create(@attr)
+      @acct1 = Factory(:account, :user => @user)
+      @acct2 = Factory(:account, :user => @user)
+    end 
+    
+    it "should have an accounts attribute" do
+      @user.should respond_to(:accounts)
+    end
+    
+    it "should destroy associated accounts" do
+      @user.destroy
+      [@acct1, @acct2].each do |account|
+        Account.find_by_id(account.id).should be_nil
+      end
+    end
+  end
 end

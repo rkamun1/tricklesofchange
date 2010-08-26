@@ -42,7 +42,6 @@ a:visited {
 }
 
 /* Navigation */
-
 nav {
   float: right;
 }
@@ -152,8 +151,7 @@ td.sidebar {
 }
 
 /* Sign Up User show page */
-div.field, div.actions {
-  
+div.field, div.actions { 
 }
 
 /*Show the list of users page*/
@@ -207,36 +205,6 @@ ul.users {
   list-style: square;
 }
 
-/*microposts*/
-h1.micropost {
-  margin-bottom: 0.3em;
-}
-
-table.microposts {
-  margin-top: 1em;
-}
-
-table.microposts tr {
-  height: 70px;
-}
-
-table.microposts tr td.gravatar {
-  border-top: 1px solid #ccc;
-  vertical-align: top;
-  width: 50px;
-}
-
-table.microposts tr td.micropost {
-  border-top: 1px solid #ccc;
-  vertical-align: top;
-  padding-top: 10px;
-}
-
-table.microposts tr td.micropost span.timestamp {
-  display: block;
-  font-size: 85%;
-  color: #666;
-}
 
 div.user_info img {
   padding-right: 0.1em;
@@ -250,17 +218,19 @@ div.user_info span.user_name {
   position: absolute;
 }
 
-div.user_info span.microposts {
-  font-size: 80%;
+/*show page*/
+#accountstable #header{
+background-color: #FFCC66;
 }
 
-form.new_micropost {
-  margin-bottom: 2em;
+#addaccount{
+float:right;
 }
 
-form.new_micropost textarea {
-  height: 4em;
-  margin-bottom: 0;
+#accountshdr{
+font-size:200%;
+margin-bottom:-25px;
+width:200px;
 }
 
 /*footer*/

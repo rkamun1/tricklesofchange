@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100818170541
+# Schema version: 20100822014708
 #
 # Table name: users
 #
@@ -11,6 +11,8 @@
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  admin              :boolean(1)
+#  daily_bank         :decimal(6, 2)
+#  stash              :decimal(6, 2)
 #
 
 #TODO: add unique username and password requirement to the database.   
@@ -20,25 +22,31 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation, :daily_bank
   
+  has_many :accounts, :dependent => :destroy
+  
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   daily_bank_regex = /^([\$]?)([0-9]*\.?[0-9]{0,2})$/i
 
   validates :name, :presence => true,
                    :length => {:maximum => 30}
+                   
   validates :email,:presence => true, 
                    :format => {:with => email_regex},
                    :uniqueness => {:case_sensitive => false}
+                   
   validates :password, :presence => true,
                        :confirmation => true,
                        :length       => { :within => 6..10 }
+                       
   validates :daily_bank, :presence => true,
-                         :format => {:with => daily_bank_regex}
+                         :format => {:with => daily_bank_regex,
+                         :message => "should be a number greater than 5; 2 decimal places optional."}
+                         
   validates_numericality_of :daily_bank, 
                             :greater_than => 1,
                             :less_than => 999,
                             :message => "should be a number between 1 and 999; 2 decimal places optional."
                          
-
   before_save :encrypt_password
   
   # Return true if the user's password matches the submitted password.
