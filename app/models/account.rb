@@ -51,9 +51,7 @@ class Account < ActiveRecord::Base
     other_acccount_allotments = Account.where(:user_id => user_id).where('id != ?', :id).sum(:allotment)
     if allotment + other_acccount_allotments > 100
       errors.add(:allotment, "adds up to more than 100. The maximum allotment for this account is #{100 - other_acccount_allotments}")
-   return false
     end
-    return true
   end
 
   def validate_allotment?
