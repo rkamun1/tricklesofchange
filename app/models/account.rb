@@ -34,7 +34,7 @@ class Account < ActiveRecord::Base
                    :format => {:with => twodecplaces_regex,
                    :message => "should be a number between 1 and 100; 2 decimal places optional." }          
   
-  #validate :allotment_is_100, :if => :validate_allotment?
+  validate :allotment_is_100, :if => :validate_allotment?
   
   validates_numericality_of :cost, 
                             :greater_than_or_equal_to => 5,
@@ -48,10 +48,12 @@ class Account < ActiveRecord::Base
 #TODO: Make sure that all the account.alloments <= 100%.
   protected
   def allotment_is_100
-    other_acccount_allotments = Account.where(:user_id => user_id).where('id != ?', id).sum(:allotment)
+    other_acccount_allotments = Account.where(:user_id => user_id).where('id != ?', :id).sum(:allotment)
     if allotment + other_acccount_allotments > 100
       errors.add(:allotment, "adds up to more than 100. The maximum allotment for this account is #{100 - other_acccount_allotments}")
+   return false
     end
+    return true
   end
 
   def validate_allotment?
