@@ -19,6 +19,7 @@ class AccountsController < ApplicationController
   end
   
   def edit
+    @account = Account.find(params[:id])
     @title = "edit #{@account.details}"
   end
   
@@ -33,15 +34,14 @@ class AccountsController < ApplicationController
   end  
 
   def destroy
-    @account.destroy
+    Account.find(params[:id]).destroy
     redirect_to root_path
   end
   
   private
 
     def authorized_user
-      @account = Account.find(params[:id])
-      redirect_to root_path unless current_user?(@account.user)
+      redirect_to root_path unless current_user?(Account.find(params[:id]).user)
     end
 
 end
