@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :daily_bank
   
   has_many :accounts, :dependent => :destroy
+  has_many :spendings, :dependent => :destroy
+
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   daily_bank_regex = /^([\$]?)([0-9]*\.?[0-9]{0,2})$/i
@@ -70,6 +72,12 @@ class User < ActiveRecord::Base
     Micropost.where("user_id = ?", id)
   end
 
+#TODO: fix this thingi
+  protected
+  
+    def self.daily_job
+      
+    end
   
   private
 
@@ -89,5 +97,5 @@ class User < ActiveRecord::Base
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
     end
-                         
+                    
 end

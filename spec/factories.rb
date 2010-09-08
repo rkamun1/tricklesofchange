@@ -4,7 +4,7 @@ Factory.define :user do |user|
   user.email                 "mhartl@example.com"
   user.password              "foobar"
   user.password_confirmation "foobar"
-  user.daily_bank                  "20"
+  user.daily_bank            "20"
 end
 
 Factory.sequence :email do |n|
@@ -16,6 +16,13 @@ Factory.define :account do |account|
   account.cost "200"
   account.allotment "20"
   account.association :user
+end
+
+Factory.define :spending do |spending|
+  spending.spending_date Time.now
+  spending.spending_details "Foo bar"
+  spending.spending_amount "5"
+  spending.association :user
 end
 
 

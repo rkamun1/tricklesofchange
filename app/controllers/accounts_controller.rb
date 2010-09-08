@@ -24,6 +24,7 @@ class AccountsController < ApplicationController
   end
   
   def update
+    @account = Account.find(params[:id])
     if @account.update_attributes(params[:account])
       flash[:success] = "Account updated."
       redirect_to current_user

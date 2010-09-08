@@ -63,6 +63,10 @@ describe AccountsController do
         post :create
         response.should be_success
       end
+      
+      it "should reject allotments that total over 100%" do
+        
+      end
     end
     
     describe "GET 'edit'" do

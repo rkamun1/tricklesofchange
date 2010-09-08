@@ -219,15 +219,15 @@ div.user_info span.user_name {
 }
 
 /*show page*/
-#accountstable #header{
+.header{
 background-color: #FFCC66;
 }
 
-#addaccount{
+#addaccount, #addspending{
 float:right;
 }
 
-#accountshdr{
+.hdr{
 font-size:200%;
 margin-bottom:-25px;
 width:200px;

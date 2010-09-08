@@ -2,6 +2,7 @@ Tricklesofchange::Application.routes.draw do
     
   resources :users
   resources :accounts, :except => [:show]
+  resources :spendings, :except => [:show]
   resources :sessions, :only => [:new, :create, :destroy]
 
   match '/signin'  => 'sessions#new'

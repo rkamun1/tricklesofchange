@@ -70,6 +70,26 @@ describe UsersController do
       response.should have_selector("td.accrued", :content => acct2.accrued.to_s)
       #TODO:response.should have_selector("span.remaining", :content => acct2.remaining)
     end
+    
+    it "should show the user's spending" do
+      spending1 = Factory(:spending, :user => @user, 
+                                :spending_date => Time.now, 
+                                :spending_details => "Foo bar", 
+                                :spending_amount => "10")
+      spending2 = Factory(:spending, :user => @user, 
+                                :spending_date => Time.now + 1.hour, 
+                                :spending_details => "Foo bar bar", 
+                                :spending_amount => "5")
+   
+      get :show, :id => @user
+      response.should have_selector("div#spendingshdr", :content => "spendings")
+      response.should have_selector("td.date", :content => spending1.spending_date.strftime('%Y-%m-%d').to_s)
+      response.should have_selector("td.details", :content => spending1.spending_details)
+      response.should have_selector("td.amount", :content => spending1.spending_amount.to_s)
+      response.should have_selector("td.date", :content => spending2.spending_date.strftime('%Y-%m-%d').to_s)
+      response.should have_selector("td.details", :content => spending2.spending_details)
+      response.should have_selector("td.amount", :content => spending2.spending_amount.to_s)
+    end   
   end
   
   describe "GET 'index'" do
@@ -336,5 +356,7 @@ describe UsersController do
       end
     end
   end
+  
+  
 end
 

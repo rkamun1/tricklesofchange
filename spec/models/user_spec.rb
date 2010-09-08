@@ -199,4 +199,27 @@ describe User do
       end
     end
   end
+  
+  describe "spending associations" do
+    before(:each) do
+      @user = User.create(@attr)
+      @spending1 = Factory(:spending, :user => @user, :created_at => 1.day.ago)
+      @spending2 = Factory(:spending, :user => @user, :created_at => 1.hour.ago)
+    end 
+    
+    it "should have a spending attribute" do
+      @user.should respond_to(:spendings)
+    end
+    
+    it "should have the right spendings in the right order" do
+      @user.spendings.should == [@spending2, @spending1]
+    end
+    
+    it "should destroy associated microposts" do
+      @user.destroy
+      [@spending1, @spending2].each do |spending|
+        Spending.find_by_id(spending.id).should be_nil
+      end
+    end
+  end 
 end

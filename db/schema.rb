@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100822014708) do
+ActiveRecord::Schema.define(:version => 20100906235323) do
 
   create_table "accounts", :force => true do |t|
     t.string   "details"
@@ -23,6 +23,24 @@ ActiveRecord::Schema.define(:version => 20100822014708) do
   end
 
   add_index "accounts", ["user_id"], :name => "index_accounts_on_user_id"
+
+  create_table "facebooks", :force => true do |t|
+    t.integer  "identifier"
+    t.string   "access_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spendings", :force => true do |t|
+    t.date     "spending_date"
+    t.string   "spending_details"
+    t.decimal  "spending_amount",  :precision => 6, :scale => 2
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "spendings", ["user_id"], :name => "index_spendings_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
