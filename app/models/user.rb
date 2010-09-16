@@ -15,8 +15,9 @@
 #  stash              :decimal(6, 2)
 #
 
-#TODO: add unique username and password requirement to the database.   
+#TODO: add unique username requirement to the DATABASE as  opposed to model.   
 #TODO: Change the authenticate to report a correct password but wrong email 
+#TODO: Add timezone and currency type
 
 class User < ActiveRecord::Base
   attr_accessor :password
@@ -71,16 +72,26 @@ class User < ActiveRecord::Base
     # This is preliminary. See Chapter 12 for the full implementation.
     Micropost.where("user_id = ?", id)
   end
-
-#TODO: fix this thingi
-  protected
   
-    def self.daily_job
-      
+  def self.daily_job user #<------TODO:this will go as it will be generic for all 
+    #add a function to get all the users in the db and the each do
+    #get the user bank
+    if (user.daily_balance || user.daily_bank) > 0
+      distributed_amount = 0
+      total_distro = 0
+      #perform a distribution
+      user.accounts.each do |account|
+        account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.daily_balance || user.daily_bank) * account.allotment)/100)))
+        total_distro += distributed_amount
+        puts total_distro
+      end      
+      user.update_attribute(:stash, (user.stash || 0) + (user.daily_balance || user.daily_bank) - total_distro) 
+      user.update_attribute(:daily_balance, user.daily_bank) 
     end
+  end
   
-  private
 
+  private
     def encrypt_password
       self.salt = make_salt if new_record?
       self.encrypted_password = encrypt(password)

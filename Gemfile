@@ -5,7 +5,7 @@ gem 'ruby-mysql'
 gem 'gravatar_image_tag'
 gem 'will_paginate', '>= 3.0.pre'
 gem 'date_validator'
-
+gem 'gruff'
 
 group :development do
   gem 'rspec-rails', '2.0.0.beta.18'

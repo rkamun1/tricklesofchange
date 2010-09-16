@@ -20,7 +20,7 @@ class Spending < ActiveRecord::Base
   
   validates :user_id, :presence => true
   validates :spending_date, :presence => true,
-                            :date => { :after => Time.now - 1.month, :before => Time.now + 1.month }
+                            :date => { :after => Time.now - 1.week , :before => Time.now + 1.day}
 
   validates :spending_details, :presence => true, :length => { :maximum => 100}
   validates :spending_amount, :presence => true,
@@ -33,23 +33,25 @@ class Spending < ActiveRecord::Base
                            
                             
   default_scope :order => 'spendings.created_at DESC'
-  after_save :deduct_from_bank
+  after_save :deduct_from_bank 
   after_destroy :restore_to_bank
   
   protected
   def deduct_from_bank
     user = User.find(user_id)
-    new_bal = user.daily_bank - spending_amount
+    if new_record?
+      new_bal = (user.daily_balance || user.daily_bank) - spending_amount 
+  elsif spending_amount_changed?
+      new_bal = (user.daily_balance || user.daily_bank) + spending_amount_was - spending_amount
+    end
     
-    user.update_attribute :daily_bank, new_bal if new_bal >= 0
-    user.update_attribute :daily_bank, 0 and user.update_attribute :stash, user.stash + new_bal if new_bal < 0
-    
-    puts "new bal = #{user.stash} - #{new_bal}"
+    user.update_attribute :daily_balance, new_bal if new_bal >= 0
+    user.update_attribute :daily_balance, 0 and user.update_attribute :stash, user.stash + new_bal if new_bal < 0
   end
   
   def restore_to_bank
     user = User.find(user_id)
-    user.update_attribute :stash, user.stash + spending_amount
-    
+    user.update_attribute :daily_balance, user.daily_balance + spending_amount if spending_date == Date.today
+    user.update_attribute :stash, (user.stash || 0) + spending_amount if spending_date != Date.today
   end
 end

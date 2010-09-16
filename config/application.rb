@@ -47,6 +47,9 @@ module Tricklesofchange
     #   g.test_framework  :test_unit, :fixture => true
     # end
 
+    #Use jQuery instead of prototype
+    config.action_view.javascript_expansions[:defaults] = ['jquery', 'rails']
+    
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 

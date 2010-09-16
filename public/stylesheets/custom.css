@@ -224,13 +224,13 @@ background-color: #FFCC66;
 }
 
 #addaccount, #addspending{
-float:right;
+    float:right;
+    margin-top:-20px;
 }
 
 .hdr{
-font-size:200%;
-margin-bottom:-25px;
-width:200px;
+    font-size:200%;
+    width:200px;
 }
 
 /*footer*/

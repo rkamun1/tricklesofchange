@@ -3,7 +3,7 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.string :details
       t.decimal :cost, :precision => 6, :scale => 2
-      t.integer :allotment #the precentage alloted from the total saved
+      t.integer :allotment, :default => 0 #the precentage alloted from the total saved
       t.decimal :accrued, :precision => 6, :scale => 2
       t.integer :user_id
 

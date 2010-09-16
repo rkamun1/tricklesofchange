@@ -10,7 +10,7 @@ namespace :db do
                  :password_confirmation => "foobar",
                  :daily_bank => 20)
     admin.toggle!(:admin)            
-    49.times do |n|
+    10.times do |n|
       name  = Faker::Name.name
       email = Faker::Internet.email
       password  = "password"
