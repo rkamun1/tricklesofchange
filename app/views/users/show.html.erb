@@ -53,29 +53,27 @@
 
 
  <script type="text/javascript" charset="utf-8">  
-plot1 = $.jqplot('chartdiv', [<%= raw @user.spending %>], {
-    title: 'Bar Chart with Point Labels', 
-    seriesDefaults: {renderer: $.jqplot.BarRenderer},
-    series:[
-        {pointLabels:{
-            labels:['fourteen', 'thirty two', 'fourty one', 'fourty four', 'fourty']
-        }}],
-    axes: {
-        xaxis:{renderer:$.jqplot.CategoryAxisRenderer,
-        rendererOptions:{tickRenderer:$.jqplot.CanvasAxisTickRenderer},
-               tickOptions:{
-                formatString:'%b %#d, %Y', 
-                fontSize:'10pt', 
-                fontFamily:'Tahoma', 
-                angle:-30}
-},
-        yaxis:{ticks:[0,5,10,15,20,25],tickOptions:{formatString:'$%.2f'}},
-    highlighter: {sizeAdjust: 7.5},
-    cursor: {show: true}
-
-        
-        }
-        
-});
+  $(function () {  
+     new Highcharts.Chart({  
+       chart: { renderTo: 'chartdiv' },
+       title: { text: 'Spending Stats' },  
+       xAxis: { type: 'datetime' },  
+       yAxis: {  
+                title: { text: 'Dollars'}   
+       },
+       series: [{  
+          name: "Daily Spendings",
+          pointInterval: <%= 1.day * 1000 %>,
+          pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
+          data: <%= (1.month.ago.to_date..Date.today).map { |date| @user.spending_on(date).to_f}.inspect %>  
+        },
+        {
+            name: 'John',
+            pointInterval: <%= 1.day * 1000 %>,
+            pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
+            data: <%= (1..30).to_a %>
+         }]       
+     });  
+   });  
   </script> 
 

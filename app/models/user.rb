@@ -75,12 +75,8 @@ class User < ActiveRecord::Base
     Micropost.where("user_id = ?", id)
   end
   
-  def spending
-      ar = Array.new
-      daily_stats.each do |stat|
-        ar << [stat.day.rfc3339,stat.days_spending.to_f]
-      end
-      ar
+  def spending_on(date)
+      daily_stats.where(:day=>date).first.days_spending.to_f if !daily_stats.where(:day=>date).first.nil?
   end
   
   def self.daily_job #user <------TODO:this will go as it will be generic for all 
