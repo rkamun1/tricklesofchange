@@ -26,7 +26,12 @@ namespace :db do
       5.times do
         user.accounts.create!(:details => Faker::Lorem.sentence(2), 
                                 :cost => 5 + rand(1000),
-                                :allotment => 1 + rand(20))
+                                :allotment => 1 + rand(20))                                
+      end
+      
+      65.times do |n|                                                  
+        user.daily_stats.create!(:day => Date.today-n.day, 
+                                :days_spending => 1 + rand(20))                                                      
       end
     end
   end

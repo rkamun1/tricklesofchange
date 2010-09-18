@@ -48,7 +48,18 @@ module Tricklesofchange
     # end
 
     #Use jQuery instead of prototype
-    config.action_view.javascript_expansions[:defaults] = ['jquery', 'rails']
+    config.action_view.javascript_expansions[:defaults] = ['jquery', 
+                                                           'rails', 
+                                                           'jquery.jqplot.min', 
+                                                           'jqplot.dateAxisRenderer.min',
+                                                           'jqplot.canvasTextRenderer.min',
+                                                           'jqplot.canvasAxisTickRenderer.min', 
+                                                           'jqplot.highlighter.min',
+                                                           'jqplot.cursor.min.js',
+                                                           'jqplot.barRenderer.min',
+                                                           'jqplot.categoryAxisRenderer.min',
+                                                           'jqplot.pointLabels.min',
+                                                           'myjs']
     
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

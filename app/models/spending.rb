@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 20100906234323
+# Schema version: 20100915145526
 #
 # Table name: spendings
 #
-#  id            :integer(4)      not null, primary key
+#  id               :integer(4)      not null, primary key
 #  spending_date    :date
 #  spending_details :string(255)
 #  spending_amount  :decimal(6, 2)
-#  user_id       :integer(4)
-#  created_at    :datetime
-#  updated_at    :datetime
+#  user_id          :integer(4)
+#  created_at       :datetime
+#  updated_at       :datetime
 #
 
 class Spending < ActiveRecord::Base
@@ -33,25 +33,25 @@ class Spending < ActiveRecord::Base
                            
                             
   default_scope :order => 'spendings.created_at DESC'
-  after_save :deduct_from_bank 
+  before_save :deduct_from_bank 
   after_destroy :restore_to_bank
   
   protected
   def deduct_from_bank
     user = User.find(user_id)
     if new_record?
-      new_bal = (user.daily_balance || user.daily_bank) - spending_amount 
+      new_bal = (user.spending_balance || user.daily_bank) - spending_amount 
   elsif spending_amount_changed?
-      new_bal = (user.daily_balance || user.daily_bank) + spending_amount_was - spending_amount
+      new_bal = (user.spending_balance || user.daily_bank) + spending_amount_was - spending_amount
     end
     
-    user.update_attribute :daily_balance, new_bal if new_bal >= 0
-    user.update_attribute :daily_balance, 0 and user.update_attribute :stash, user.stash + new_bal if new_bal < 0
+    user.update_attribute :spending_balance, new_bal if new_bal >= 0
+    user.update_attribute :spending_balance, 0 and user.update_attribute :stash, user.stash + new_bal if new_bal < 0
   end
   
   def restore_to_bank
     user = User.find(user_id)
-    user.update_attribute :daily_balance, user.daily_balance + spending_amount if spending_date == Date.today
+    user.update_attribute :spending_balance, user.spending_balance + spending_amount if spending_date == Date.today
     user.update_attribute :stash, (user.stash || 0) + spending_amount if spending_date != Date.today
   end
 end

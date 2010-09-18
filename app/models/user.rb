@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100822014708
+# Schema version: 20100916172822
 #
 # Table name: users
 #
@@ -13,6 +13,7 @@
 #  admin              :boolean(1)
 #  daily_bank         :decimal(6, 2)
 #  stash              :decimal(6, 2)
+#  spending_balance   :decimal(6, 2)
 #
 
 #TODO: add unique username requirement to the DATABASE as  opposed to model.   
@@ -24,7 +25,8 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :daily_bank
   
   has_many :accounts, :dependent => :destroy
-  has_many :spendings, :dependent => :destroy
+  has_many :spendings, :dependent => :destroy  
+  has_many :daily_stats, :dependent => :destroy
 
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -73,20 +75,37 @@ class User < ActiveRecord::Base
     Micropost.where("user_id = ?", id)
   end
   
-  def self.daily_job user #<------TODO:this will go as it will be generic for all 
+  def spending
+      ar = Array.new
+      daily_stats.each do |stat|
+        ar << [stat.day.rfc3339,stat.days_spending.to_f]
+      end
+      ar
+  end
+  
+  def self.daily_job #user <------TODO:this will go as it will be generic for all 
     #add a function to get all the users in the db and the each do
-    #get the user bank
-    if (user.daily_balance || user.daily_bank) > 0
-      distributed_amount = 0
-      total_distro = 0
-      #perform a distribution
-      user.accounts.each do |account|
-        account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.daily_balance || user.daily_bank) * account.allotment)/100)))
-        total_distro += distributed_amount
-        puts total_distro
-      end      
-      user.update_attribute(:stash, (user.stash || 0) + (user.daily_balance || user.daily_bank) - total_distro) 
-      user.update_attribute(:daily_balance, user.daily_bank) 
+    
+    User.all.each do |user|
+      #get the user bank
+      if (user.spending_balance || user.daily_bank) > 0
+        distributed_amount = 0
+        total_distro = 0
+        #perform a distribution
+        user.accounts.each do |account|
+          
+          account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.spending_balance || user.daily_bank) * account.allotment)/100)))
+          total_distro += distributed_amount
+          puts total_distro
+        end      
+        #collect the stats
+        user.daily_stats.create(attr={:day=>Date.today, :days_spending=>(user.daily_bank - (user.spending_balance || user.daily_bank))})
+        
+        #reset the values
+        user.update_attribute(:stash, (user.stash || 0) + (user.spending_balance || user.daily_bank) - total_distro) 
+        user.update_attribute(:spending_balance, user.daily_bank) 
+        
+      end
     end
   end
   
