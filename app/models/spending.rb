@@ -43,10 +43,12 @@ class Spending < ActiveRecord::Base
       new_bal = (user.spending_balance || user.daily_bank) - spending_amount 
   elsif spending_amount_changed?
       new_bal = (user.spending_balance || user.daily_bank) + spending_amount_was - spending_amount
+    else
+      new_bal = user.spending_balance
     end
     
     user.update_attribute :spending_balance, new_bal if new_bal >= 0
-    user.update_attribute :spending_balance, 0 and user.update_attribute :stash, user.stash + new_bal if new_bal < 0
+    user.update_attribute :spending_balance, 0 and user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
   end
   
   def restore_to_bank

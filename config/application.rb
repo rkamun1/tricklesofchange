@@ -48,7 +48,7 @@ module Tricklesofchange
     # end
 
     #Use jQuery instead of prototype
-    config.action_view.javascript_expansions[:defaults] = ['jquery', 'rails', 'highcharts', 'myjs']
+    config.action_view.javascript_expansions[:defaults] = ['jquery', 'rails', 'highcharts', 'jquery-ui-1.8.5.custom.min']
     
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

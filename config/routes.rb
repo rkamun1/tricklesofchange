@@ -10,6 +10,7 @@ Tricklesofchange::Application.routes.draw do
 	match '/signup'	=> 'users#new' 
 	match '/contact' => 'pages#contact'
   match '/about'  => 'pages#about'
+  match '/forgot_password' => 'users#forgot_password'
   #match '/dashboard' => 'users#show', :as => :dashboard
   
   root :to => 'sessions#new'

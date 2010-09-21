@@ -59,20 +59,19 @@
        title: { text: 'Spending Stats' },  
        xAxis: { type: 'datetime' },  
        yAxis: {  
-                title: { text: 'Dollars'}   
+                title: { text: 'Dollars ($)'}   
        },
+       tooltip: {
+         formatter: function() {
+                   return Highcharts.dateFormat('%A %B %e %Y',this.x) +': '+ '$:'+this.y;
+         }
+      },
        series: [{  
           name: "Daily Spendings",
           pointInterval: <%= 1.day * 1000 %>,
           pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
           data: <%= (1.month.ago.to_date..Date.today).map { |date| @user.spending_on(date).to_f}.inspect %>  
-        },
-        {
-            name: 'John',
-            pointInterval: <%= 1.day * 1000 %>,
-            pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
-            data: <%= (1..30).to_a %>
-         }]       
+        }]       
      });  
    });  
   </script> 

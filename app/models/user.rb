@@ -69,10 +69,11 @@ class User < ActiveRecord::Base
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
   end
-  
-  def feed
-    # This is preliminary. See Chapter 12 for the full implementation.
-    Micropost.where("user_id = ?", id)
+    
+  def forgot_password!
+    self.password = self.password_confirmation = User.random_string(10)
+    self.save
+    Notifier.forgotten_password(self,password).deliver
   end
   
   def spending_on(date)
@@ -87,7 +88,7 @@ class User < ActiveRecord::Base
       if (user.spending_balance || user.daily_bank) > 0
         distributed_amount = 0
         total_distro = 0
-        #perform a distribution
+        #perform the distribution
         user.accounts.each do |account|
           
           account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.spending_balance || user.daily_bank) * account.allotment)/100)))
@@ -123,5 +124,13 @@ class User < ActiveRecord::Base
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
     end
-                    
+    
+    def self.random_string(len)
+     #generate a random password consisting of strings and digits
+     chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+     newpass = ""
+     1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
+     return newpass
+   end
+                
 end

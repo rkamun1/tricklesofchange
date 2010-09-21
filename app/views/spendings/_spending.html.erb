@@ -1,6 +1,6 @@
 <%- row_class = cycle("odd", "even") -%>
 <tr class = "<%= row_class %>">
-  <td class="date"><%= spending.spending_date %></td>
+  <td class="date"><%= spending.spending_date.strftime("%d %b, %Y") %></td>
   <td class="details"><%= spending.spending_details %></td>
   <td class="amount"><%= number_to_currency(spending.spending_amount) %></td>
   <td><%= link_to "edit", edit_spending_path(spending) %>

@@ -49,6 +49,30 @@ class UsersController < ApplicationController
     end
   end  
   
+  def forgot_password
+    if request.post?
+      unless params[:email].blank?
+        user = User.find_by_email(params[:email])
+        respond_to do |format|
+          if user
+            user.forgot_password!
+            format.html {
+              flash[:notice] = "A new password has been sent to you. Please check your email."
+              redirect_to login_path
+            }
+            format.js { render :text => "A new password has been sent to you. Please check your email." }
+          else
+            format.html {
+              flash[:warning] = "We could not find a user with that email address."
+              redirect_to login_path
+            }
+            format.js { render :text => "We could not find a user with that email address.", :status => 500 }
+          end
+        end
+      end
+    end
+  end
+  
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed."
