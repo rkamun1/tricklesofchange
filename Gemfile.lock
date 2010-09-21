@@ -49,6 +49,7 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
+    nifty-generators (0.4.0)
     nokogiri (1.4.3.1)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -102,6 +103,7 @@ DEPENDENCIES
   factory_girl_rails (= 1.0)
   faker
   gravatar_image_tag
+  nifty-generators
   rails
   rspec (= 2.0.0.beta.18)
   rspec-rails (= 2.0.0.beta.18)

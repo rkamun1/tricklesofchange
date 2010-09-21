@@ -58,13 +58,12 @@ class UsersController < ApplicationController
             user.forgot_password!
             format.html {
               flash[:notice] = "A new password has been sent to you. Please check your email."
-              redirect_to login_path
+              redirect_to signin_path
             }
             format.js { render :text => "A new password has been sent to you. Please check your email." }
           else
             format.html {
-              flash[:warning] = "We could not find a user with that email address."
-              redirect_to login_path
+              flash[:error] = "We could not find a user with that email address."
             }
             format.js { render :text => "We could not find a user with that email address.", :status => 500 }
           end
