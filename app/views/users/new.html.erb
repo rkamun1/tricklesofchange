@@ -2,6 +2,7 @@
 
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
+  <%= f.hidden_field :invitation_token %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -17,6 +18,10 @@
   <div class="field">
     <%= f.label :password_confirmation, "Confirmation" %><br />
     <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :timezone %><br />
+    <%= f.select :timezone, time_zone_options_for_select(selected = "UTC", priority_zones = nil, model = ::ActiveSupport::TimeZone)  %>
   </div>
   <div class="field">
     <%= f.label :daily_bank %><br />

@@ -1,0 +1,25 @@
+# == Schema Information
+# Schema version: 20100921213456
+#
+# Table name: invitations
+#
+#  id              :integer(4)      not null, primary key
+#  sender_id       :integer(4)
+#  recipient_email :string(255)
+#  token           :string(255)
+#  sent_at         :datetime
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
+one:
+  sender_id: 1
+  recipient_email: MyString
+  token: MyString
+  sent_at: 2010-09-21 17:33:46
+
+two:
+  sender_id: 1
+  recipient_email: MyString
+  token: MyString
+  sent_at: 2010-09-21 17:33:46

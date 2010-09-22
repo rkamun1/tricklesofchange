@@ -1,23 +1,36 @@
 <div id = "slideshow">
 <img src = "/images/slideshow.png"/>
 </div>
-<div id = "signin">
-  <h4>Sign in</h4>
-  <%= form_for(:session, :url => sessions_path) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.text_field :email, :style => "width: 150px;"  %>
-    </div>
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, :style => "width: 150px;"  %>
-    </div>
-    <div class="actions">
-      <%= f.submit "Sign in" %>
-    </div>
-  <% end %>
+<div id = "homepage">
+  <div id = "signupforbeta">
+    <h4>Invitation Request</h4>
+    <p>We are currently in private BETA, please sign up and we will notify you when we are ready to accept new users.</p>
+    <%= form_for(Invitation.new) do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
+      <p>
+        <%= f.label :recipient_email, "Email address" %><br />
+        <%= f.text_field :recipient_email %>
+        <%= f.submit "Invite!" %></p>
+    <% end %>
+  </div>
+  
+  <div id = "signin">
+    <h4>Sign in</h4>
+    <%= form_for(:session, :url => sessions_path) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.text_field :email, :style => "width: 150px;"  %>
+      </div>
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, :style => "width: 150px;"  %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Sign in" %>
+      </div>
+    <% end %>
 
-  <p>New user? <%= link_to "Sign up now!", signup_path %><br/>
-  <%= link_to 'Forgot Password?', forgot_password_path %></p>
-
+    <p><!--New user? <%= link_to "Sign up now!", signup_path("blah") %><br/>-->
+    <%= link_to 'Forgot Password?', forgot_password_path %></p>
+  </div>
 </div>

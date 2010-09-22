@@ -1,0 +1,12 @@
+<h1>New Invitation</h1>
+
+<%= form_for(@invitation) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <p>
+    <%= f.label :recipient_email, "Friend's email address" %><br />
+    <%= f.text_field :recipient_email %>
+  </p>
+  <p><%= f.submit "Invite!" %></p>
+<% end %>
+
+

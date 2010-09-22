@@ -7,7 +7,9 @@ class UsersController < ApplicationController
 
   def new
     @title = "Sign Up"
-    @user = User.new
+    #@user = User.new
+    @user = User.new(:invitation_token => params[:invitation_token])
+    @user.email = @user.invitation.recipient_email if @user.invitation
   end
   
   def index
@@ -27,6 +29,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:success] = "Welcome!"
+      Notifier.joined(User.find_by_id(@user.id).invitation).deliver
       redirect_to @user 
     else
       @title = "Sign Up"
@@ -53,29 +56,22 @@ class UsersController < ApplicationController
     if request.post?
       unless params[:email].blank?
         user = User.find_by_email(params[:email])
-        respond_to do |format|
-          if user
-            user.forgot_password!
-            format.html {
-              flash[:notice] = "A new password has been sent to you. Please check your email."
-              redirect_to signin_path
-            }
-            format.js { render :text => "A new password has been sent to you. Please check your email." }
-          else
-            format.html {
-              flash[:error] = "We could not find a user with that email address."
-            }
-            format.js { render :text => "We could not find a user with that email address.", :status => 500 }
-          end
+        if user
+          user.forgot_password!
+          flash[:notice] = "A new password has been sent to you. Please check your email."
+          redirect_to signin_path
+        else
+          flash[:error] = "We could not find a user with that email address."
         end
       end
     end
   end
+
   
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed."
-    redirect_to users_path
+    redirect_to @user
   end
   
 

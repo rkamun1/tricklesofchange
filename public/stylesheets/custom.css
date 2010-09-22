@@ -19,10 +19,10 @@ label{
     font-weight:normal;
 }
 section {
-  margin-top: 1em;
-  font-size: 120%;
-  padding: 20px;
-  background: #fff;
+    background:none repeat scroll 0 0 #FFFFFF;
+    font-size:120%;
+    margin-top:1em;
+    padding:20px;
 }
 
 /* Links */
@@ -78,12 +78,26 @@ nav ul li a:hover {
 
 /*index page*/
 
+#chartdiv{
+    width:710px;
+}
+
+#homepage{
+    height:230px;
+}
+
+#signupforbeta{
+    float:left;
+    padding-top:20px;
+    width:350px;
+}
+
 #slideshow{
     border:1px solid orange;
 }
 #signin{
-    left:500px;
-    position: relative;
+    float:right;
+    padding-top:20px;
     width: 200px;
 }
 

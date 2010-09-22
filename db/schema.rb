@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100917180617) do
+ActiveRecord::Schema.define(:version => 20100922181617) do
 
   create_table "accounts", :force => true do |t|
     t.string   "details"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(:version => 20100917180617) do
 
   add_index "daily_stats", ["day"], :name => "index_daily_stats_on_day"
 
+  create_table "invitations", :force => true do |t|
+    t.integer  "sender_id"
+    t.string   "recipient_email"
+    t.string   "token"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "spendings", :force => true do |t|
     t.date     "spending_date"
     t.string   "spending_details"
@@ -56,6 +65,9 @@ ActiveRecord::Schema.define(:version => 20100917180617) do
     t.decimal  "daily_bank",         :precision => 6, :scale => 2
     t.decimal  "stash",              :precision => 6, :scale => 2
     t.decimal  "spending_balance",   :precision => 6, :scale => 2
+    t.integer  "invitation_id"
+    t.integer  "invitation_limit"
+    t.string   "timezone"
   end
 
 end

@@ -1,5 +1,7 @@
 Tricklesofchange::Application.routes.draw do
     
+  resources :invitations
+
   resources :users
   resources :accounts, :except => [:show]
   resources :spendings, :except => [:show]
@@ -7,7 +9,8 @@ Tricklesofchange::Application.routes.draw do
 
   match '/signin'  => 'sessions#new'
   match '/signout' => 'sessions#destroy'
-	match '/signup'	=> 'users#new' 
+	match '/signup/:invitation_token'	=> 'users#new' , :as => "/signup"
+	#match '/signup'	=> 'users#new'
 	match '/contact' => 'pages#contact'
   match '/about'  => 'pages#about'
   match '/forgot_password' => 'users#forgot_password'

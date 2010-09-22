@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100916172822
+# Schema version: 20100921213456
 #
 # Table name: users
 #
@@ -14,6 +14,8 @@
 #  daily_bank         :decimal(6, 2)
 #  stash              :decimal(6, 2)
 #  spending_balance   :decimal(6, 2)
+#  invitation_id      :integer(4)
+#  invitation_limit   :integer(4)
 #
 
 #TODO: add unique username requirement to the DATABASE as  opposed to model.   
@@ -22,11 +24,14 @@
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation, :daily_bank
+  attr_accessible :name, :email, :password, :password_confirmation, :daily_bank, :invitation_token
+
   
+  belongs_to :invitation
   has_many :accounts, :dependent => :destroy
   has_many :spendings, :dependent => :destroy  
   has_many :daily_stats, :dependent => :destroy
+  has_many :sent_inivitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
 
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -51,8 +56,21 @@ class User < ActiveRecord::Base
                             :greater_than => 1,
                             :less_than => 999,
                             :message => "should be a number between 1 and 999; 2 decimal places optional."
+                            
+  validates_presence_of :invitation_id, :message => "is required"       
+  #validates_uniqueness_of :invitation_id                 
                          
+  before_create :set_invitation_limit
   before_save :encrypt_password
+  
+  def invitation_token
+    invitation.token if invitation
+  end
+
+  def invitation_token=(token)
+    self.invitation = Invitation.find_by_token(token)
+  end
+
   
   # Return true if the user's password matches the submitted password.
   def right_password?(submitted_password)
@@ -131,6 +149,10 @@ class User < ActiveRecord::Base
      newpass = ""
      1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
      return newpass
+   end
+   
+   def set_invitation_limit
+     self.invitation_limit = 5
    end
                 
 end

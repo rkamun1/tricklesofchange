@@ -5,13 +5,16 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
-      <strong>URL: </strong> <%= link_to user_path(@user), @user %><br />
+      <% if @user.invitation_limit || 0 > 0 %>
+        <strong>Invite a friend: </strong> <%= link_to "#{@user.invitation_limit} invitations left", new_invitation_path %> <br />
+      <% end %>
+      
       <strong>Daily Bank: </strong> <%= number_to_currency(@user.daily_bank, :unit => "$") %><br />
       <strong>Today's Balance: </strong> <%= number_to_currency(@user.spending_balance || @user.daily_bank, :unit => "$") %><br />
       <strong>Stash: </strong> <%= number_to_currency(@user.stash || 0, :unit => "$") %><br />
       <%= link_to "edit", edit_user_path(current_user) %> <%= link_to "reset", :confirm => "You sure?" %>
    </div> 
-  <div id="chartdiv"></div>
+  <div id="chartdiv" style="width:710px;"></div>
  
 
   <div class = "hdr">accounts</div>
