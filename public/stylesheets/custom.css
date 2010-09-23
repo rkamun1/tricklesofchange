@@ -86,6 +86,10 @@ nav ul li a:hover {
     height:230px;
 }
 
+#numbers{
+ min-height:100px;
+}
+
 #signupforbeta{
     float:left;
     padding-top:20px;
@@ -248,12 +252,23 @@ background-color: #FFCC66;
 
 #addaccount, #addspending{
     float:right;
-    margin-top:-20px;
 }
 
 .hdr{
     font-size:200%;
-    width:200px;
+    width:150px;
+    float:left;
+    -moz-border-radius:  0px 50px 0 0;
+    -webkit-border-radius: 0px 50px 0 0;
+    border-radius: 0px 50px 0 0;
+    border-top: #FFCC66 solid 1px;
+    border-right: #FFCC66 solid 1px;
+    padding-left:40px;
+    margin-left:-30px;
+}
+
+.hover{
+ background-color: #FFCC66;
 }
 
 /*footer*/
