@@ -15,12 +15,16 @@
       <%= link_to "edit", edit_user_path(current_user) %> <%= link_to "reset", :confirm => "You sure?" %>
     </div> 
     <div id="chartdiv" style="width:710px;"></div>
-    
-    <div id="numbers">
-      <div class = "hdr">accounts</div><div class = "hdr">spendings</div>
-      <div id="addaccount"><%= link_to "add account", new_account_path %></div>
-      <% if !@user.accounts.empty? %>
-        <div id = "accounts">       
+ 
+    <div id="thenumbers">
+      <ul>
+		    <li><a href="#accounts" class = "hdr">Accounts</a></li>
+		    <li><a href="#spendings" class = "hdr">Spendings</a></li>
+	    </ul>
+
+      <div id = "accounts">       
+        <div id="addaccount"><%= link_to "add account", new_account_path %></div>
+        <% if !@user.accounts.empty? %>
           <table id = "accountstable">
             <tr class ="header">
               <td>Details</td>
@@ -30,13 +34,13 @@
               <td></td>
             </tr>  
             <%= render @accounts %>
-          </table>  
-        </div>
-      <% end %>
+          </table>
+        <% end %>  
+       </div>
     
-      <div id="addspending"><%= link_to "add a spending detail.", new_spending_path %></div>
-      <% if !@user.spendings.empty? %>
-        <div id = "spendings"> 
+      <div id = "spendings"> 
+        <div id="addspending"><%= link_to "add a spending detail", new_spending_path %></div>
+        <% if !@user.spendings.empty? %>
           <table id = "spendingstable">
             <tr class ="header">
               <td>Date</td>
@@ -46,8 +50,8 @@
             </tr>  
             <%= render @spendings %>
           </table>  
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

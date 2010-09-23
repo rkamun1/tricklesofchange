@@ -1,3 +1,8 @@
+.ui-tabs .ui-tabs-hide {
+     display: none;
+}
+
+
 .container {
   width: 750px;
 }
@@ -20,7 +25,7 @@ label{
 }
 section {
     background:none repeat scroll 0 0 #FFFFFF;
-    font-size:120%;
+    font-size:100%;
     margin-top:1em;
     padding:20px;
 }
@@ -38,7 +43,7 @@ a:hover {
 }
 
 a:visited {
-  color: #fc6;
+  color: #1C94C4;
 }
 
 /* Navigation */
@@ -69,7 +74,7 @@ nav ul li a {
 }
 
 nav ul li a:visited {
-  color: #fc3;
+  color: #1C94C4;
 }
 
 nav ul li a:hover {
@@ -103,6 +108,16 @@ nav ul li a:hover {
     float:right;
     padding-top:20px;
     width: 200px;
+}
+
+.tooltip {
+	display:none;
+	background:transparent url(/tools/img/tooltip/black_arrow.png);
+	font-size:12px;
+	height:70px;
+	width:160px;
+	padding:25px;
+	color:#fff;	
 }
 
 /* Sign up button */
@@ -247,24 +262,16 @@ div.user_info span.user_name {
 
 /*show page*/
 .header{
-background-color: #FFCC66;
+    background: url("/images/ui-bg_gloss-wave_35_f6a828_500x100.png") repeat-x scroll 50% 50% #F6A828;
 }
 
 #addaccount, #addspending{
     float:right;
+    font-size:120%;
 }
 
 .hdr{
-    font-size:200%;
-    width:150px;
-    float:left;
-    -moz-border-radius:  0px 50px 0 0;
-    -webkit-border-radius: 0px 50px 0 0;
-    border-radius: 0px 50px 0 0;
-    border-top: #FFCC66 solid 1px;
-    border-right: #FFCC66 solid 1px;
-    padding-left:40px;
-    margin-left:-30px;
+    width:100px;
 }
 
 .hover{

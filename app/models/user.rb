@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
                             :message => "should be a number between 1 and 999; 2 decimal places optional."
                             
   validates_presence_of :invitation_id, :message => "is required"       
-  #validates_uniqueness_of :invitation_id                 
+  #TODO: validates_uniqueness_of :invitation_id                 
                          
   before_create :set_invitation_limit
   before_save :encrypt_password
