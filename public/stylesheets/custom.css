@@ -14,7 +14,7 @@ body {
 header {
   background-color: #fff;
   padding-top: 20px;
-  height:75px;
+  height:60px;
 }
 
 header img {
@@ -58,9 +58,8 @@ logo{
 nav {
   background-color: white;
   float:right;
-  padding: 0 0.7em;
+  padding: 10px 10px 0 0;
   white-space: nowrap;
-  width:300px;
 }
 
 nav ul {
