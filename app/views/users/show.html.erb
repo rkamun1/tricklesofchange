@@ -6,7 +6,7 @@
         <%= @user.name %>
       </h1>
       <% if @user.invitation_limit || 0 > 0 %>
-        <strong>Invite a friend: </strong> <%= link_to "#{@user.invitation_limit} invitations left", new_invitation_path %> <br />
+        <!--<strong>Invite a friend: </strong> <%= link_to "#{@user.invitation_limit} invitations left", new_invitation_path %> <br />-->
       <% end %>
       
       <strong>Daily Bank: </strong> <%= number_to_currency(@user.daily_bank, :unit => "$") %><br />
