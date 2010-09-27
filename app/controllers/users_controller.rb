@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:success] = "Welcome!"
-      Notifier.joined(User.find_by_id(@user.id).invitation).deliver
+      Notifier.joined(@user.invitation).deliver
       redirect_to @user 
     else
       @title = "Sign Up"
