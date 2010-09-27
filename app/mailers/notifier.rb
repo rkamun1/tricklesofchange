@@ -1,7 +1,8 @@
 class Notifier < ActionMailer::Base  
   layout 'notifier'
   
-  default :bcc => 'muchira@gmail.com'
+  default :bcc => 'muchira@gmail.com',
+          :from => 'no-reply@tricklesofchange.com'
 
   #send a forgotten password
   def forgotten_password(user, password)
