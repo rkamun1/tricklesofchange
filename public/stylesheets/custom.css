@@ -47,16 +47,19 @@ a:visited {
   color: #1C94C4;
 }
 
-/* Navigation */
-nav {
-  float: right;
+logo{
+    float:left;
+    width:250px;
 }
+/* Navigation */
+
 
 nav {
   background-color: white;
+  float:right;
   padding: 0 0.7em;
   white-space: nowrap;
-  float:right;
+  width:300px;
 }
 
 nav ul {
