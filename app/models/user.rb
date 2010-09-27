@@ -98,28 +98,31 @@ class User < ActiveRecord::Base
       daily_stats.where(:day=>date).first.days_spending.to_f if !daily_stats.where(:day=>date).first.nil?
   end
   
+  def stash_on(date)
+      daily_stats.where(:day=>date).first.days_stash.to_f if !daily_stats.where(:day=>date).first.nil?
+  end
+  
   def self.daily_job #user <------TODO:this will go as it will be generic for all 
     #add a function to get all the users in the db and the each do
     
     User.all.each do |user|
       #get the user bank
-      if (user.spending_balance || user.daily_bank) > 0
+      if (user.spending_balance || user.daily_bank) >= 0
         distributed_amount = 0
         total_distro = 0
         #perform the distribution
         user.accounts.each do |account|
-          
           account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.spending_balance || user.daily_bank) * account.allotment)/100)))
           total_distro += distributed_amount
-          puts total_distro
+          #puts total_distro
         end      
-        #collect the stats
-        user.daily_stats.create(attr={:day=>Date.today, :days_spending=>(user.daily_bank - (user.spending_balance || user.daily_bank))})
         
         #reset the values
         user.update_attribute(:stash, (user.stash || 0) + (user.spending_balance || user.daily_bank) - total_distro) 
         user.update_attribute(:spending_balance, user.daily_bank) 
         
+        #collect the stats
+        user.daily_stats.create(attr={:day=>Date.today, :days_spending=>(user.daily_bank - (user.spending_balance || user.daily_bank)), :days_stash=>(user.stash || 0)})
       end
     end
   end

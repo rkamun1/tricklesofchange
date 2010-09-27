@@ -25,7 +25,7 @@ label{
 }
 section {
     background:none repeat scroll 0 0 #FFFFFF;
-    font-size:100%;
+    font-size:90%;
     margin-top:1em;
     padding:20px;
 }
@@ -268,6 +268,7 @@ div.user_info span.user_name {
 #addaccount, #addspending{
     float:right;
     font-size:120%;
+    margin-top: -10px;
 }
 
 .hdr{

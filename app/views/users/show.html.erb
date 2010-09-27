@@ -76,6 +76,12 @@
           pointInterval: <%= 1.day * 1000 %>,
           pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
           data: <%= (1.month.ago.to_date..Date.today).map { |date| @user.spending_on(date).to_f}.inspect %>  
+        },
+        {
+        name: "Daily Stash",
+          pointInterval: <%= 1.day * 1000 %>,
+          pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
+          data: <%= (1.month.ago.to_date..Date.today).map { |date| @user.stash_on(date).to_f}.inspect %>
         }]       
      });  
    });  

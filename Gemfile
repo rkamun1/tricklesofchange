@@ -7,6 +7,7 @@ gem 'gravatar_image_tag'
 gem 'will_paginate', '>= 3.0.pre'
 gem 'date_validator'
 gem 'nifty-generators'
+gem 'whenever'
 
 gem 'rspec-rails', '2.0.0.beta.18'
 gem 'annotate-models'
