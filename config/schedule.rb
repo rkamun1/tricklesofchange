@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every :daily do
+every :daily, :at => '11:59pm' do
   runner "User.daily_job"
 end
