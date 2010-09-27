@@ -24,7 +24,11 @@ class Notifier < ActionMailer::Base
   #send the inviter and the system a joined notification
   def joined invitation 
     @invitation = invitation
-    mail(:to => @invitation.sender.email || ""),
-         :subject => "Your invitation has been accepted.")
+    if !@invitation.sender.nil?
+      mail(:to => @invitation.sender.email,
+           :subject => "Your invitation has been accepted.")
+    else
+      mail(:subject => "Your invitation has been accepted.")
+    end       
   end
 end
