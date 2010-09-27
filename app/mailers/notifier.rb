@@ -22,9 +22,9 @@ class Notifier < ActionMailer::Base
   end
   
   #send the inviter and the system a joined notification
-  def joined invitation
+  def joined invitation 
     @invitation = invitation
-    mail(:to => @invitation.sender.email,
+    mail(:to => (@invitation.sender.email || "")
          :subject => "Your invitation has been accepted.")
   end
 end
