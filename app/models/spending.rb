@@ -33,12 +33,12 @@ class Spending < ActiveRecord::Base
                            
                             
   default_scope :order => 'spendings.created_at DESC'
-  before_save :deduct_from_bank 
+  before_save :deduct_from_bank
   after_destroy :restore_to_bank
   
   protected
   def deduct_from_bank
-    user = User.find(user_id)
+    user = self.user
     if new_record?
       new_bal = (user.spending_balance || user.daily_bank) - spending_amount 
   elsif spending_amount_changed?
@@ -48,11 +48,12 @@ class Spending < ActiveRecord::Base
     end
     
     user.update_attribute :spending_balance, new_bal if new_bal >= 0
-    user.update_attribute :spending_balance, 0 and user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
+    user.update_attribute :spending_balance, 0 if new_bal < 0
+    user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
   end
   
   def restore_to_bank
-    user = User.find(user_id)
+    user = self.user
     user.update_attribute :spending_balance, user.spending_balance + spending_amount if spending_date == Date.today
     user.update_attribute :stash, (user.stash || 0) + spending_amount if spending_date != Date.today
   end

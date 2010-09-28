@@ -15,7 +15,6 @@ class Notifier < ActionMailer::Base
   #send an invitaion
   def invitation invitation, signup_url
     @invitation = invitation 
-    puts "this is the signup url #{signup_url}"
     @signup_url = signup_url
     mail(:to => @invitation.recipient_email, 
          :subject => "You have been invited to tricklesofchange.com.")

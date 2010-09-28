@@ -13,7 +13,6 @@ class InvitationsController < ApplicationController
         flash[:success] = "Thank you, for your support."
         Notifier.invitation(@invitation, signup_url(@invitation.token)).deliver
       else
-        #TODO: This flash doesn't work, check all flash'
         flash[:success] = "Thank you, we will notify you when we are ready to accept more users."  
       end
       redirect_to root_url

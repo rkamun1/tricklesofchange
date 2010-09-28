@@ -61,7 +61,11 @@ class User < ActiveRecord::Base
   #TODO: validates_uniqueness_of :invitation_id                 
                          
   before_create :set_invitation_limit
-  before_save :encrypt_password
+  before_save :encrypt_password, :if => :valid_password? 
+  
+  def valid_password?
+    !password.nil?
+  end
   
   def invitation_token
     invitation.token if invitation
@@ -102,8 +106,7 @@ class User < ActiveRecord::Base
       daily_stats.where(:day=>date).first.days_stash.to_f if !daily_stats.where(:day=>date).first.nil?
   end
   
-  def self.daily_job #user <------TODO:this will go as it will be generic for all 
-    #add a function to get all the users in the db and the each do
+  def self.daily_job # <------TODO:if I get another task, move this to a daily_tasks file
     
     User.all.each do |user|
       #get the user bank
