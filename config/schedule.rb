@@ -16,8 +16,8 @@
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
 # end
-set :path, '/var/rapp/tricklesofchange/' 
+
 # Learn more: http://github.com/javan/whenever
-every 1.day, :at => '12:01am' do
+every 1.day, :at => '2:25pm' do
   runner "User.daily_job"
 end
