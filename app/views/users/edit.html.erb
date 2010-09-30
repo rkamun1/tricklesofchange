@@ -20,6 +20,10 @@
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="field">
+    <%= f.label :timezone %><br />
+<%= time_zone_select( "user", "timezone", nil, :include_blank => true) %>
+  </div>
+  <div class="field">
     <%= f.label :daily_bank, "Daily Bank" %><br />
     <%= f.text_field :daily_bank %>
   </div>

@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :timezone %><br />
-    <%= f.select :timezone, time_zone_options_for_select(selected = "UTC", priority_zones = nil, model = ::ActiveSupport::TimeZone)  %>
+<%= time_zone_select( "user", "timezone", nil, :include_blank => true) %>
   </div>
   <div class="field">
     <%= f.label :daily_bank %><br />
