@@ -12,6 +12,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+#TODO: add a maturity date
 
 class Account < ActiveRecord::Base
   attr_accessible :details, :cost, :allotment

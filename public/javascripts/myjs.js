@@ -8,7 +8,7 @@ $(document).ready(function() {
 		//Append the tooltip template and its value
 		$(this).parent().append('<div id="tooltip" class="round"><div class="tipHeader"></div><div class="tipBody">' + tip + '</div><div class="tipFooter"></div></div>');						
 		//Show the tooltip with fadeIn effect
-		$('#tooltip').fadeTo('10',0.7);
+		$('#tooltip').fadeTo('10',0.9);
 		
 	}).mousemove(function(e) {	
 		//Keep changing the X and Y axis for the tooltip, thus, the tooltip move along with the mouse
