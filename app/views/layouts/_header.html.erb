@@ -1,8 +1,8 @@
-<header class="round-top">
+<div id = "header"" class="round-top">
   <logo>
     <%= link_to logo, root_path %>
   </logo>
-  <nav class="round">
+  <div id="nav" class="round">
     <ul>
       <% if signed_in? %>
         <li><%= link_to "Home", root_path %></li>
@@ -14,6 +14,6 @@
         <% end %>
       <% end %>
     </ul>
-  </nav>
-</header>
+  </div>
+</div>
 

@@ -2,29 +2,33 @@
      display: none;
 }
 
-.container {
-  width: 750px;
-}
-
 body {
   background: #fc6;
+  color:#222;
+  font-size: 10px;
 }
 
-header {
+.container{
+ width:750px;
+ margin: -10px auto;
+}
+
+#header {
   background-color: #fff;
   padding-top: 20px;
   height:60px;
 }
 
-header img {
+#header img {
   background: #fff;
+  border:0px;
 }
 
 label{
     font-weight:normal;
 }
 
-section {
+#section {
     background:none repeat scroll 0 0 #FFFFFF;
     margin-top:1em;
     padding:20px;
@@ -53,34 +57,34 @@ logo{
 /* Navigation */
 
 
-nav {
+#nav {
   background-color: white;
   float:right;
   padding: 10px 10px 0 0;
   white-space: nowrap;
 }
 
-nav ul {
+#nav ul {
   margin: 0;
   padding: 0;
 }
 
-nav ul li {
+#nav ul li {
   list-style-type: none;
   display: inline-block;
   padding: 0.2em 0;
 }
 
-nav ul li a {
+#nav ul li a {
   padding: 0 5px;
   font-weight: bold;
 }
 
-nav ul li a:visited {
+#nav ul li a:visited {
   color: #1C94C4;
 }
 
-nav ul li a:hover {
+#nav ul li a:hover {
   text-decoration: none;
 }
 
@@ -106,6 +110,8 @@ nav ul li a:hover {
 
 #slideshow{
     border:1px solid orange;
+    height:300px;
+    width:700px;
 }
 #signin{
     float:right;
@@ -162,7 +168,7 @@ width:50%
 
 }
 
-table.profile {
+table {
   width: 100%;
   margin-bottom: 0;
 }
@@ -298,7 +304,7 @@ div.user_info span.user_name {
 
 
 /*footer*/
-footer {
+#footer {
   text-align: center;
   margin-top: 10px;
   width: 750px;
@@ -306,7 +312,7 @@ footer {
   margin-right: auto;
 }
 
-footer nav {
+#footer #nav {
   float: none;
 }
 
