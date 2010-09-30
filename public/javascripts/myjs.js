@@ -20,4 +20,19 @@ $(document).ready(function() {
 		//Remove the appended tooltip template
 		$(this).parent().children('div#tooltip').remove();		
 	});
+	
+	$('.popup').click(function(e) {
+	    //Grab the title attribute's value and assign it to a variable
+		var dataheader = $(this).attr('data-header');		
+		var databody = 	$(this).attr('data-info')
+		//Append the popup template and its value
+		$(this).parent().append('<div id="popup" class="round" title="How ' + dataheader + ' work"><div class="popupBody">' + databody + '</div><div class="tipFooter"></div></div>');		
+	
+	$('#popup').dialog({
+	        
+			modal: true
+    });
+
+
+	})
 });
