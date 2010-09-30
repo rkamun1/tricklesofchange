@@ -5,7 +5,7 @@ $(document).ready(function() {
 
  });  
  
- 
+ //for the profile stats tabs
  $(function() {
  
 		$('#thenumbers').tabs();

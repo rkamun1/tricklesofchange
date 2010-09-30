@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate, :only => [:index, :edit, :show, :update]
   before_filter :correct_user, :only => [:edit, :show, :update]
   before_filter :admin_user,   :only => [:destroy, :index]
+  before_filter :already_signed_in, :only => [:new]
 
 #TODO: a user should be able to delete thier own account
 
