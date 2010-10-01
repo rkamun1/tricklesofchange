@@ -1,11 +1,13 @@
 $(document).ready(function() {
-     $(function (){  
-          $('#spending_spending_date').attr("onFocus","javascript:blur();");
-          $('#spending_spending_date').datepicker({ minDate: 0, dateFormat: 'd M, yy' });
-     });  
+    $(function (){
+      $('#account_maturity_date').attr("onFocus","javascript:blur();");
+      $('#account_maturity_date').datepicker({ minDate: 1, dateFormat: 'MM d, yy' });
+    });
 
-     //for the profile stats tabs
-     $(function() {
-		    $('#thenumbers').tabs();
-	    });
+    //for the profile stats tabs
+    $(function() {
+        $('#thenumbers').tabs();
+    });
 });
+
+

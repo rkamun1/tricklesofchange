@@ -15,7 +15,7 @@
 #
 
 class Account < ActiveRecord::Base
-  attr_accessible :details, :cost, :allotment
+  attr_accessible :details, :cost, :allotment, :maturity_date
   
   belongs_to :user
   
@@ -29,7 +29,8 @@ class Account < ActiveRecord::Base
                    :message => "should be a number greater than 5; 2 decimal places optional." }            
   validates :allotment, :presence => true,
                    :format => {:with => twodecplaces_regex,
-                   :message => "should be a number between 1 and 100; 2 decimal places optional." }          
+                   :message => "should be a number between 1 and 100; 2 decimal places optional." } 
+  validates :maturity_date, :presence => true                          
   validate :allotment_is_100, :if => :validate_allotment?
   validates_numericality_of :cost, 
                             :greater_than_or_equal_to => 5,
