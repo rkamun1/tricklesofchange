@@ -13,6 +13,10 @@
     <%= f.label "allotment (%)" %><br />  
     <%= f.text_field :allotment %><img src="/images/tooltip.png" class = "tooltip" title="The % of your daily unspent money that you would like to contribute to this account per cycle (a cycle is a day/24hrs)"/>
   </div>
+  <div class="field">
+    <%= f.label :maturity_date %><br />  
+    <%= f.text_field :maturity_date %><img src="/images/tooltip.png" class = "tooltip" title="The date by which you want to achieve this goal"/>
+  </div>
   <div class="actions">
     <%= f.submit "commit" %>
   </div>

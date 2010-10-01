@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100921213456
+# Schema version: 20101001022551
 #
 # Table name: users
 #
@@ -16,6 +16,7 @@
 #  spending_balance   :decimal(6, 2)
 #  invitation_id      :integer(4)
 #  invitation_limit   :integer(4)
+#  timezone           :string(255)
 #
 
 #TODO: add unique username requirement to the DATABASE as  opposed to model.   

@@ -326,4 +326,5 @@ div.user_info span.user_name {
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
 .success a {color:#264409;}
+tr.even td {background:#e5e0fd;}
 

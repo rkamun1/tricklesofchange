@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100917180617
+# Schema version: 20101001022551
 #
 # Table name: daily_stats
 #
@@ -9,6 +9,7 @@
 #  user_id       :integer(4)
 #  created_at    :datetime
 #  updated_at    :datetime
+#  days_stash    :decimal(6, 2)
 #
 
 class DailyStat < ActiveRecord::Base

@@ -2,6 +2,7 @@ module SessionsHelper
   
   def sign_in(user)
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]
+    Time.zone = user.timezone
     current_user = user
   end
   
@@ -15,6 +16,7 @@ module SessionsHelper
   
   def signed_in?
     !current_user.nil?
+    Time.zone = current_user.timezone
   end
   
   def current_user?(user)
