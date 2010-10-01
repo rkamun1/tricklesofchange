@@ -15,7 +15,7 @@
   </div>
   <div class="field">
     <%= f.label :maturity_date %><br />  
-    <%= f.text_field  :maturity_date, :value => @account.maturity_date.strftime("%B %d, %Y") %><img src="/images/tooltip.png" class = "tooltip" title="The date by which you want to achieve this goal"/>
+    <%= f.text_field  :maturity_date, :value => @account.maturity_date.nil? ? "" : @account.maturity_date.strftime("%B %d, %Y") %><img src="/images/tooltip.png" class = "tooltip" title="The date by which you want to achieve this goal"/>
   </div>
   <div class="actions">
     <%= f.submit "commit" %>
