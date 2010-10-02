@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100921213456
+# Schema version: 20101002175215
 #
 # Table name: invitations
 #
@@ -10,6 +10,7 @@
 #  sent_at         :datetime
 #  created_at      :datetime
 #  updated_at      :datetime
+#  used            :boolean(1)
 #
 
 class Invitation < ActiveRecord::Base
