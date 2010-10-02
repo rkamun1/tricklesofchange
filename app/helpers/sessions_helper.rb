@@ -15,8 +15,7 @@ module SessionsHelper
   end
   
   def signed_in?
-    !current_user.nil?
-    Time.zone = current_user.timezone
+    !current_user.nil?    
   end
   
   def current_user?(user)
@@ -33,7 +32,7 @@ module SessionsHelper
   end 
   
   def already_signed_in
-    redirect_to current_user if signed_in?
+      (Time.zone = current_user.timezone and redirect_to current_user) if signed_in?
   end
   
   def authenticate
