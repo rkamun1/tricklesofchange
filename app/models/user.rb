@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101001022551
+# Schema version: 20101003204505
 #
 # Table name: users
 #
@@ -17,6 +17,7 @@
 #  invitation_id      :integer(4)
 #  invitation_limit   :integer(4)
 #  timezone           :string(255)
+#  unit               :string(255)
 #
 
 #TODO: add unique username requirement to the DATABASE as  opposed to model.   
