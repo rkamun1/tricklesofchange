@@ -9,9 +9,9 @@
         <% if admin? %><strong>Invite a friend: </strong> <%= link_to "#{@user.invitation_limit} invitations left", new_invitation_path %> <br /><% end %>
       <% end %>
       
-      <strong>Daily Bank: </strong> <%= number_to_currency(@user.daily_bank, :unit => "$") %><br />
-      <strong>Today's Balance: </strong> <%= number_to_currency(@user.spending_balance || @user.daily_bank, :unit => "$") %><br />
-      <strong>Stash: </strong> <%= number_to_currency(@user.stash || 0, :unit => "$") %><br />
+      <strong>Daily Bank: </strong> <%= number_to_currency(@user.daily_bank, :unit => @user.unit || "$") %><br />
+      <strong>Today's Balance: </strong> <%= number_to_currency(@user.spending_balance || @user.daily_bank, :unit => @user.unit || "$") %><br />
+      <strong>Stash: </strong> <%= number_to_currency(@user.stash || 0, :unit => @user.unit || "$") %><br />
       <%= link_to "edit", edit_user_path(current_user) %> <%= link_to "reset", reset_path,
                                  :confirm => "This will reset your stash and account accrued amounts to zero. You cannot undo this. Are you sure you want to proceed? ",
                                  :title => "reset account?" %>
@@ -68,7 +68,7 @@
        title: { text: 'Spending Stats' },  
        xAxis: { type: 'datetime' },  
        yAxis: {  
-                title: { text: 'Dollars ($)'}   
+                title: { text: '<%= @user.unit || "$" %> '}   
        },
        tooltip: {
          formatter: function() {

@@ -25,9 +25,12 @@
   </div>
   <div class="field">
     <%= f.label :daily_bank %><br />
-    <%= f.text_field :daily_bank %><img src="/images/tooltip.png" class = "tooltip" title="This is the max you'd intend to spend a day"/>
+    <%= f.text_field :daily_bank %><img src="/images/tooltip.png" class = "tooltip" title="This is the max you intend to spend a day"/>
   </div>
-  
+  <div class="field">
+    <%= f.label "Currency" %><br />
+    <%= f.select :unit, options_for_select(%w{ $ £ }) %>
+  </div>
   <div class="actions">
     <%= f.submit "Sign up" %> or <%= link_to "Sign in!", signin_path %>
   </div>

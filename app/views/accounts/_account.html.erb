@@ -1,9 +1,9 @@
 <%- row_class = cycle("odd", "even") -%>
 <tr class = "<%= row_class %>">
   <td class="details"><%= account.details %></td>
-  <td class="cost"><%= number_to_currency(account.cost) %></td>
+  <td class="cost"><%= number_to_currency(account.cost, :unit => @user.unit || "$") %></td>
   <td class="allotment"><%= number_to_percentage(account.allotment, :precision => 2) %></td>
-  <td class="accrued"><%= number_to_currency(account.accrued.nil? ? 0 : account.accrued )%></td>
+  <td class="accrued"><%= number_to_currency(account.accrued.nil? ? 0 : account.accrued, :unit => @user.unit || "$" )%></td>
   <td class="mat_date"><%= account.maturity_date.nil? ? "" : account.maturity_date.strftime("%B %d, %Y") %></td>
   <td><%= link_to "edit", edit_account_path(account) %>
   <%= link_to "delete", account_path(account), :method => :delete,

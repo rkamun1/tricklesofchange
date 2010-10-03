@@ -27,6 +27,10 @@
     <%= f.label :daily_bank, "Daily Bank" %><br />
     <%= f.text_field :daily_bank %>
   </div>
+  <div class="field">
+    <%= f.label "Currency" %><br />
+    <%= f.select :unit, options_for_select(%w{ $ £ }) %>
+  </div>
   <div class="actions">
     <%= f.submit "Update" %>
   </div>

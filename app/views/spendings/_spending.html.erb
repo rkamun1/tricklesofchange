@@ -1,8 +1,8 @@
 <%- row_class = cycle("odd", "even") -%>
 <tr class = "<%= row_class %>">
-  <td class="date"><%= spending.spending_date.strftime("%d %b, %Y") %></td>
+  <td class="date"><%= spending.spending_date.strftime("%B %d , %Y") %></td>
   <td class="details"><%= spending.spending_details %></td>
-  <td class="amount"><%= number_to_currency(spending.spending_amount) %></td>
+  <td class="amount"><%= number_to_currency(spending.spending_amount, :unit => @user.unit || "$") %></td>
   <td><%= link_to "edit", edit_spending_path(spending) %>
   <%= link_to "delete", spending_path(spending), :method => :delete,
                                  :confirm => "You sure you want to delete #{spending.spending_details}",

@@ -1,0 +1,24 @@
+<h2> New Email </h2>
+
+<%= form_for @email do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <p>
+    <%= f.label "Your" %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :topic %><br />
+    <%= f.text_field :topic %>
+  </p>
+  <p>
+    <%= f.label :message %><br />
+    <%= f.text_field :message %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
+
+

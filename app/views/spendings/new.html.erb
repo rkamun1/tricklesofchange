@@ -4,6 +4,7 @@
   <div class="field">
     <%= f.label :spending_date %>: 
     <%= f.label Time.zone.now.strftime("%B %d,%Y") %><br /><br />
+    <%= f.hidden_field :spending_date, :value => Time.zone.now.strftime("%B %d,%Y") %>
   </div>
   <div class="field">
     <%= f.label :spending_details %><br />
