@@ -28,11 +28,26 @@ $(document).ready(function() {
 		//Append the popup template and its value
 		$(this).parent().append('<div id="popup" class="round" title="How ' + dataheader + ' work"><div class="popupBody">' + databody + '</div><div class="tipFooter"></div></div>');		
 	
-	$('#popup').dialog({
-	        
-			modal: true
-    });
-
-
+	    $('#popup').dialog({  
+			    modal: true
+        });
 	})
+	
+	$('#reset').click(function(e) {		
+	e.preventDefault();
+	   $(this).append('<div id="dialog-confirm" title="Reset your account information?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"/></span>This will reset your stash and account accrued amounts to zero. You cannot undo this. Are you sure you want to proceed?</p>')
+	    
+		$( "#dialog-confirm" ).dialog({
+			modal: true,
+			buttons: {
+				"Reset account": function() {
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	});
+
 });

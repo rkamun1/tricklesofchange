@@ -109,6 +109,13 @@ class User < ActiveRecord::Base
       daily_stats.where(:day=>date).first.days_stash.to_f if !daily_stats.where(:day=>date).first.nil?
   end
   
+  def reset(user)
+    user.update_attribute(:stash, 0)
+    user.accounts.each do |account|  
+      account.update_attribute(:accrued, 0)
+    end
+  end
+  
   def self.daily_job # <------TODO:if I get another task, move this to a daily_tasks file
     
     User.all.each do |user|
@@ -122,9 +129,11 @@ class User < ActiveRecord::Base
           distributed_amount = 0
           #perform the distribution
           user.accounts.each do |account|
-            account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.spending_balance || user.daily_bank) * account.allotment)/100)))
-            total_distro += distributed_amount
-            #puts total_distro
+            if account.maturity_date > Date.today
+              account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.spending_balance || user.daily_bank) * account.allotment)/100)))
+              total_distro += distributed_amount
+              #puts total_distro
+            end
           end      
           
           #update the stash

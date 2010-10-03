@@ -14,7 +14,7 @@ Tricklesofchange::Application.routes.draw do
 	match '/contact' => 'pages#contact'
   match '/about'  => 'pages#about'
   match '/forgot_password' => 'users#forgot_password'
-  #match '/dashboard' => 'users#show', :as => :dashboard
+  match '/reset' => 'users#reset'
   
   root :to => 'sessions#new'
 

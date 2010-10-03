@@ -12,7 +12,9 @@
       <strong>Daily Bank: </strong> <%= number_to_currency(@user.daily_bank, :unit => "$") %><br />
       <strong>Today's Balance: </strong> <%= number_to_currency(@user.spending_balance || @user.daily_bank, :unit => "$") %><br />
       <strong>Stash: </strong> <%= number_to_currency(@user.stash || 0, :unit => "$") %><br />
-      <%= link_to "edit", edit_user_path(current_user) %> <!--<%= link_to "reset", :confirm => "You sure?" %>-->
+      <%= link_to "edit", edit_user_path(current_user) %> <%= link_to "reset", reset_path,
+                                 :confirm => "This will reset your stash and account accrued amounts to zero. You cannot undo this. Are you sure you want to proceed? ",
+                                 :title => "reset account?" %>
     </div> 
     <div id="chartdiv" style="width:710px;"></div>
  

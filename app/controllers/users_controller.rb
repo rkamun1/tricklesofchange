@@ -77,6 +77,11 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
   
+  def reset
+    @user = current_user
+    @user.reset @user
+    redirect_to root_path
+  end
 
   private    
     def correct_user
