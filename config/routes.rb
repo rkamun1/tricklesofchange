@@ -1,5 +1,7 @@
 Tricklesofchange::Application.routes.draw do
     
+  resources :faqs
+
   resources :emails
 
   resources :contacts

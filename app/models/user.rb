@@ -53,8 +53,7 @@ class User < ActiveRecord::Base
   validates :timezone, :presence => true                     
                        
   validates :daily_bank, :presence => true,
-                         :format => {:with => daily_bank_regex,
-                         :message => "should be a number greater than 5; 2 decimal places optional."}
+                         :format => {:with => daily_bank_regex}
                          
   validates_numericality_of :daily_bank, 
                             :greater_than => 1,
@@ -125,7 +124,7 @@ class User < ActiveRecord::Base
       
       Time.zone = user.timezone
       
-      if Time.zone.now.hour == Time.zone.now.midnight.hour
+      #if Time.zone.now.hour == Time.zone.now.midnight.hour
         if (user.spending_balance || user.daily_bank) >= 0
           distributed_amount = 0
           #perform the distribution
@@ -144,7 +143,7 @@ class User < ActiveRecord::Base
           user.daily_stats.create(attr={:day=>Date.yesterday, :days_spending=>(user.daily_bank - (user.spending_balance || user.daily_bank)), :days_stash=>(user.stash || 0)})        
           #reset the value        
           user.update_attribute(:spending_balance, user.daily_bank) 
-        end  
+       # end  
       end
     end
   end

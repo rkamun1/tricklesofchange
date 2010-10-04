@@ -1,16 +1,17 @@
-<h2> Trickles of Change Support </h2>
+<% title "New Email" %>
 
 <%= form_for @email do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
+  <%= f.error_messages %>
   <p>
     <%= f.label :topic %><br />
     <%= f.text_field :topic %>
   </p>
   <p>
     <%= f.label :message %><br />
-    <%= f.text_area :message %>
+    <%= f.text_field :message %>
   </p>
   <p><%= f.submit %></p>
 <% end %>
 
 
+<p><%= link_to "Back to List", emails_path %></p>

@@ -1,14 +1,6 @@
 <% title "Email" %>
 
 <p>
-  <strong>Name:</strong>
-  <%= @email.name %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%= @email.email %>
-</p>
-<p>
   <strong>Topic:</strong>
   <%= @email.topic %>
 </p>
@@ -18,4 +10,5 @@
 </p>
 
 <p>
+  <%= link_to "View All", emails_path %>
 </p>
