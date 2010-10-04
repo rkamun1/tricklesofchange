@@ -1,0 +1,17 @@
+<% title "Emails" %>
+
+<table>
+  <tr>
+    <th>Topic</th>
+    <th>Message</th>
+  </tr>
+  <% for email in @emails %>
+    <tr>
+      <td><%= email.topic %></td>
+      <td><%= email.message %></td>
+      <td><%= link_to "Show", email %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Email", new_email_path %></p>

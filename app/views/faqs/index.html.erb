@@ -1,0 +1,13 @@
+<h2> FAQs </h2>
+
+<% for faq in @faqs %>
+  <div id = "field"><h3><%= faq.question %></h3></div>
+  <div id = "field"><%= raw faq.answer %></div>
+  <% if admin? %>
+    <%= link_to "Edit", edit_faq_path(faq) %>
+  <% end %>
+<% end %>
+
+<% if admin? %>
+  <p><%= link_to "New Faq", new_faq_path %></p>
+<% end %>
