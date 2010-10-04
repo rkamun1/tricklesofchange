@@ -124,7 +124,8 @@ class User < ActiveRecord::Base
       
       Time.zone = user.timezone
       
-      #if Time.zone.now.hour == Time.zone.now.midnight.hour
+      if Time.zone.now.hour == Time.zone.now.midnight.hour
+        puts "in here and the time is #{Time.zone.now}"
         if (user.spending_balance || user.daily_bank) >= 0
           distributed_amount = 0
           #perform the distribution
@@ -132,7 +133,7 @@ class User < ActiveRecord::Base
             if account.maturity_date > Date.today
               account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = (((user.spending_balance || user.daily_bank) * account.allotment)/100)))
               total_distro += distributed_amount
-              #puts total_distro
+              puts "total = #{total_distro}"
             end
           end      
           
@@ -143,7 +144,7 @@ class User < ActiveRecord::Base
           user.daily_stats.create(attr={:day=>Date.yesterday, :days_spending=>(user.daily_bank - (user.spending_balance || user.daily_bank)), :days_stash=>(user.stash || 0)})        
           #reset the value        
           user.update_attribute(:spending_balance, user.daily_bank) 
-       # end  
+        end  
       end
     end
   end
