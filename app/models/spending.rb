@@ -52,9 +52,9 @@ class Spending < ActiveRecord::Base
     user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
   end
   
-  def restore_to_bank
+  def restore_to_bank #TODO: Days-spending should also change
     user = self.user
-    user.update_attribute :spending_balance, user.spending_balance + spending_amount if spending_date == Date.today
+    user.update_attribute :spending_balance, (user.spending_balance || 0) + spending_amount if spending_date == Date.today
     user.update_attribute :stash, (user.stash || 0) + spending_amount if spending_date != Date.today
   end
 end

@@ -9,6 +9,20 @@ body {
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 }
 
+p.contact input{
+    width:342px;
+}
+
+p.contact textarea{
+    width:342px;
+    height:90px;
+}
+
+input, textarea{
+    border:1px solid #E5E5E5;
+    margin:1px 0;
+}
+
 .container{
  width:750px;
  margin: -10px auto;

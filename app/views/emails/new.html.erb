@@ -1,14 +1,14 @@
-<% title "New Email" %>
+<h2>Contact tricklesofchange.com</h2>
 
 <%= form_for @email do |f| %>
-  <%= f.error_messages %>
-  <p>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <p class="contact">
     <%= f.label :topic %><br />
     <%= f.text_field :topic %>
   </p>
-  <p>
+  <p class="contact">
     <%= f.label :message %><br />
-    <%= f.text_field :message %>
+    <%= f.text_area :message %>
   </p>
   <p><%= f.submit %></p>
 <% end %>

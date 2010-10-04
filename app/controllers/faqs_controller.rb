@@ -1,4 +1,6 @@
 class FaqsController < ApplicationController
+    before_filter :admin_user,   :only => [:create]
+    
   def index
     @faqs = Faq.all
   end
