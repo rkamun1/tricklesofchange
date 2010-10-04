@@ -32,4 +32,15 @@ class FaqsController < ApplicationController
       render :action => 'edit'
     end
   end
+  
+  private    
+
+    def admin_user
+      if current_user.nil?
+        redirect_to(signin_path)
+      else if !current_user.admin?
+        redirect_to(root_path)
+      end
+    end
+  end
 end
