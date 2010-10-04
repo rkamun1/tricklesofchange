@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
           
           #update the stash
           user.update_attribute(:stash, (user.stash || 0) + (user.spending_balance || user.daily_bank) - total_distro) 
-          
+          puts "in runner"
           #collect the stats        
           user.daily_stats.create(attr={:day=>Date.yesterday, :days_spending=>(user.daily_bank - (user.spending_balance || user.daily_bank)), :days_stash=>(user.stash || 0)})        
           #reset the value        
