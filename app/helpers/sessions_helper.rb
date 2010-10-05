@@ -28,7 +28,7 @@ module SessionsHelper
   end
     
   def admin?
-    current_user.admin?
+    current_user.admin? if !current_user.nil?
   end 
   
   def already_signed_in

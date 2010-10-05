@@ -4,6 +4,9 @@
   </logo>
   <div id="nav" class="round">
     <ul>
+        <li><%= link_to "How it works", howitworks_path %></li>
+        <li><%= link_to "FAQs", faqs_path %></li>
+
       <% if signed_in? %>
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Profile", current_user %></li>

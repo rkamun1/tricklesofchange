@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @title = "Sign Up"
     #@user = User.new
     @user = User.new(:invitation_token => params[:invitation_token])
-    @user.email = @user.invitation.recipient_email if @user.invitation.toggle :used
+    @user.email = @user.invitation.recipient_email if !@user.invitation.nil?
   end
   
   def index
@@ -31,6 +31,7 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome!"
       #housekeping
+      @user.invitation.toggle :used
       Notifier.joined(@user.invitation).deliver and @user.invitation.
       redirect_to @user 
     else
