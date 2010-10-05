@@ -31,8 +31,8 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome!"
       #housekeping
-      //@user.invitation.toggle :used
-      //Notifier.joined(@user.invitation).deliver and @user.invitation.
+      #@user.invitation.toggle :used
+      #Notifier.joined(@user.invitation).deliver and @user.invitation.
       redirect_to @user 
     else
       @title = "Sign Up"
