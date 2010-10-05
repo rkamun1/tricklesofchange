@@ -29,7 +29,7 @@
   </div>
   <div class="field">
     <%= f.label "Currency" %><br />
-    <%= f.select :unit, options_for_select(%w{ $ £ }) %>
+    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %>
   </div>
   <div class="actions">
     <%= f.submit "Sign up" %> or <%= link_to "Sign in!", signin_path %>

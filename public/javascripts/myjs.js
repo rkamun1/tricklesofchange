@@ -29,7 +29,8 @@ $(document).ready(function() {
 		$(this).parent().append('<div id="popup" class="round" title="How ' + dataheader + ' work"><div class="popupBody">' + databody + '</div><div class="tipFooter"></div></div>');		
 	
 	    $('#popup').dialog({  
-			    modal: true
+			    modal: true,
+			    width: 500
         });
 	})
 	
