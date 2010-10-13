@@ -3,7 +3,7 @@
   <%= render 'shared/error_messages', :object => f.object %>
   <div class="field">
     <%= f.label :spending_date %><br />
-    <%= f.text_field :spending_date %>
+    <%= f.text_field  :spending_date, :value => @spending.spending_date.nil? ? "" : @spending.spending_date.strftime("%B %d, %Y") %>
   </div>
   <div class="field">
     <%= f.label :spending_details %><br />

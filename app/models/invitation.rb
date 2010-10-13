@@ -26,6 +26,7 @@ class Invitation < ActiveRecord::Base
   before_create :generate_token
   before_create :decrement_sender_count, :if => :sender
 
+#TODO: add uniqueness
   private
 
   def recipient_is_not_registered

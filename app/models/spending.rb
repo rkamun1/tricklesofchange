@@ -13,14 +13,16 @@
 #
 
 class Spending < ActiveRecord::Base
-  attr_accessible :spending_date, :spending_details, :spending_amount
+  attr_accessible :spending_date, :spending_details, :spending_amount, :created_at
   
   belongs_to :user
   twodecplaces_regex = /^([\$]?)([0-9]*\.?[0-9]{0,2})$/i
   
   validates :user_id, :presence => true
   validates :spending_date, :presence => true,
-                            :date => { :after => Time.now - 1.week , :before => Time.now + 1.day}
+                            :date => { :after => Time.now - 2.weeks , 
+                                       :before => Time.now + 1.day,
+                                       :message => "date cannot be older than 2 weeks old."}
 
   validates :spending_details, :presence => true, :length => { :maximum => 100}
   validates :spending_amount, :presence => true,
@@ -39,17 +41,16 @@ class Spending < ActiveRecord::Base
   protected
   def deduct_from_bank
     user = self.user
-    if new_record?
-      new_bal = (user.spending_balance || user.daily_bank) - spending_amount 
-  elsif spending_amount_changed?
-      new_bal = (user.spending_balance || user.daily_bank) + spending_amount_was - spending_amount
+    #if new_record?
+     if spending_date == Date.today       
+      new_bal = new_record? ? (user.spending_balance || user.daily_bank) - spending_amount : (user.spending_balance || user.daily_bank) + spending_amount_was - spending_amount
+      
+      user.update_attribute :spending_balance, new_bal if new_bal >= 0
+      user.update_attribute :spending_balance, 0 if new_bal < 0
+      user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
     else
-      new_bal = user.spending_balance
+      user.update_attribute :stash, new_record? ? (user.stash || 0) - spending_amount : (user.stash || 0) + spending_amount_was - spending_amount
     end
-    
-    user.update_attribute :spending_balance, new_bal if new_bal >= 0
-    user.update_attribute :spending_balance, 0 if new_bal < 0
-    user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
   end
   
   def restore_to_bank #TODO: Days-spending should also change

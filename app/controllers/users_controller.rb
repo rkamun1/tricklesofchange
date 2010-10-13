@@ -31,8 +31,9 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome!"
       #housekeping
-      #@user.invitation.toggle :used
-      #Notifier.joined(@user.invitation).deliver and @user.invitation.
+      #TODO; check these once we remove invites...
+      @user.invitation.toggle :used if @user.invitation
+      Notifier.joined(@user.invitation).deliver if @user.invitation
       redirect_to @user 
     else
       @title = "Sign Up"
