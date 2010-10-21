@@ -13,6 +13,7 @@
 #  updated_at    :datetime
 #  maturity_date :date
 #
+#TODO: Account date can't be before account creation date
 
 class Account < ActiveRecord::Base
   attr_accessible :details, :cost, :allotment, :maturity_date

@@ -11,6 +11,7 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #
+#TODO: Spending date can't be before account creation date
 
 class Spending < ActiveRecord::Base
   attr_accessible :spending_date, :spending_details, :spending_amount, :created_at

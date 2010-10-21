@@ -122,82 +122,71 @@ class User < ActiveRecord::Base
       Time.zone = user.timezone
       puts Time.zone.now
       if Time.zone.now.hour == Time.zone.now.midnight.hour #this makes it run at the midnight hour.
-        puts "in midnight"
-        if (days_entered_spendings = user.spendings.where("Date(created_at) = Date(?)",Time.now)).empty? #TODO:time.now.yesterday because job runs after midnight
-          #if this is empty, I will update the deets assuming tha the user spent nothing that day
-          distributed_amount = 0
-          total_distro = 0
-          #perform the distribution
-          user.accounts.each do |account|
-            puts "Distributing on a 0 spending"
-            if account.maturity_date.future? || account.maturity_date.today?
-              account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = ((user.daily_bank * account.allotment)/100)))
-              total_distro += distributed_amount
-            end
-          end    
-          user.update_attribute(:stash, (user.stash || 0) + (user.daily_bank - total_distro)) 
-          user.update_attribute(:daily_balance, user.daily_bank)
-          user.daily_stats.create(attr={:day=>Time.zone.now.yesterday, :days_spending => 0, :days_stash => user.stash}) 
+      	puts "in midnight"
+        #Default case: update the deets assuming that the user spent nothing that day
+				distributed_amount = 0
+				total_distro = 0
+				#perform the distribution
+				user.accounts.each do |account|
+					puts "Distributing on a 0 spending"
+					if account.maturity_date.future? || account.maturity_date.today?
+					  account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = ((user.daily_bank * account.allotment)/100)))
+puts "distributed amount #{distributed_amount}"
+					  total_distro += distributed_amount
+					end
+				end    
+				user.update_attribute(:stash, (user.stash || 0) + (user.daily_bank - total_distro)) 
+				user.update_attribute(:spending_balance, user.daily_bank)
+				user.daily_stats.create(attr={:day=>Time.zone.now.yesterday, :days_spending => 0, :days_stash => user.stash}) 
 
-        else #if the user has entered any spending values that day
+				#if the user has entered any spending values that day
+				if !(days_entered_spendings = user.spendings.where("Date(created_at) = Date(?)",Time.now)).empty? #TODO:time.now.yesterday because job runs after midnight
           first_date = days_entered_spendings.minimum(:spending_date).to_date
           last_date = days_entered_spendings.maximum(:spending_date).to_date
           
-          (first_date..last_date).each do |dte|
-            if (dte != Date.yesterday) #check this as this is the group of older spendings not entered yet
-              
-              new_day_balance = user.daily_bank - new_days_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount) if !days_entered_spendings.where(:spending_date => dte).empty?
-              if !new_day_balance.nil?
-                
-                #get the balance recordered as per daily_stats
-                puts dte
-                new_day_balance += old_day_balance = user.daily_bank - old_days_spending = user.daily_stats.where(:day => dte).first.days_spending
+          (first_date..last_date).each do |dte|   
+            new_day_balance = user.daily_bank - new_days_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount) if !days_entered_spendings.where(:spending_date => dte).empty?
+puts "new day balance = #{new_day_balance}"
 
-                #get the old distros and subtract from the accrueds and then take the total distros and subtract that from the daily balance, then take the result and subtract it from the days stash and update the day stashes after that.   
-                old_total_distro = 0
-                new_total_distro = 0
-                #perform the anti-distribution
-                user.accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
-                  account.update_attribute(:accrued, ((account.accrued || 0) - old_distributed_amount = ((old_day_balance * account.allotment)/100)))
-                  account.update_attribute(:accrued, ((account.accrued || 0) + new_distributed_amount = ((new_day_balance * account.allotment)/100)))
-                  old_total_distro += old_distributed_amount
-                  new_total_distro += new_distributed_amount
-                end 
-                #get the difference in the stash that will be contributed.
-                days_stash_difference = (old_day_balance - old_total_distro)-(new_day_balance-new_total_distro)
-                puts "days_stash = #{days_stash_difference}"
-                puts "old #{old_day_balance}"
-                puts "new #{new_day_balance}"
-                days_stat = user.daily_stats.where(:day=>dte).first
-                days_stat.update_attributes(:days_spending=>new_days_spending,:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
-                
-
-                #get all daily stats greater than this dte and subtract the difference from
-                user.daily_stats.where('day > ?', dte).each do |days_stat|
-                  days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
-                end
-              end
-            else  #this is a new entry
-              days_balance = user.daily_bank - days_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount)
-              #run the allotments
-              total_distro = 0  
+            if !new_day_balance.nil?
+              #get the balance recordered as per daily_stats
+              puts dte
+              old_day_balance = user.daily_bank - old_days_spending = user.daily_stats.where(:day => dte).first.days_spending
+puts "old day balance = #{old_day_balance}"
+              #get the old distros and subtract from the accrueds and then take the total distros and subtract that from the daily balance, then take the result and subtract it from the days stash and update the day stashes after that.   
+              old_total_distro = 0
+              new_total_distro = 0
+              #perform the anti-distribution
               user.accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
-                  account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = ((days_balance * account.allotment)/100)))
-                  total_distro += distributed_amount
-              end
-              
-              user.update_attribute(:stash, (user.stash || 0) + days_balance - total_distro) 
-              user.update_attribute(:daily_balance, user.daily_bank)
-              user.daily_stats.create(attr={:day=>dte, :days_spending=> (user.daily_bank - days_balance), :days_stash=>(user.stash || 0)})          
-            end
-          end
-        end         
-      end
-    end
-  end
-  
-  
+puts "accrued = #{account.accrued}"
+                account.update_attribute(:accrued, ((account.accrued || 0) - old_distributed_amount = ((old_day_balance * account.allotment)/100)))
+                account.update_attribute(:accrued, ((account.accrued || 0) + new_distributed_amount = ((new_day_balance * account.allotment)/100)))
+                old_total_distro += old_distributed_amount
+                new_total_distro += new_distributed_amount
 
+								puts "Old_distro = #{old_total_distro}"
+								puts "New_distro = #{new_total_distro}"
+							end
+   
+              #get the difference in contribution to the stash.
+              days_stash_difference = (old_day_balance - old_total_distro)-(new_day_balance-new_total_distro)
+              puts "days_stash_difference = #{days_stash_difference}"
+              puts "old #{old_day_balance}"
+              puts "new #{new_day_balance}"
+              days_stat = user.daily_stats.where(:day=>dte).first
+              days_stat.update_attributes(:days_spending=>new_days_spending,:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
+
+              #get all daily stats greater than this dte and subtract the difference from
+              user.daily_stats.where('day > ?', dte).each do |days_stat|
+                days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
+              end
+							user.update_attribute(:stash, user.daily_stats.last.days_stash)
+		        end
+		      end         
+		    end
+			end
+		end
+	end
 
   private
     def update_accounts
@@ -231,6 +220,5 @@ class User < ActiveRecord::Base
    
    def set_invitation_limit
      self.invitation_limit = 5
-   end
-                
+   end            
 end
