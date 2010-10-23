@@ -198,6 +198,7 @@ puts "accrued = #{account.accrued}"
       self.encrypted_password = encrypt(password)
     end
 
+
     def encrypt(string)
       secure_hash("#{salt}--#{string}")
     end
