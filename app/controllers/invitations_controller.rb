@@ -10,9 +10,10 @@ class InvitationsController < ApplicationController
       
     if @invitation.save
       if signed_in?
-        flash[:success] = "Thank you, for your support."
         Notifier.invitation(@invitation, signup_url(@invitation.token)).deliver
+        flash[:success] = "Thank you, for your support."
       else
+        Notifier.new_request(@invitation, signup_url(@invitation.token)).deliver
         flash[:success] = "Thank you, we will notify you when we are ready to accept more users."  
       end
       redirect_to root_url

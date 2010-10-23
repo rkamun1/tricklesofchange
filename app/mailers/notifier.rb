@@ -19,7 +19,15 @@ class Notifier < ActionMailer::Base
     mail(:to => @invitation.recipient_email, 
          :subject => "You have been invited to tricklesofchange.com.")
   end
-  
+
+  #a new request notification to admin
+  def new_request invitation, signup_url
+    @invitation = invitation 
+    @signup_url = signup_url
+    mail(:to => "muchira@gmail.com", 
+         :subject => "Someone new has signed up for the site.")
+  end
+
   #send the inviter and the system a joined notification
   def joined invitation 
     @invitation = invitation
