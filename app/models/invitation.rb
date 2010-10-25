@@ -21,6 +21,7 @@ class Invitation < ActiveRecord::Base
   
   validates_presence_of :recipient_email
   validate :recipient_is_not_registered
+  validate :has_a_previous_invite
   validate :sender_has_invitations, :if => :sender
 
   before_create :generate_token
@@ -30,11 +31,11 @@ class Invitation < ActiveRecord::Base
   private
 
   def recipient_is_not_registered
-    errors.add :recipient_email, 'is already registered' if User.find_by_email(recipient_email)
+    errors.add :recipient_email, 'is already registered OR' if User.find_by_email(recipient_email)
   end
 
   def has_a_previous_invite
-      errors.add :recipient_email, 'has already signed up!!' if Invitation.find_by_recipient_email(recipient_email)
+      errors.add :recipient_email, 'already has a pending invite!!' if Invitation.find_by_recipient_email(recipient_email) 
   end
 
   def sender_has_invitations
