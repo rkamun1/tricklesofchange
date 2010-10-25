@@ -29,10 +29,10 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome!"
+      flash[:success] = "Welcome to your home of Microsavings! Time to make your money work for you!!!"
       #housekeping
       #TODO: check these once we remove invites...
-      @user.invitation.toggle :used if @user.invitation
+      @user.invitation.toggle! :used if @user.invitation
       Notifier.joined(@user.invitation).deliver if @user.invitation
       redirect_to @user 
     else
