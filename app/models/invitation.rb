@@ -33,6 +33,10 @@ class Invitation < ActiveRecord::Base
     errors.add :recipient_email, 'is already registered' if User.find_by_email(recipient_email)
   end
 
+  def has_a_previous_invite
+      errors.add :recipient_email, 'has already signed up!!' if Invitation.find_by_recipient_email(recipient_email)
+  end
+
   def sender_has_invitations
     unless sender.invitation_limit > 0
       errors.add_to_base 'You have reached your limit of invitations to send.'

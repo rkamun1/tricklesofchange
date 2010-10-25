@@ -24,7 +24,7 @@ class Notifier < ActionMailer::Base
   def new_request invitation, signup_url
     @invitation = invitation 
     @signup_url = signup_url
-    mail(:subject => "Someone new has signed up for the site.")
+    mail(:subject => "Someone new has requested to join your beta.")
   end
 
   #send the inviter and the system a joined notification
