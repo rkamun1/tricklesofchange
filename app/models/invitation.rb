@@ -19,7 +19,10 @@ class Invitation < ActiveRecord::Base
   belongs_to :sender, :class_name => 'User'
   has_one :recipient, :class_name => 'User'
   
-  validates_presence_of :recipient_email
+  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  validates :recipient_email,:presence => true, 
+                   :format => {:with => email_regex}
   validate :recipient_is_not_registered
   validate :has_a_previous_invite
   validate :sender_has_invitations, :if => :sender
