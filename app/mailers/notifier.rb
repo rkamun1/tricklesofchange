@@ -1,7 +1,7 @@
 class Notifier < ActionMailer::Base  
   layout 'notifier'
   
-  default :bcc => 'muchira@gmail.com',
+  default :bcc => 'info@tricklesofchange.com',
           :from => 'no-reply@tricklesofchange.com'
 
   #send a forgotten password
@@ -36,5 +36,14 @@ class Notifier < ActionMailer::Base
     else
       mail(:subject => "Your invitation has been accepted.")
     end       
+  end
+
+  #emails sent from the contact me page
+  def contact_email email
+    @email = email
+    mail(:reply_to => @email.email,
+         :bcc => @email.email,
+         :to => "customerservice@tricklesofchange.com",
+         :subject => @email.topic)  
   end
 end

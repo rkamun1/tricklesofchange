@@ -1,19 +1,18 @@
 # == Schema Information
-# Schema version: 20101001022551
+# Schema version: 20101004013758
 #
 # Table name: accounts
 #
 #  id            :integer(4)      not null, primary key
 #  details       :string(255)
 #  cost          :decimal(6, 2)
-#  allotment     :integer(4)
+#  allotment     :integer(4)      default(0)
 #  accrued       :decimal(6, 2)
 #  user_id       :integer(4)
 #  created_at    :datetime
 #  updated_at    :datetime
 #  maturity_date :date
 #
-#TODO: Account date can't be before account creation date
 
 class Account < ActiveRecord::Base
   attr_accessible :details, :cost, :allotment, :maturity_date

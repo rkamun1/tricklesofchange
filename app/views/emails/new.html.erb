@@ -2,9 +2,19 @@
 
 <%= form_for @email do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
+  <%if !signed_in? %>
+  <p class="contact">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p> 
+  <p class="contact">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>  
+  <%end%>
   <p class="contact">
     <%= f.label :topic %><br />
-    <%= f.text_field :topic %>
+    <%= f.select :topic, options_for_select(%w{suggestions questions comments}) %>
   </p>
   <p class="contact">
     <%= f.label :message %><br />

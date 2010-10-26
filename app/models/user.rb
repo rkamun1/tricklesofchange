@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101003204505
+# Schema version: 20101004013758
 #
 # Table name: users
 #
@@ -12,7 +12,7 @@
 #  salt               :string(255)
 #  admin              :boolean(1)
 #  daily_bank         :decimal(6, 2)
-#  stash              :decimal(6, 2)
+#  stash              :decimal(6, 2)   default(0.0)
 #  spending_balance   :decimal(6, 2)
 #  invitation_id      :integer(4)
 #  invitation_limit   :integer(4)
@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   has_many :spendings, :dependent => :destroy  
   has_many :daily_stats, :dependent => :destroy
   has_many :sent_inivitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
+  has_many :emails
 
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
