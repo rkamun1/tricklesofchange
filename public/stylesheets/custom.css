@@ -69,32 +69,45 @@ a:hover {
 }
 
 logo{
-    float:left;
+    left:0px;
+    position:relative;
     width:250px;
     margin:15px;
 }
+
+#tag_line{
+    left:80px;
+    position:relative;  
+}
 /* Navigation */
 
-
-#nav {
-  background-color: white;
-  float:right;
-  padding: 15px;
-  white-space: nowrap;
+#header-nav {
+    padding:0 15px;
+    position:relative;
+    white-space:nowrap;
+    float:right;
 }
 
-#nav ul {
+#nav {
+    background-color:white;
+    width:710px;
+    padding:15px;
+    float:right;
+    white-space:nowrap;
+}
+
+#nav ul,#header-nav ul {
   margin: 0;
   padding: 0;
 }
 
-#nav ul li {
+#nav ul li,#header-nav ul li {
   list-style-type: none;
   display: inline;
   padding: 0.2em 0;
 }
 
-#nav ul li a {
+#nav ul li a,#header-nav ul li a {
   padding: 0 5px;
   font-weight: bold;
 }
