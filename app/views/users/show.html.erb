@@ -15,8 +15,9 @@
       <%= link_to "edit", edit_user_path(current_user) %> <%= link_to "reset", reset_path,
                                  :confirm => "This will reset your stash and account accrued amounts to zero. You cannot undo this. Are you sure you want to proceed? ",
                                  :title => "reset account?" %>
-    </div> 
-    <div id="chartdiv" style="width:710px;"></div>
+    </div> <div id="chartdivborder" class="round">
+      <div id="chartdiv"  style="width:680px;"></div>
+    </div>
  
     <div id="thenumbers">
       <ul>
@@ -30,11 +31,11 @@
         <% if !@user.accounts.empty? %>
           <table id = "accountstable">
             <tr class ="header">
-              <td>Details</td>
-              <td>Target</td>
-              <td>Allotment</td>
-              <td>Accrued</td>
-              <td>Maturity Date</td>
+              <td class = "headercolumn round-top-5px">Details</td>
+              <td class = "headercolumn round-top-5px">Target</td>
+              <td class = "headercolumn round-top-5px">Allotment</td>
+              <td class = "headercolumn round-top-5px">Accrued</td>
+              <td class = "headercolumn round-top-5px">Maturity Date</td>
               <td></td>
             </tr>  
             <%= render @accounts %>
@@ -46,10 +47,10 @@
         <div id="addspending"><%= link_to "add a spending detail", new_spending_path %></div>
         <% if !@user.spendings.empty? %>
           <table id = "spendingstable">
-            <tr class ="header">
-              <td>Date</td>
-              <td>Details</td>
-              <td>Amount</td>
+            <tr class = "header">
+              <td class = "headercolumn round-top-5px">Date</td>
+              <td class = "headercolumn round-top-5px">Details</td>
+              <td class = "headercolumn round-top-5px">Amount</td>
               <td></td>
             </tr>  
             <%= render @spendings %>

@@ -6,7 +6,7 @@ $(document).ready(function() {
 		//Remove the title attribute's to avoid the native tooltip from the browser
 		$(this).attr('title','');		
 		//Append the tooltip template and its value
-		$(this).parent().append('<div id="tooltip" class="round"><div class="tipHeader"></div><div class="tipBody">' + tip + '</div><div class="tipFooter"></div></div>');						
+		$(this).parent().append('<div id="tooltip" class="round"><div class="tipBody">' + tip + '</div>');						
 		//Show the tooltip with fadeIn effect
 		$('#tooltip').fadeTo('10',0.9);
 		

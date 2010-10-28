@@ -7,6 +7,7 @@ body {
   color:#666;
   font: 80.5%/1.5 Arial,sans-serif;
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  background: url("/images/bkgrd.png");
 }
 
 p.contact input{
@@ -24,7 +25,7 @@ input, textarea{
 }
 
 .container{
- width:750px;
+ width:742px;
  margin: -10px auto;
  
  font-size: 1em;
@@ -54,12 +55,7 @@ label{
 /* Links */
 
 a {
-  color: #fc3;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #fc6;
+  color: #1C94C4;
   text-decoration: none;
 }
 
@@ -67,9 +63,15 @@ a:visited {
   color: #1C94C4;
 }
 
+a:hover {
+  color: #988D6B;
+  text-decoration: none;
+}
+
 logo{
     float:left;
     width:250px;
+    margin:15px;
 }
 /* Navigation */
 
@@ -77,7 +79,7 @@ logo{
 #nav {
   background-color: white;
   float:right;
-  padding: 10px 10px 0 0;
+  padding: 15px;
   white-space: nowrap;
 }
 
@@ -97,18 +99,13 @@ logo{
   font-weight: bold;
 }
 
-#nav ul li a:visited {
-  color: #1C94C4;
-}
-
-#nav ul li a:hover {
-  text-decoration: none;
-}
 
 /*index page*/
 
-#chartdiv{
-    width:710px;
+#chartdivborder{
+    border:1px solid #988D6B;
+    padding:3px;
+    margin:5px;
 }
 
 #homepage{
@@ -126,9 +123,10 @@ logo{
 }
 
 #slideshow{
-    border:1px solid orange;
+    border:1px solid #988d6b;
     height:300px;
     width:700px;
+    padding:3px;
 }
 #signin{
     float:right;
@@ -150,6 +148,10 @@ a.signup_button {
   padding: 20px;
 }
 
+.popup{
+    padding:2px 2px 0 0;
+}
+
 /* Round corners */
 
 .round {
@@ -158,13 +160,19 @@ a.signup_button {
   border-radius:         10px;
 }
 
-.round-top {
+.round-bottom {
   -moz-border-radius:    0 0 10px 10px;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius:         0 0 10px 10px;
 }
 
-.round-bottom {
+.round-top {
+  -moz-border-radius:    10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  border-radius:         10px 10px 0 0;
+}
+
+.round-top-5px {
   -moz-border-radius:    10px 10px 0 0;
   -webkit-border-radius: 10px 10px 0 0;
   border-radius:         10px 10px 0 0;
@@ -178,10 +186,6 @@ h1 {
 
 #details{
     width:50%
-}
-
-#chartdiv{
-    height:400px;
 }
 
 table {
@@ -276,7 +280,14 @@ div.user_info span.user_name {
 
 /*show page*/
 .header{
+    
+}
+.headercolumn{
     background: url("/images/ui-bg_gloss-wave_35_f6a828_500x100.png") repeat-x scroll 50% 50% #F6A828;
+    border-left:1px solid #988D6B;
+    border-right:1px solid #988D6B;
+    border-top:1px solid #988D6B;
+    padding-left:10px;
 }
 
 #addaccount, #addspending{
@@ -298,24 +309,26 @@ div.user_info span.user_name {
 #tooltip {
 	position:absolute;
 	z-index:9999;
-	color:#000000;
+	color:#fff;
 	font-size:10px;
-	width:180px;	
+	width:180px;
+    border: solid 1px #988D6B;
+    
+    padding:5px;	
 }
 
 #tooltip .tipHeader {
 	height:8px;
-	background:url(images/tipHeader.gif) no-repeat;
 }
 
 #tooltip .tipBody {
-	background-color:#FFCC66;
+	background-color:#988D6B;
 	padding:5px 5px 5px 15px;
 }
 
 #tooltip .tipFooter {
 	height:8px;
-	background:url(images/tipFooter.gif) no-repeat;
+	background:url(images/bkgrd.png) no-repeat;
 }
 
 
@@ -323,7 +336,7 @@ div.user_info span.user_name {
 #footer {
   text-align: center;
   margin-top: 10px;
-  width: 750px;
+  width: 742px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -340,5 +353,9 @@ div.user_info span.user_name {
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
 .success a {color:#264409;}
-tr.even td {background:#e5e0fd;}
+tr.even td {
+    background:#e5e0fd;
+    padding-left:10px;
+}
+tr.odd td {padding-left:10px;
 
