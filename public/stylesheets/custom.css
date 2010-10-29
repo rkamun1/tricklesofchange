@@ -33,8 +33,7 @@ input, textarea{
 
 #header {
   background-color: #fff;
-  padding-top: 20px;
-  height:60px;
+  height:120px;
 }
 
 #header img {
@@ -71,8 +70,6 @@ a:hover {
 logo{
     left:0px;
     position:relative;
-    width:250px;
-    margin:15px;
 }
 
 #tag_line{
@@ -84,8 +81,12 @@ logo{
 #header-nav {
     padding:0 15px;
     position:relative;
+    top:-35px;
+    right:-3px;
     white-space:nowrap;
     float:right;
+    background-color:#cc0;
+    border:1px solid #666;
 }
 
 #nav {
@@ -116,9 +117,9 @@ logo{
 /*index page*/
 
 #chartdivborder{
-    border:1px solid #988D6B;
+    border:8px outset #988D6B;
+    margin:5px 0;   
     padding:3px;
-    margin:5px;
 }
 
 #homepage{
@@ -179,6 +180,12 @@ a.signup_button {
   border-radius:         0 0 10px 10px;
 }
 
+.round-left {
+  -moz-border-radius:    10px 0 0 10px;
+  -webkit-border-radius: 10px 0 0 10px;
+  border-radius:         10px 0 0 10px;
+}
+
 .round-top {
   -moz-border-radius:    10px 10px 0 0;
   -webkit-border-radius: 10px 10px 0 0;
@@ -190,6 +197,17 @@ a.signup_button {
   -webkit-border-radius: 10px 10px 0 0;
   border-radius:         10px 10px 0 0;
 }
+
+.shadow {
+	-moz-box-shadow: 3px 3px 4px #333;
+	-webkit-box-shadow: 3px 3px 4px #333;
+	box-shadow: 3px 3px 4px #333;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#333333')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#333333');
+}
+
 
 /* User show page */
 
