@@ -141,7 +141,7 @@ puts "distributed amount #{distributed_amount}"
 				user.daily_stats.create(attr={:day=>Time.zone.now.yesterday, :days_spending => 0, :days_stash => user.stash}) 
 
 				#if the user has entered any spending values that day
-				if !(days_entered_spendings = user.spendings.where("Date(created_at) = Date(?)",Time.zone.now.yesterday)).empty?
+				if !(days_entered_spendings = user.spendings.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})).empty?
           first_date = days_entered_spendings.minimum(:spending_date).to_date
           last_date = days_entered_spendings.maximum(:spending_date).to_date
           
