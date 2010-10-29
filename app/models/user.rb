@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
       #check timezone.
       Time.zone = user.timezone
       puts Time.zone.now
-      if Time.zone.now.hour == Time.zone.now.midnight.hour #this makes it run at the midnight hour.
+      if Time.zone.now.hour == Time.zone.now.hour #this makes it run at the midnight hour.
       	puts "in midnight"
         #Default case: update the deets assuming that the user spent nothing that day
 				distributed_amount = 0
