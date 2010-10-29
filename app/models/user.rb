@@ -145,6 +145,7 @@ puts "distributed amount #{distributed_amount}"
           first_date = days_entered_spendings.minimum(:spending_date).to_date
           last_date = days_entered_spendings.maximum(:spending_date).to_date
           
+#TODO: What if the person spends more than his days spending. Does a neg get distributed? Or 0?
           (first_date..last_date).each do |dte|   
             new_day_balance = user.daily_bank - new_days_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount) if !days_entered_spendings.where(:spending_date => dte).empty?
 puts "new day balance = #{new_day_balance}"
