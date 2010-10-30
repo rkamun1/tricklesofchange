@@ -142,12 +142,8 @@ class User < ActiveRecord::Base
     (first_date..last_date).each do |dte|   
       new_day_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount) if !days_entered_spendings.where(:spending_date => dte).empty?
 
-puts new_day_spending.inspect
-
       if !new_day_spending.nil?
         old_days_spending = daily_stats.where(:day => dte).first.days_spending
-
-puts old_days_spending.inspect
 
         #perform the distribution
         distro_difference_total = 0
@@ -159,7 +155,7 @@ puts old_days_spending.inspect
         #get the difference in contribution to the stash.
         days_stash_difference = new_day_spending - distro_difference_total
 
-puts days_stash_difference
+puts "stash difference {days_stash_difference}"
 
         days_stat = daily_stats.where(:day=>dte).first
         days_stat.update_attributes(:days_spending=> (days_stat.days_spending + new_day_spending),:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
