@@ -45,8 +45,7 @@ class Spending < ActiveRecord::Base
      if spending_date == Date.today       
       new_bal = new_record? ? (user.spending_balance || user.daily_bank) - spending_amount : (user.spending_balance || user.daily_bank) + spending_amount_was - spending_amount
       
-      user.update_attribute :spending_balance, new_bal if new_bal >= 0
-      user.update_attribute :spending_balance, 0 if new_bal < 0
+      user.update_attribute :spending_balance, new_bal
       user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
     else
       user.update_attribute :stash, new_record? ? (user.stash || 0) - spending_amount : (user.stash || 0) + spending_amount_was - spending_amount

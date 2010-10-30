@@ -117,72 +117,84 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.daily_job
+  def self.daily_job # <------TODO:if I get another task, move this to a daily_tasks file
     User.all.each do |user|
-      #insert config.timezone
+      #check timezone.
       Time.zone = user.timezone
-      puts Time.now
-      if Time.now.hour == Time.now.hour #TODO: change to 0 - this makes it run at the midnight hour.
+      puts Time.zone.now
+      if Time.zone.now.hour == Time.zone.now.hour #TODO: change to midnightish - this makes it run at the midnight hour.
       	puts "in midnight"
-        user.insert_latest_daily_stat
+        #Default case: update the deets assuming that the user spent nothing that day
+				distributed_amount = 0
+				total_distro = 0
+				#perform the distribution
+				user.accounts.each do |account|
+					puts "Distributing on a 0 spending"
+					if account.maturity_date.future? || account.maturity_date.today?
+					  account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = ((user.daily_bank * account.allotment)/100)))
+puts "distributed amount #{distributed_amount}"
+					  total_distro += distributed_amount
+					end
+				end    
+				user.update_attribute(:stash, (user.stash || 0) + (user.daily_bank - total_distro)) 
+				user.update_attribute(:spending_balance, user.daily_bank)
+				user.daily_stats.create(attr={:day=>Time.zone.now.yesterday, :days_spending => 0, :days_stash => user.stash}) 
 
 				#if the user has entered any spending values that day
-				if !(days_entered_spendings = user.spendings.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})).empty?          
-          user.update_daily_stats days_entered_spendings #with any spending information.                  
+				if !(days_entered_spendings = user.spendings.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})).empty?
+          first_date = days_entered_spendings.minimum(:spending_date).to_date
+          last_date = days_entered_spendings.maximum(:spending_date).to_date
+          
+#TODO: What if the person spends more than his days spending. Does a neg get distributed? Or 0?
+          (first_date..last_date).each do |dte|   
+            new_day_balance = user.daily_bank - new_days_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount) if !days_entered_spendings.where(:spending_date => dte).empty?
+puts "new day balance = #{new_day_balance}"
+
+            if !new_day_balance.nil?
+              #get the balance recordered as per daily_stats
+              puts dte
+              old_day_balance = user.daily_bank - old_days_spending = user.daily_stats.where(:day => dte).first.days_spending
+puts "old day balance = #{old_day_balance}"
+              #get the old distros and subtract from the accrueds and then take the total distros and subtract that from the daily balance, then take the result and subtract it from the days stash and update the day stashes after that.   
+              old_total_distro = 0
+              new_total_distro = 0
+              #perform the anti-distribution
+              user.accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
+puts "accrued = #{account.accrued}"
+                account.update_attribute(:accrued, ((account.accrued || 0) - old_distributed_amount = ((old_day_balance * account.allotment)/100)))
+                account.update_attribute(:accrued, ((account.accrued || 0) + new_distributed_amount = ((new_day_balance * account.allotment)/100)))
+                old_total_distro += old_distributed_amount
+                new_total_distro += new_distributed_amount
+
+								puts "Old_distro = #{old_total_distro}"
+								puts "New_distro = #{new_total_distro}"
+							end
+   
+              #get the difference in contribution to the stash.
+              days_stash_difference = (old_day_balance - old_total_distro)-(new_day_balance-new_total_distro)
+              puts "days_stash_difference = #{days_stash_difference}"
+              puts "old #{old_day_balance}"
+              puts "new #{new_day_balance}"
+              days_stat = user.daily_stats.where(:day=>dte).first
+              days_stat.update_attributes(:days_spending=>new_days_spending,:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
+
+              #get all daily stats greater than this dte and subtract the difference from
+              user.daily_stats.where('day > ?', dte).each do |days_stat|
+                days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
+              end
+							user.update_attribute(:stash, user.daily_stats.last.days_stash)
+		        end
+		      end         
 		    end
 			end
 		end
 	end
 
-  def update_daily_stats days_entered_spendings
-    first_date = days_entered_spendings.minimum(:spending_date).to_date
-    last_date = days_entered_spendings.maximum(:spending_date).to_date
-        
-    #TODO: What if the person spends more than his days spending. Does a neg get distributed? Or 0?
-    (first_date..last_date).each do |dte|   
-      new_day_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount) if !days_entered_spendings.where(:spending_date => dte).empty?
-
-      if !new_day_spending.nil?
-        old_days_spending = daily_stats.where(:day => dte).first.days_spending
-
-        #perform the distribution
-        distro_difference_total = 0
-        accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
-          account.update_attribute(:accrued, ((account.accrued || 0) - distro_difference = (new_day_spending * account.allotment)/100))
-          distro_difference_total += distro_difference
-	      end
-
-        #get the difference in contribution to the stash.
-        days_stash_difference = new_day_spending - distro_difference_total
-        days_stat = daily_stats.where(:day=>dte).first
-        days_stat.update_attributes(:days_spending=> (days_stat.days_spending + new_day_spending),:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
-
-        #get all daily stats greater than this dte and subtract the difference from
-        daily_stats.where('day > ?', dte).each do |days_stat|
-          days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
-        end
-		    update_attribute(:stash, daily_stats.last.days_stash)
-      end
-    end 
-  end
-
-  def insert_latest_daily_stat
-    puts "Inserting lastest stat"
-    #Default case: update the deets assuming that the user spent nothing that day
-    total_distro = 0
-    #perform the distribution
-    accounts.each do |account|
-	    if account.maturity_date.future? || account.maturity_date.today?
-	      account.update_attribute(:accrued, ((account.accrued || 0) + distributed_amount = ((daily_bank * account.allotment)/100)))
-	      total_distro += distributed_amount
-	    end
-    end    
-    update_attribute(:stash, (stash || 0) + (daily_bank - total_distro)) 
-    update_attribute(:spending_balance, daily_bank)
-    daily_stats.create(attr={:day=>Time.zone.now.yesterday, :days_spending => 0, :days_stash => stash}) 
-  end
-
   private
+    def update_accounts
+      #?
+    end
+    
     def encrypt_password
       self.salt = make_salt if new_record?
       self.encrypted_password = encrypt(password)
@@ -192,24 +204,24 @@ class User < ActiveRecord::Base
     def encrypt(string)
       secure_hash("#{salt}--#{string}")
     end
-
+    
     def make_salt
       secure_hash("#{Time.now.utc}--#{password}")
     end    
-
+    
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
     end
-
+    
     def self.random_string(len)
      #generate a random password consisting of strings and digits
      chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
      newpass = ""
      1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
      return newpass
-    end
-
-    def set_invitation_limit
+   end
+   
+   def set_invitation_limit
      self.invitation_limit = 5
-    end            
+   end            
 end
