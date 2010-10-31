@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
 
 				#if the user has entered any spending values that day
 				if !(days_entered_spendings = user.spendings.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})).empty?          
-puts days_entered_spendings.inspect
+puts days_entered_spendings.to_s
           user.update_daily_stats days_entered_spendings #with any spending information.                  
 		    end
 			end
@@ -149,7 +149,7 @@ puts days_entered_spendings.inspect
         #perform the distribution
         distro_difference_total = 0
         accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
-          "new_day_spending = #{new_day_spending.to_s}"
+          puts "new_day_spending = #{new_day_spending.to_s}"
           account.update_attribute(:accrued, ((account.accrued || 0) - distro_difference = (new_day_spending * account.allotment)/100))
 puts "distro_difference = #{distro_difference}"
           distro_difference_total += distro_difference
