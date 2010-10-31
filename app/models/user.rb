@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   end
   
   def spending_on(date)
-      daily_stats.where(:day=>date).first.days_spending.to_f if !daily_stats.where(:day=>date).first.nil?
+      daily_stats.where({:day => (date.midnight - 1.day)..date.midnight}).first.days_spending.to_f if !daily_stats.where(:day=>date).first.nil?
   end
   
   def stash_on(date)
@@ -128,7 +128,6 @@ class User < ActiveRecord::Base
 
 				#if the user has entered any spending values that day
 				if !(days_entered_spendings = user.spendings.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})).empty?          
-puts days_entered_spendings.to_s
           user.update_daily_stats days_entered_spendings #with any spending information.                  
 		    end
 			end
@@ -149,16 +148,12 @@ puts days_entered_spendings.to_s
         #perform the distribution
         distro_difference_total = 0
         accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
-          puts "new_day_spending = #{new_day_spending.to_s}"
           account.update_attribute(:accrued, ((account.accrued || 0) - distro_difference = (new_day_spending * account.allotment)/100))
-puts "distro_difference = #{distro_difference}"
           distro_difference_total += distro_difference
 	      end
-puts "distro_difference_total = #{distro_difference_total}"
+
         #get the difference in contribution to the stash.
         days_stash_difference = new_day_spending - distro_difference_total
-
-puts "stash difference #{days_stash_difference}"
 
         days_stat = daily_stats.where(:day=>dte).first
         days_stat.update_attributes(:days_spending=> (days_stat.days_spending + new_day_spending),:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
@@ -186,7 +181,7 @@ puts "stash difference #{days_stash_difference}"
     end    
     update_attribute(:stash, (stash || 0) + (daily_bank - total_distro)) 
     update_attribute(:spending_balance, daily_bank)
-    daily_stats.create(attr={:day=>Time.zone.now.yesterday, :days_spending => 0, :days_stash => stash}) 
+    daily_stats.create(attr={:day=>Time.now.yesterday, :days_spending => 0, :days_stash => stash}) 
   end
 
   private
