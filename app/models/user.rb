@@ -149,9 +149,10 @@ class User < ActiveRecord::Base
         distro_difference_total = 0
         accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
           account.update_attribute(:accrued, ((account.accrued || 0) - distro_difference = (new_day_spending * account.allotment)/100))
+puts "distro_difference = #{distro_difference}"
           distro_difference_total += distro_difference
 	      end
-
+puts "distro_difference_total = #{distro_difference_total}"
         #get the difference in contribution to the stash.
         days_stash_difference = new_day_spending - distro_difference_total
 
@@ -159,6 +160,7 @@ puts "stash difference #{days_stash_difference}"
 
         days_stat = daily_stats.where(:day=>dte).first
         days_stat.update_attributes(:days_spending=> (days_stat.days_spending + new_day_spending),:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
+
 
         #get all daily stats greater than this dte and subtract the difference from
         daily_stats.where('day > ?', dte).each do |days_stat|
