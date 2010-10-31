@@ -148,6 +148,7 @@ class User < ActiveRecord::Base
         #perform the distribution
         distro_difference_total = 0
         accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
+          "new_day_spending = #{new_day_spending}"
           account.update_attribute(:accrued, ((account.accrued || 0) - distro_difference = (new_day_spending * account.allotment)/100))
 puts "distro_difference = #{distro_difference}"
           distro_difference_total += distro_difference
