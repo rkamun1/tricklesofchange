@@ -166,7 +166,7 @@ puts "stash difference #{days_stash_difference}"
 
         #get all daily stats greater than this dte and subtract the difference from
         daily_stats.where('day > ?', dte).each do |days_stat|
-          #days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
+          days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
         end
 		    update_attribute(:stash, daily_stats.last.days_stash)
       end
