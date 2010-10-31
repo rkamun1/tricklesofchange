@@ -128,6 +128,7 @@ class User < ActiveRecord::Base
 
 				#if the user has entered any spending values that day
 				if !(days_entered_spendings = user.spendings.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})).empty?          
+puts days_entered_spendings
           user.update_daily_stats days_entered_spendings #with any spending information.                  
 		    end
 			end
