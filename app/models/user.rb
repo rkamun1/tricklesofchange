@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   end
   
   def spending_on(date)
-      daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.days_spending.to_f if !daily_stats.where(:created_at=>date).first.nil?
+      daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.days_spending.to_f if !daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.nil?
   end
   
   def stash_on(date)
