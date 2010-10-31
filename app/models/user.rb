@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
   end
   
   def stash_on(date)
-      daily_stats.where(:day=>date).first.days_stash.to_f if !daily_stats.where(:day=>date).first.nil?
+      daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.days_stash.to_f if !daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.nil?
   end
   
   def reset(user)
