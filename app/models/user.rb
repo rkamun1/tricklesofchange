@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
       #insert config.timezone
       Time.zone = user.timezone
       puts Time.now
-      if Time.now.hour == Time.now.hour #TODO: change to 0 - this makes it run at the midnight hour.
+      if Time.now.hour == Time.now.midnight.hour #TODO: change to 0 - this makes it run at the midnight hour.
       	puts "in midnight"
         user.insert_latest_daily_stat
 
