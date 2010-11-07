@@ -102,12 +102,13 @@ class User < ActiveRecord::Base
     Notifier.forgotten_password(self,password).deliver
   end
   
-  def spending_on(date)
-      daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.days_spending.to_f if !daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.nil?
+  def spending_on(dte)
+    daily_stats.where('date(day) = ?', dte).first.days_spending.to_f if !daily_stats.where('date(day) = ?', dte).first.nil?
   end
   
-  def stash_on(date)
-      daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.days_stash.to_f if !daily_stats.where({:created_at => (date.midnight - 1.day)..date.midnight}).first.nil?
+  def stash_on(dte)
+    daily_stats.where('date(day) = ?', dte).first.days_stash.to_f if !daily_stats.where('date(day) = ?', dte).first.nil?
+
   end
   
   def reset(user)
@@ -127,7 +128,7 @@ class User < ActiveRecord::Base
         user.insert_latest_daily_stat
 
 				#if the user has entered any spending values that day
-				if !(days_entered_spendings = user.spendings.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})).empty?          
+				if !(days_entered_spendings = user.spendings.where({:created_at => (Time.now.midnight-1.day)..Time.now.midnight})).empty?
           user.update_daily_stats days_entered_spendings #with any spending information.                  
 		    end
 			end
@@ -140,27 +141,29 @@ class User < ActiveRecord::Base
         
     #TODO: What if the person spends more than his days spending. Does a neg get distributed? Or 0?
     (first_date..last_date).each do |dte|   
-      new_day_spending = days_entered_spendings.where(:spending_date => dte).sum(:spending_amount) if !days_entered_spendings.where(:spending_date => dte).empty?
+      new_day_spending = days_entered_spendings.where('date(spending_date)=?', dte).sum(:spending_amount) if !days_entered_spendings.where('date(spending_date)=?', dte).empty?
 
+puts "new_day_spending= #{new_day_spending} on #{dte}"
       if !new_day_spending.nil?
-        old_days_spending = daily_stats.where(:day => dte).first.days_spending
-
         #perform the distribution
-        distro_difference_total = 0
-        accounts.where('maturity_date >= ?', dte).where("Date(created_at) <= Date(?)",dte).each do |account|
-          account.update_attribute(:accrued, ((account.accrued || 0) - distro_difference = (new_day_spending * account.allotment)/100))
-          distro_difference_total += distro_difference
+        distro_total = 0
+        accounts.where('Date(maturity_date) >= ?', dte).where("Date(created_at) <= ?",dte).each do |account|
+          account.update_attribute(:accrued, ((account.accrued || 0) - distro = (new_day_spending * account.allotment)/100))
+          distro_total += distro
 	      end
 
-        #get the difference in contribution to the stash.
-        days_stash_difference = new_day_spending - distro_difference_total
+puts "distro_total = #{distro_total}"
 
-        days_stat = daily_stats.where(:day=>dte).first
+        #get the difference in contribution to the stash.
+        days_stash_difference = new_day_spending + distro_total
+
+puts "distro_total = #{distro_total}"
+        days_stat = daily_stats.where('date(day) = ?', dte).first
         days_stat.update_attributes(:days_spending=> (days_stat.days_spending + new_day_spending),:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
 
 
         #get all daily stats greater than this dte and subtract the difference from
-        daily_stats.where('day > ?', dte).each do |days_stat|
+        daily_stats.where('date(day) > ?', dte).each do |days_stat|
           days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
         end
 		    update_attribute(:stash, daily_stats.last.days_stash)

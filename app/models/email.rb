@@ -11,6 +11,7 @@
 #  user_id    :integer(4)
 #  email      :string(255)
 #  name       :string(255)
+#
 
 
 

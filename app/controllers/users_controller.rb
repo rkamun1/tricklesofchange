@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :correct_user, :only => [:edit, :show, :update]
   before_filter :admin_user,   :only => [:destroy, :index]
   before_filter :already_signed_in, :only => [:new]
+  before_filter :set_timzeone, :only => [:show]
 
 #TODO: a user should be able to delete thier own account
 
@@ -48,7 +49,6 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      Time.zone = @user.timezone
       flash[:success] = "Profile updated."
       redirect_to @user
     else
@@ -86,6 +86,10 @@ class UsersController < ApplicationController
   end
 
   private    
+    def set_timzeone
+      Time.zone = current_user.timezone
+    end
+    
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101004013758
+# Schema version: 20101026024751
 #
 # Table name: accounts
 #
@@ -11,7 +11,7 @@
 #  user_id       :integer(4)
 #  created_at    :datetime
 #  updated_at    :datetime
-#  maturity_date :date
+#  maturity_date :datetime
 #
 
 class Account < ActiveRecord::Base

@@ -1,7 +1,7 @@
 class CreateDailyStats < ActiveRecord::Migration
   def self.up
     create_table :daily_stats do |t|
-      t.date :day
+      t.datetime :day
       t.decimal :days_spending, :precision => 6, :scale => 2
       t.integer :user_id
 

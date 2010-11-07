@@ -4,34 +4,49 @@ namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
     Rake::Task['db:reset'].invoke
-    admin = User.create!(:name => "Example User",
-                 :email => "example@railstutorial.org",
-                 :password => "foobar",
-                 :password_confirmation => "foobar",
-                 :daily_bank => 20)
+    invitation = Invitation.create!(:recipient_email => "muchira@gmail.com")
+    admin = User.create!(:name => "Sir Bertly",
+                   :email => "muchira@gmail.com",
+                   :password => "password",
+                   :password_confirmation => "password",
+                   :daily_bank => 20,
+                   :invitation_token => invitation.token,
+                   :invitation_limit => 20,
+                   :timezone => "EST",
+                   :unit => "$")
     admin.toggle!(:admin)            
-    10.times do |n|
-      name  = Faker::Name.name
-      email = Faker::Internet.email
-      password  = "password"
-      daily_bank = 20.75
-      User.create!(:name => name,
-                   :email => email,
-                   :password => password,
-                   :password_confirmation => password,
-                   :daily_bank => daily_bank)
-    end
+#    10.times do |n|
+#      name  = Faker::Name.name
+#      email = Faker::Internet.email
+#      password  = "password"
+#      daily_bank = 20.75
+#      User.create!(:name => name,
+#                   :email => email,
+#                   :password => password,
+#                   :password_confirmation => password,
+#                   :daily_bank => daily_bank)
+#    end
     
     User.all.each do |user|
-      5.times do
         user.accounts.create!(:details => Faker::Lorem.sentence(2), 
                                 :cost => 5 + rand(1000),
-                                :allotment => 1 + rand(20))                                
-      end
+                                :allotment => 50,
+                                :maturity_date => 1.month.from_now,
+                            :created_at => 1.day.ago)                        
+      user.spendings.create!(:spending_date => 6.days.ago, 
+                            :spending_details => Faker::Lorem.sentence(2), 
+                            :spending_amount => 10,
+                            :created_at => 1.day.ago)    
       
-      65.times do |n|                                                  
-        user.daily_stats.create!(:day => Date.today-n.day, 
-                                :days_spending => 1 + rand(20))                                                      
+      n = 1
+      k = 14
+      while k > 1                                                 
+        user.daily_stats.create!(:day => Date.today-k.day, 
+                                :days_spending => 0,
+                                :days_stash => 20 * n)   
+        user.update_attribute(:stash,20 * n)
+        n += 1
+        k -= 1
       end
     end
   end

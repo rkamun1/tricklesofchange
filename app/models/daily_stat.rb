@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20101001022551
+# Schema version: 20101026024751
 #
 # Table name: daily_stats
 #
 #  id            :integer(4)      not null, primary key
-#  day           :date
+#  day           :datetime
 #  days_spending :decimal(6, 2)
 #  user_id       :integer(4)
 #  created_at    :datetime
