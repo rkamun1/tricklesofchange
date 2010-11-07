@@ -23,10 +23,13 @@
       <ul>
 		    <li><a href="#accounts" class = "hdr">Accounts</a><img src="/images/tooltip.png" class = "popup" title="click"  
 		    data-header="accounts" data-info="<p>Pick an item you would like to save towards, it may be a pair of jeans, a night out, a concert ticket...etc etc. Each item you choose is an account.</p><ul><li>Enter the target you would like to save towards. This is normally the cost of the account(the item you are spending on)</li><li>Enter the alloment. This is the percent of your daily unspent, that you would like to donate towards this account</li><li>The maturity date is the date that you intend to mature this account by. The date you intend to be done contributing to this account and reagy to use that money</li></ul><p>That's it!!! Every day, your daily unspent shall be split up between your accounts and you can just sit back and watch your money accrue towards your target!!</p>"/></li>
-		    <li><a href="#spendings" class = "hdr">Spendings</a><img src="/images/tooltip.png" class = "popup" title="click"  data-header="spendings" data-info="<p>Enter your spendings; you may itemize each spending to increase accountablity, or you may simple have one or two entries depicting your days spendings."/></li>
+		    <li><a href="#spendings" class = "hdr">Spending</a><img src="/images/tooltip.png" class = "popup" title="click"  data-header="spendings" data-info="<p>Enter your spendings; you may itemize each spending to increase accountablity, or you may simple have one or two entries depicting your days spendings."/></li>
 	    </ul>
 
-      <div id = "accounts">       
+      <div id = "accounts"> 
+        <% if @user.accounts.empty? %>   
+          Enter your accounts here.........   
+        <% end %>
         <div id="addaccount"><%= link_to "add account", new_account_path %></div>
         <% if !@user.accounts.empty? %>
           <table id = "accountstable">
@@ -44,7 +47,10 @@
        </div>
     
       <div id = "spendings"> 
-        <div id="addspending"><%= link_to "add a spending detail", new_spending_path %></div>
+        <% if @user.spendings.empty? %>   
+          Enter your spendings here.........  
+        <% end %>
+        <div id="addspending"><%= link_to "add a spending", new_spending_path %></div>
         <% if !@user.spendings.empty? %>
           <table id = "spendingstable">
             <tr class = "header">
