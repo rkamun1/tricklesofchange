@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
     end    
     update_attribute(:stash, (stash || 0) + (daily_bank - total_distro)) 
     update_attribute(:spending_balance, daily_bank)
-    daily_stats.create(attr={:day=>Time.now + 1.day, :days_spending => 0, :days_stash => stash}) 
+    daily_stats.create(attr={:day=>Time.now.to_date, :days_spending => 0, :days_stash => stash}) 
   end
 
   private
