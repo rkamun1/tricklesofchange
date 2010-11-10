@@ -35,10 +35,12 @@ class Spending < ActiveRecord::Base
                            
                             
   default_scope :order => 'spendings.created_at DESC'
-  before_save :deduct_from_bank
-  after_destroy :restore_to_bank
+  before_save :deduct_from_bank, :after_spending_distribution
+  after_destroy :restore_to_bank, :after_deleted_spending
   
   protected
+
+#new record
   def deduct_from_bank
     user = self.user
     #if new_record?
@@ -46,15 +48,62 @@ class Spending < ActiveRecord::Base
       new_bal = new_record? ? (user.spending_balance || user.daily_bank) - spending_amount : (user.spending_balance || user.daily_bank) + spending_amount_was - spending_amount
       
       user.update_attribute :spending_balance, new_bal
-      user.update_attribute :stash, (user.stash || 0)+ new_bal if new_bal < 0
-    else
-      user.update_attribute :stash, new_record? ? (user.stash || 0) - spending_amount : (user.stash || 0) + spending_amount_was - spending_amount
+
+      #user.update_attribute :stash, new_record? ? (user.stash || 0) - spending_amount : (user.stash || 0) + spending_amount_was - spending_amount
     end
   end
-  
+
+  def after_spending_distribution
+    user = self.user
+    #puts "spending= #{spending_amount} on #{spending_date}"
+
+    spending = new_record? ? spending_amount : (spending_amount - spending_amount_was)
+    #perform the distribution
+    distro_total = 0
+    user.accounts.where('Date(maturity_date) >= ?', spending_date).where("Date(created_at) <= ?",spending_date).each do |account|
+      account.update_attribute(:accrued, ((account.accrued || 0) - distro = ((spending) * account.allotment)/100))
+      distro_total += distro
+    end
+    
+    #get the difference in contribution to the stash.
+    days_stash_difference = (spending) + distro_total
+
+#puts "distro_total = #{distro_total}"
+    days_stat = user.daily_stats.where('date(day) = ?', spending_date).first
+    days_stat.update_attributes(:days_spending=> days_stat.days_spending + spending, :days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
+
+    #get all daily stats greater than this dte and subtract the difference from
+    user.daily_stats.where('date(day) > ?', spending_date).each do |days_stat|
+      days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
+    end
+    user.update_attribute(:stash, user.daily_stats.last.days_stash)
+  end
+
+#Deletions  
   def restore_to_bank #TODO: Days-spending should also change
     user = self.user
     user.update_attribute :spending_balance, (user.spending_balance || 0) + spending_amount if spending_date == Date.today
     user.update_attribute :stash, (user.stash || 0) + spending_amount if spending_date != Date.today
   end
-end
+  
+  def after_deleted_spending
+    #perform the distribution
+    distro_total = 0
+    user.accounts.where('Date(maturity_date) >= ?', spending_date).where("Date(created_at) <= ?",spending_date).each do |account|
+      account.update_attribute(:accrued, ((account.accrued || 0) + distro = (spending_amount * account.allotment)/100))
+      distro_total += distro
+    end
+    
+    #get the difference in contribution to the stash.
+    days_stash_difference = spending_amount + distro_total
+    #puts "distro_total = #{distro_total}"
+    days_stat = user.daily_stats.where('date(day) = ?', spending_date).first
+    days_stat.update_attributes(:days_spending=> days_stat.days_spending - spending_amount, :days_stash=> (days_stat.days_stash + days_stash_difference)) if !days_stat.nil?
+
+    #get all daily stats greater than this dte and subtract the difference from
+    user.daily_stats.where('date(day) > ?', spending_date).each do |days_stat|
+      days_stat.update_attribute(:days_stash,(days_stat.days_stash + days_stash_difference))
+    end
+    user.update_attribute(:stash, user.daily_stats.last.days_stash)
+  end
+end 

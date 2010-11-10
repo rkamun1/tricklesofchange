@@ -86,13 +86,13 @@
           name: "Daily Spendings",
           pointInterval: <%= 1.day * 1000 %>,
           pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
-          data: <%= ((Time.now.midnight - 1.month).to_date..(Time.zone.now.midnight - 1.day).to_date).map { |date| @user.spending_on(date).to_f}.inspect %>  
+          data: <%= ((Time.now.midnight - 1.month).to_date..(Time.now.midnight).to_date).map { |date| @user.spending_on(date).to_f}.inspect %>  
         },
         {
         name: "Daily Stash",
           pointInterval: <%= 1.day * 1000 %>,
           pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
-          data: <%= ((Time.now.midnight - 1.month).to_date..(Time.zone.now.midnight - 1.day).to_date).map { |date| @user.stash_on(date).to_f}.inspect %>
+          data: <%= ((Time.now.midnight - 1.month).to_date..(Time.now.midnight).to_date).map { |date| @user.stash_on(date).to_f}.inspect %>
         }]       
      });  
    });  

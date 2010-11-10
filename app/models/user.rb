@@ -123,12 +123,12 @@ class User < ActiveRecord::Base
       #insert config.timezone
       Time.zone = user.timezone
       puts Time.now
-      if Time.now.hour == Time.now.midnight.hour #TODO: change to 0 - this makes it run at the midnight hour.
+      if Time.now.hour == Time.now.hour #TODO: change to midnight hour
       	puts "in midnight"
         user.insert_latest_daily_stat
 
 				#if the user has entered any spending values that day
-				if !(days_entered_spendings = user.spendings.where({:created_at => (Time.now.midnight-1.day)..Time.now.midnight})).empty?
+				if !(days_entered_spendings = user.spendings.where({:created_at => (Time.now.midnight)..Time.now.midnight + 1.day})).empty?
           user.update_daily_stats days_entered_spendings #with any spending information.                  
 		    end
 			end
@@ -184,7 +184,7 @@ puts "distro_total = #{distro_total}"
     end    
     update_attribute(:stash, (stash || 0) + (daily_bank - total_distro)) 
     update_attribute(:spending_balance, daily_bank)
-    daily_stats.create(attr={:day=>Time.now.yesterday, :days_spending => 0, :days_stash => stash}) 
+    daily_stats.create(attr={:day=>Time.now + 1.day, :days_spending => 0, :days_stash => stash}) 
   end
 
   private
