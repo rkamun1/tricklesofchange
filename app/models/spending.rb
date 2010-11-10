@@ -20,9 +20,9 @@ class Spending < ActiveRecord::Base
   
   validates :user_id, :presence => true
   validates :spending_date, :presence => true,
-                            :date => { :after => Time.now - 2.weeks , 
+                            :date => { :after => :join_date , 
                                        :before => Time.now + 1.day,
-                                       :message => "date cannot be older than 2 weeks old."}
+                                       :message => "the spending date cannot be older than the date you joined tricklesofchange.com."}
 
   validates :spending_details, :presence => true, :length => { :maximum => 100}
   validates :spending_amount, :presence => true,
@@ -105,5 +105,9 @@ class Spending < ActiveRecord::Base
       days_stat.update_attribute(:days_stash,(days_stat.days_stash + days_stash_difference))
     end
     user.update_attribute(:stash, user.daily_stats.last.days_stash)
+  end
+  
+  def join_date
+    spending_date >= self.user.created_at.to_date
   end
 end 
