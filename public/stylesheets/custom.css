@@ -36,10 +36,24 @@ input, textarea{
   height:120px;
 }
 
-#header img {
-  background: #fff;
+img {
   border:0px;
 }
+
+#social{
+    position:absolute;
+    right:0;
+    top:50%;
+    padding:10px 0px 10px 0px;
+    background: url('http://t3.gstatic.com/images?q=tbn:ANd9GcTovSd7hEKQPmwj6-3o_nAHCckoP1ZEK4K-GOOy4Zpd6k__hzI&t=1&usg=__6w2EkVLr9A8z27r6H4Znw03dz7s=') repeat scroll 0 0 #CC9900;  
+    border: medium double;
+}
+
+#social ul li{
+  list-style-type: none;    
+}
+
+
 
 label{
     font-weight:normal;
@@ -112,7 +126,6 @@ logo{
   padding: 0 5px;
   font-weight: bold;
 }
-
 
 /*index page*/
 
