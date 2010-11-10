@@ -123,53 +123,12 @@ class User < ActiveRecord::Base
       #insert config.timezone
       Time.zone = user.timezone
       puts Time.now
-      if Time.now.hour == Time.now.hour #TODO: change to midnight hour
+      if Time.now.hour == Time.now.midnight.hour #TODO: change to midnight hour
       	puts "in midnight"
         user.insert_latest_daily_stat
-
-				#if the user has entered any spending values that day
-				if !(days_entered_spendings = user.spendings.where({:created_at => (Time.now.midnight)..Time.now.midnight + 1.day})).empty?
-          user.update_daily_stats days_entered_spendings #with any spending information.                  
-		    end
 			end
 		end
 	end
-
-  def update_daily_stats days_entered_spendings
-    first_date = days_entered_spendings.minimum(:spending_date).to_date
-    last_date = days_entered_spendings.maximum(:spending_date).to_date
-        
-    #TODO: What if the person spends more than his days spending. Does a neg get distributed? Or 0?
-    (first_date..last_date).each do |dte|   
-      new_day_spending = days_entered_spendings.where('date(spending_date)=?', dte).sum(:spending_amount) if !days_entered_spendings.where('date(spending_date)=?', dte).empty?
-
-puts "new_day_spending= #{new_day_spending} on #{dte}"
-      if !new_day_spending.nil?
-        #perform the distribution
-        distro_total = 0
-        accounts.where('Date(maturity_date) >= ?', dte).where("Date(created_at) <= ?",dte).each do |account|
-          account.update_attribute(:accrued, ((account.accrued || 0) - distro = (new_day_spending * account.allotment)/100))
-          distro_total += distro
-	      end
-
-puts "distro_total = #{distro_total}"
-
-        #get the difference in contribution to the stash.
-        days_stash_difference = new_day_spending + distro_total
-
-puts "distro_total = #{distro_total}"
-        days_stat = daily_stats.where('date(day) = ?', dte).first
-        days_stat.update_attributes(:days_spending=> (days_stat.days_spending + new_day_spending),:days_stash=> (days_stat.days_stash - days_stash_difference)) if !days_stat.nil?
-
-
-        #get all daily stats greater than this dte and subtract the difference from
-        daily_stats.where('date(day) > ?', dte).each do |days_stat|
-          days_stat.update_attribute(:days_stash,(days_stat.days_stash - days_stash_difference))
-        end
-		    update_attribute(:stash, daily_stats.last.days_stash)
-      end
-    end 
-  end
 
   def insert_latest_daily_stat
     puts "Inserting lastest stat"
