@@ -20,9 +20,10 @@ class Spending < ActiveRecord::Base
   
   validates :user_id, :presence => true
   validates :spending_date, :presence => true,
-                            :date => { :after => :join_date , 
-                                       :before => Time.now + 1.day,
-                                       :message => "the spending date cannot be older than the date you joined tricklesofchange.com."}
+                            :date => { :before => Time.now,
+                                       :message => "the spending date cannot be newer than todays's date"}
+
+  validate :join_date
 
   validates :spending_details, :presence => true, :length => { :maximum => 100}
   validates :spending_amount, :presence => true,
@@ -108,6 +109,8 @@ class Spending < ActiveRecord::Base
   end
   
   def join_date
-    spending_date >= self.user.created_at.to_date
+    if (spending_date.to_date < self.user.created_at.to_date - 1.day) 
+      errors.add(:spending_date,"the spending date cannot be older than the date you joined tricklesofchange.com.")
+    end
   end
 end 
