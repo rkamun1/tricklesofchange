@@ -42,8 +42,8 @@ class Notifier < ActionMailer::Base
   def contact_email email
     @email = email
     mail(:reply_to => @email.email,
-         :bcc => @email.email,
-         :to => "customerservice@tricklesofchange.com",
+         :to => @email.email,
+         :bcc => "customerservice@tricklesofchange.com",
          :subject => @email.topic)  
   end
 end
