@@ -30,6 +30,7 @@ puts @users.inspect
   def create
     @user = User.new(params[:user])
     if @user.save
+      @user.daily_stats.create(attr={:day=>Time.now.to_date, :days_spending => 0, :days_stash => @user.daily_bank}) 
       sign_in @user
       flash[:success] = "Welcome to your home of Microsavings! Time to make your money work for you!!!"
       #housekeping
