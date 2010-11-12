@@ -31,6 +31,9 @@
     <%= f.label "Currency" %><br />
     <%= f.select :unit, options_for_select(%w{ $ £ KES}) %>
   </div>
+  <div class="field">
+    <%= f.check_box :terms %> Yes, I agree to the tricklesofchange.com <%= link_to "Terms of Use", terms_path %>
+  </div>
   <div class="actions">
     <%= f.submit "Sign up" %> or <%= link_to "Sign in!", signin_path %>
   </div>

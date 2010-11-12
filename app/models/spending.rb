@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20101026024751
+# Schema version: 20101112050442
 #
 # Table name: spendings
 #
 #  id               :integer(4)      not null, primary key
-#  spending_date    :datetime
+#  spending_date    :date
 #  spending_details :string(255)
 #  spending_amount  :decimal(6, 2)
 #  user_id          :integer(4)

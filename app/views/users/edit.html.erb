@@ -41,3 +41,6 @@
   <a href="http://gravatar.com/emails">change</a> (this will take you to the gravatar site)
 </div>
 
+<%= link_to "delete", @user, :method => :delete, :confirm => "You sure?",
+                                    :title => "Delete #{@user.name}" %>
+

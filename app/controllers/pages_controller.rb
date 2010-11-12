@@ -14,4 +14,8 @@ class PagesController < ApplicationController
   def howitworks
     @title = "How it works"
   end  
+
+  def terms
+    @title = "Terms of Use"
+  end
 end

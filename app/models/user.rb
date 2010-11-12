@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101004013758
+# Schema version: 20101112050442
 #
 # Table name: users
 #
@@ -18,6 +18,7 @@
 #  invitation_limit   :integer(4)
 #  timezone           :string(255)
 #  unit               :string(255)
+#  terms              :boolean(1)
 #
 
 #TODO: add unique username requirement to the DATABASE as  opposed to model.   
@@ -26,7 +27,7 @@
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation, :daily_bank, :invitation_token, :timezone, :unit
+  attr_accessible :name, :email, :password, :password_confirmation, :daily_bank, :invitation_token, :timezone, :unit, :terms
 
   
   belongs_to :invitation
@@ -55,6 +56,8 @@ class User < ActiveRecord::Base
                        
   validates :daily_bank, :presence => true,
                          :format => {:with => daily_bank_regex}
+  
+  validate :accept_terms
                          
   validates_numericality_of :daily_bank, 
                             :greater_than => 1,
@@ -175,5 +178,9 @@ class User < ActiveRecord::Base
 
     def set_invitation_limit
      self.invitation_limit = 5
-    end            
+    end      
+  
+    def accept_terms
+      errors.add(:terms, 'must be accepted') unless terms?
+    end      
 end

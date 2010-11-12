@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20101004013758
+# Schema version: 20101112050442
 #
 # Table name: faqs
 #
 #  id         :integer(4)      not null, primary key
 #  question   :string(255)
-#  answer     :string(255)
+#  answer     :text
 #  created_at :datetime
 #  updated_at :datetime
 #

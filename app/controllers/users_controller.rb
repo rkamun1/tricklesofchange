@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:index, :edit, :show, :update]
   before_filter :correct_user, :only => [:edit, :show, :update]
-  before_filter :admin_user,   :only => [:destroy, :index]
+  before_filter :correct_user_or_admin, :only  => [:destroy]
+  before_filter :admin_user,   :only => [ :index]
   before_filter :already_signed_in, :only => [:new]
   before_filter :set_timzeone, :only => [:show]
 
@@ -91,7 +92,12 @@ puts @users.inspect
     def set_timzeone
       Time.zone = current_user.timezone
     end
-    
+
+    def correct_user_or_admin
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user) || current_user.admin?
+    end    
+
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)

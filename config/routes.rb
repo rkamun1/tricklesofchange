@@ -22,6 +22,7 @@ Tricklesofchange::Application.routes.draw do
   match '/forgot_password' => 'users#forgot_password'
   match '/reset' => 'users#reset'
   match 'howitworks' => 'pages#howitworks'
+  match 'terms' => 'pages#terms'
   
   root :to => 'sessions#new'
 
