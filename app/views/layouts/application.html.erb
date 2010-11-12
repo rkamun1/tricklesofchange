@@ -9,13 +9,13 @@
   <%= render :partial => "layouts/googleanalytics" if RAILS_ENV == 'production'%>
 </head>
 <body>
-	<div class="container">
-    <div id = "social" class="round-left">
+  <div id = "social" class="round-left">
       <ul>
         <li><a href="http://twitter.com/#!/tricklesochange"><img src="/images/tweet_icon.png"></a></li>
-        <li><a><img src="/images/fb_icon.png"></a></li>
+        <li><a href="http://www.facebook.com/pages/tricklesofchangecom/140737925974767"><img src="/images/fb_icon.png"></a></li>
       </ul>
   </div>
+	<div class="container">
 		<%= render :partial => "layouts/header" %>
       <div id = "section" class="round">
       <% flash.each do |key, value| %>

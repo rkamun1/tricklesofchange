@@ -41,9 +41,9 @@ img {
 }
 
 #social{
-    position:absolute;
+    position:fixed;
     right:0;
-    top:50%;
+    top:40%;
     padding:10px 0px 10px 0px;
     background: url('http://t3.gstatic.com/images?q=tbn:ANd9GcTovSd7hEKQPmwj6-3o_nAHCckoP1ZEK4K-GOOy4Zpd6k__hzI&t=1&usg=__6w2EkVLr9A8z27r6H4Znw03dz7s=') repeat scroll 0 0 #CC9900;  
     border: medium double;
