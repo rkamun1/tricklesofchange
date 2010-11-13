@@ -30,7 +30,7 @@
         <% if @user.accounts.empty? %>   
           Enter your accounts here.........   
         <% end %>
-        <div id="addaccount"><%= link_to "add account", new_account_path %></div>
+        <div id="addaccount"><%= link_to "add an account", new_account_path %></div>
         <% if !@user.accounts.empty? %>
           <table id = "accountstable">
             <tr class ="header">
