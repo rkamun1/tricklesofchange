@@ -1,12 +1,15 @@
-Dear <%= @email.name %>,
+<%= image_tag attachments['newheader.png'].url %>
+
+<p>Dear <%= @email.name %>,</p>
 
 <p>Thank you for your feedback.</p>
-
 ===========================================================
+
 <p>
 <%= @email.message %>
 </p>
 
+===========================================================
 <p>Thank you for your support.<br/>
 Regards,<br/>
 tricklesofchange.com team</p>

@@ -6,6 +6,7 @@ class Notifier < ActionMailer::Base
 
   #send a forgotten password
   def forgotten_password(user, password)
+    attachments.inline['newheader.png'] = File.read(Rails.root.join('public/images/newheader.png'))
     @user = user
     @password = password
     title = "Your password has been reset"
@@ -14,6 +15,7 @@ class Notifier < ActionMailer::Base
   
   #send an invitaion
   def invitation invitation, signup_url
+    attachments.inline['newheader.png'] = File.read(Rails.root.join('public/images/newheader.png'))
     @invitation = invitation 
     @signup_url = signup_url
     mail(:to => @invitation.recipient_email, 
@@ -22,13 +24,16 @@ class Notifier < ActionMailer::Base
 
   #a new request notification to admin
   def new_request invitation, signup_url
+    attachments.inline['newheader.png'] = File.read(Rails.root.join('public/images/newheader.png'))
     @invitation = invitation 
     @signup_url = signup_url
-    mail(:subject => "Someone new has requested to join your beta.")
+    mail(:to => @invitation.recipient_email, 
+         :subject => "Welcome to tricklesofchange.com BETA.")
   end
 
   #send the inviter and the system a joined notification
   def joined invitation 
+    attachments.inline['newheader.png'] = File.read(Rails.root.join('public/images/newheader.png'))
     @invitation = invitation
     if !@invitation.sender.nil?
       mail(:to => @invitation.sender.email,
@@ -40,6 +45,7 @@ class Notifier < ActionMailer::Base
 
   #emails sent from the contact me page
   def contact_email email
+    attachments.inline['newheader.png'] = File.read(Rails.root.join('public/images/newheader.png'))
     @email = email
     mail(:reply_to => @email.email,
          :to => @email.email,

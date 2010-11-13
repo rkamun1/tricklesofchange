@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
         flash[:success] = "Thank you, for your support."
       else
         Notifier.new_request(@invitation, signup_url(@invitation.token)).deliver
-        flash[:success] = "Thank you, we will notify you when we are ready to accept more users."  
+        flash[:success] = "Thank you for signing up. Please check your email (check spam too) for your invitation."  
       end
       redirect_to root_url
     else
