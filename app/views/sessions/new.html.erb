@@ -8,7 +8,7 @@
     <%= form_for(Invitation.new) do |f| %>
       <%= render 'shared/error_messages', :object => f.object %>
       <p>
-        <%= f.label :recipient_email, "Email address" %><br />
+        <%= f.label :recipient_email, "Email address" %>:<br />
         <%= f.text_field :recipient_email %>
         <%= f.submit "Get in line" %></p>
     <% end %>
@@ -18,11 +18,11 @@
     <h4>Sign in</h4>
     <%= form_for(:session, :url => sessions_path) do |f| %>
       <div class="field">
-        <%= f.label :email %><br />
+        <%= f.label :email %>:<br />
         <%= f.text_field :email, :style => "width: 150px;"  %>
       </div>
       <div class="field">
-        <%= f.label :password %><br />
+        <%= f.label :password %>:<br />
         <%= f.password_field :password, :style => "width: 150px;"  %>
       </div>
       <div class="actions">
