@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/galetahub/simple-captcha.git
+  revision: 0bf2c0dd7f3f86f06e935b264b3671b74626d317
+  specs:
+    simple_captcha (0.1.1)
+
 GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
@@ -113,6 +119,7 @@ DEPENDENCIES
   rails
   rspec (= 2.0.0.beta.18)
   rspec-rails (= 2.0.0.beta.18)
+  simple_captcha!
   spork (= 0.8.4)
   whenever
   will_paginate (>= 3.0.pre)
