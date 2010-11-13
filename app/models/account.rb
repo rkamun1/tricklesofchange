@@ -41,7 +41,18 @@ class Account < ActiveRecord::Base
                             :message => "should be a number between 1 and 100; 2 decimal places optional."
                                                
 
+  after_destroy :delete_from_stash
+  
   protected
+
+  def delete_from_stash
+    user = self.user
+    if accrued > 0
+      user.daily_stats.last.update_attribute(:days_stash, user.stash + accrued)
+      user.update_attribute(:stash, user.daily_stats.last.days_stash)
+    end
+  end
+
   def allotment_is_100
     other_acccount_allotments = Account.where(:user_id => user_id).where('id != ?', id || -1).sum(:allotment)
     
