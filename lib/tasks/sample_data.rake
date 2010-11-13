@@ -13,6 +13,7 @@ namespace :db do
                    :invitation_token => invitation.token,
                    :invitation_limit => 20,
                    :timezone => "EST",
+                   :terms => 1,
                    :unit => "$")
     admin.toggle!(:admin)            
 #    10.times do |n|

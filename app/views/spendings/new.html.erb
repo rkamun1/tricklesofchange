@@ -1,20 +1,3 @@
 <h1>Add a spending</h1>
-<%= form_for(@spending) do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
-  <div class="field">
-    <%= f.label :spending_date %>: <br/>
-    <%= f.text_field  :spending_date, :value => @spending.spending_date.nil? ? "" : @spending.spending_date.strftime("%B %d, %Y") %>
-  </div>
-  <div class="field">
-    <%= f.label :spending_details %><br />
-    <%= f.text_field :spending_details %><img src="/images/tooltip.png" class = "tooltip" title="What you spent money on. Feel free to itemize for accountablity. You may also simply just enter the day's spending to watch your trends"/>
-  </div>
-  <div class="field">
-    <%= f.label :spending_amount %><br />
-    <%= f.text_field :spending_amount %><img src="/images/tooltip.png" class = "tooltip" title="How much was spent."/>
-  </div>
-  <div class="actions">
-    <%= f.submit "add spending" %>
-  </div>
-<% end %>
+<%= render :partial => "spending_form" %>
 

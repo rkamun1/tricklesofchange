@@ -24,12 +24,8 @@
 <%= time_zone_select( "user", "timezone", nil, :include_blank => true) %>
   </div>
   <div class="field">
-    <%= f.label :daily_bank, "Daily Bank" %><br />
-    <%= f.text_field :daily_bank %>
-  </div>
-  <div class="field">
-    <%= f.label "Currency" %><br />
-    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %>
+    <%= f.label "Currency" %><%= f.label :daily_bank, "Daily Bank" %><br />
+    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %><%= f.text_field :daily_bank %>
   </div>
   <div class="actions">
     <%= f.submit "Update" %>

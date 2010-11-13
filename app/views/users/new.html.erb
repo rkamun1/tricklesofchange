@@ -4,32 +4,28 @@
   <%= render 'shared/error_messages', :object => f.object %>
   <%= f.hidden_field :invitation_token %>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>:<br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %>:<br />
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password %>:<br />
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm Password" %><br />
+    <%= f.label :password_confirmation, "Confirm Password" %>:<br />
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="field">
-    <%= f.label :timezone %><br />
+    <%= f.label :timezone %>:<br />
 <%= time_zone_select( "user", "timezone", nil, :include_blank => true) %>
   </div>
   <div class="field">
-    <%= f.label :daily_bank %><br />
-    <%= f.text_field :daily_bank %><img src="/images/tooltip.png" class = "tooltip" title="This is the max you intend to spend a day"/>
-  </div>
-  <div class="field">
-    <%= f.label "Currency" %><br />
-    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %>
+    <%= f.label "Currency" %> and <%= f.label :daily_bank, "Daily Bank" %>:<br />
+    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %> <%= f.text_field :daily_bank %>
   </div>
   <div class="field">
     <%= f.check_box :terms %> Yes, I agree to the tricklesofchange.com <%= link_to "Terms of Use", terms_path %>
