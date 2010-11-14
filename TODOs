@@ -2,3 +2,4 @@ TODO: Learn how to use HTTPS in Rails, and then secure the Sessions controller n
 - Make the paginate AJAXified
 - do not add to account if dated or target is reached.
 - spend from stash
+- Enter expendable income and suggest daily bank and reprompt at every month
