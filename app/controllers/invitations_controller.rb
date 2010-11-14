@@ -22,7 +22,7 @@ class InvitationsController < ApplicationController
     end
   end
 
-  def signup
+  def join
     @invitation = Invitation.new
   end
 end

@@ -16,7 +16,7 @@ Tricklesofchange::Application.routes.draw do
   match '/signin'  => 'sessions#new'
   match '/signout' => 'sessions#destroy'
 	match '/signup/:invitation_token'	=> 'users#new' , :as => "/signup"
-	match '/signup'	=> 'invitations#signup'
+	match '/join'	=> 'invitations#join'
 	match '/contact' => 'pages#contact'
   match '/about'  => 'pages#about'
   match '/forgot_password' => 'users#forgot_password'
