@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     $(function() {
         var s = window.location.pathname;
-        if(s == '/' || s == '/signup')
+        if(s == '/' || s.indexOf("/signup") === 0 || s.indexOf("/forgot_password") === 0 )
         {
             $('#signupbtn').hide();
         }
