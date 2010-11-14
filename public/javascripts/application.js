@@ -6,8 +6,6 @@ $(document).ready(function() {
     
     $(function (){
 
-var dte = 
-
       $('#spending_spending_date').attr("onFocus","javascript:blur();");
       $('#spending_spending_date').datepicker({ minDate: -30, maxDate:0, dateFormat: 'MM d, yy' });
     });
@@ -15,6 +13,14 @@ var dte =
     //for the profile stats tabs
     $(function() {
         $('#thenumbers').tabs();
+    });
+
+    $(function() {
+        var s = window.location.pathname;
+        if(s == '/' || s == '/signup')
+        {
+            $('#signupbtn').hide();
+        }
     });
 });
 

@@ -1,9 +1,12 @@
 <div id="footer">
   <div id ="nav" class="round">
     <ul>
+      <% if !signed_in? %>
+        <li><%= link_to "Home", root_path %></li>
+      <% end %>
+      <li><%= link_to "About", about_path %></li>
       <li><%= link_to "How it works", howitworks_path %></li>
       <li><%= link_to "FAQs", faqs_path %></li>
-      <li><%= link_to "About", about_path %></li>
       <li><%= link_to "Terms", terms_path %></li>
       <li><%= link_to "Contact", new_email_path %></li>
     </ul>

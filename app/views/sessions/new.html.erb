@@ -2,17 +2,7 @@
 <img src = "/images/slideshow.png"/>
 </div>
 <div id = "homepage">
-  <div id = "signupforbeta">
-    <h4>Invitation Request</h4>
-    <p>We are currently in private BETA, please sign up and we will notify you when we are ready to accept new users.</p>
-    <%= form_for(Invitation.new) do |f| %>
-      <%= render 'shared/error_messages', :object => f.object %>
-      <p>
-        <%= f.label :recipient_email, "Email address" %>:<br />
-        <%= f.text_field :recipient_email %>
-        <%= f.submit "Get in line" %></p>
-    <% end %>
-  </div>
+  <%= render :partial => "invitations/beta_signup" %>
   
   <div id = "signin">
     <h4>Sign in</h4>

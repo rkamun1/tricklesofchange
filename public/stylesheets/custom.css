@@ -397,5 +397,7 @@ tr.even td {
     background:#e5e0fd;
     padding-left:10px;
 }
-tr.odd td {padding-left:10px;
+tr.odd td {padding-left:10px;}
+#signupnew{height:200px;}
+#signupbtn{float:right;}
 

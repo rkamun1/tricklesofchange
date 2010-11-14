@@ -1,4 +1,4 @@
 TODO: Learn how to use HTTPS in Rails, and then secure the Sessions controller new and create actions.
 - Make the paginate AJAXified
-- Allow users to delete their own profiles.
-- Change all the dates to date time and call the days as specified in the rails docs.
+- do not add to account if dated or target is reached.
+- spend from stash

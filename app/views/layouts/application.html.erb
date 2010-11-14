@@ -14,9 +14,12 @@
 	<div class="container">
 		<%= render :partial => "layouts/header" %>
       <div id = "section" class="round">
-      <% flash.each do |key, value| %>
-          <div class="flash <%= key %>"><%= value %></div>
+        <% flash.each do |key, value| %>
+            <div class="flash <%= key %>"><%= value %></div>
         <% end %> 
+          <div id="signupbtn">
+            <%= link_to(image_tag("/images/signupbtn.png", {:alt => 'Sign Up', :class=>"signupbtn"}), signup_path ) %>
+          </div>  
         <%= yield %>
       </div>
   	<%= render :partial => "layouts/footer" %>  

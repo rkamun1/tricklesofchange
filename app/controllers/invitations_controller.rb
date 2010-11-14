@@ -21,4 +21,8 @@ class InvitationsController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def signup
+    @invitation = Invitation.new
+  end
 end
