@@ -24,8 +24,13 @@
 <%= time_zone_select( "user", "timezone", nil, :include_blank => true) %><img src="/images/tooltip.png" class = "tooltip" title="The system needs this to run nightly updates."/>
   </div>
   <div class="field">
-    <%= f.label "Currency" %> and <%= f.label :daily_bank, "Daily Bank" %>:<br />
-    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %> <%= f.text_field :daily_bank %><img src="/images/tooltip.png" class = "tooltip" title="Your daily bank is a cash estimate that you would like not to exceed on a day-to-day basis."/>
+    <%= f.label "Currency" %> and <%= f.label :daily_bank, "Daily Bank" %> :<br /> 
+    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %> <%= f.text_field :daily_bank %><img src="/images/tooltip.png" class = "tooltip" title="Your daily bank is a cash estimate that you would like not to exceed on a day-to-day basis."/> 
+  </div>
+  <div id="daily_bank_tip" class="round">TIP: If you cannot figure out a daily bank, enter your month's allowance below and we will suggest a one for you. Daily Bank is a flexible number, you can change it at any time.</div>
+  <div class="field">
+<br/><%= f.label :months_allowance, "optional: Enter your month's allowance (numbers only)" %>:<br/>
+   <%= f.text_field :months_allowance %><img src="/images/tooltip.png" class = "tooltip" title="This is a optional field. If you cannot figure out a daily bank, enter your monthly allowance and we will give you a suggested daily bank"/>
   </div>
   <div class="field">
     <%= f.check_box :terms %> Yes, I agree to the tricklesofchange.com <%= link_to "Terms of Use", terms_path %>

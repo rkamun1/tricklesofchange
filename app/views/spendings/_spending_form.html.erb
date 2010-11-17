@@ -10,9 +10,9 @@
   </div>
   <div class="field">
     <%= f.label :spending_amount %>:<br />
-    <%= f.text_field :spending_amount %><img src="/images/tooltip.png" class = "tooltip" title="How much was spent."/>
+    <%= f.label @spending.user.unit,:class=>"unit" %><%= f.text_field :spending_amount %><img src="/images/tooltip.png" class = "tooltip" title="How much was spent."/>
   </div>
   <div class="actions">
-    <%= f.submit "commit" %>
+    <%= f.submit "commit" %> <%= link_to "cancel", current_user %>
   </div>
 <% end %>

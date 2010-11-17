@@ -28,7 +28,7 @@
     <%= f.select :unit, options_for_select(%w{ $ £ KES}) %><%= f.text_field :daily_bank %>
   </div>
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update" %> <%= link_to "cancel", current_user %>
   </div>
 <% end %>
 
@@ -37,6 +37,6 @@
   <a href="http://gravatar.com/emails">change</a> (this will take you to the gravatar site)
 </div>
 
-<%= link_to "delete", @user, :method => :delete, :confirm => "You sure?",
+<%= link_to "delete profile", @user, :method => :delete, :confirm => "Are you sure you want to delete your entire profile? This action CANNOT be undone.",
                                     :title => "Delete #{@user.name}" %>
 

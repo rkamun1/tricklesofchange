@@ -26,8 +26,8 @@
 #TODO: Add timezone and currency type
 
 class User < ActiveRecord::Base
-  attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation, :daily_bank, :invitation_token, :timezone, :unit, :terms
+  attr_accessor :password, :months_allowance
+            attr_accessible :name, :email, :password, :password_confirmation, :daily_bank, :invitation_token, :timezone, :unit, :terms
 
   
   belongs_to :invitation

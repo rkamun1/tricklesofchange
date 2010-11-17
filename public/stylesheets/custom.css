@@ -401,4 +401,12 @@ tr.even td {
 tr.odd td {padding-left:10px;}
 #signupnew{height:200px;}
 #signupbtn{float:right;}
-
+#daily_bank_tip{
+    float:right;
+    left:400px;
+    margin-top:-50px;
+    width:325px;
+    background-color:beige;
+    padding:5px;
+}
+.unit{margin-left:-10px;margin-right:5px;}

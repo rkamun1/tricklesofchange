@@ -1,5 +1,3 @@
 TODO: Learn how to use HTTPS in Rails, and then secure the Sessions controller new and create actions.
-- Make the paginate AJAXified
-- do not add to account if dated or target is reached.
-- spend from stash
-- Enter expendable income and suggest daily bank and reprompt at every month
+- spend from stash - rails g migration add_spend_from_stash_to_spending spend_from_stash:boolean
+- Account maturity - do not add to account if dated or target is reached.
