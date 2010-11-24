@@ -247,7 +247,7 @@ h1 {
 }
 
 #details{
-    width:50%
+    height:100px;
 }
 
 table {
@@ -428,3 +428,5 @@ tr.odd td {padding-left:10px;}
     padding:5px;
 }
 .unit{margin-left:-10px;margin-right:5px;}
+.summary{float:left;width:50%;}
+#gravatar img{margin-top:-15px;}

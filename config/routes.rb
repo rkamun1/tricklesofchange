@@ -24,6 +24,7 @@ Tricklesofchange::Application.routes.draw do
   match '/change_gravatar' => 'users#change_gravatar'
   match '/howitworks' => 'pages#howitworks'
   match '/terms' => 'pages#terms'
+  match "profile" => "users#show"
   
   root :to => 'sessions#new'
 

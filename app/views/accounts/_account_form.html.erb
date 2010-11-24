@@ -1,19 +1,19 @@
 <%= form_for(@account, :remote=>true) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
   <div class="field">
-    <%= f.label :details %>:<br />
+    <%= f.label :details, "Name of account" %>:<br />
     <%= f.text_field :details %><img src="/images/tooltip.png" class = "tooltip" title='The "cause". What you want to accrue money towards. It could be a concert, a pair of jeans, a bicycle, etc. Use you imagintion to empower your financial means.'/>
   </div>
   <div class="field">
-    <%= f.label "Target (monetary value)" %>:<br />
+    <%= f.label "Target: (monetary value)" %><br />
     <%= f.label @account.user.unit,:class=>"unit" %><%= f.text_field :cost %><img src="/images/tooltip.png" class = "tooltip" title="The cost of the item you wish to spend money on, or simply the target you want this account to accrue to"/>
   </div>
   <div class="field">
-    <%= f.label "allotment (%)" %>:<br />  
-    <%= f.text_field :allotment %><img src="/images/tooltip.png" class = "tooltip" title="The % of your daily unspent money that you would like to contribute to this account per cycle (a cycle is a day/24hrs)"/>
+    <%= f.label "allotment: (% of daily balance you would like to send to this account)" %><br />  
+    <%= f.text_field :allotment %>%<img src="/images/tooltip.png" class = "tooltip" title="The % of your daily unspent money that you would like to contribute to this account per cycle (a cycle is a day/24hrs)"/>
   </div>
   <div class="field">
-    <%= f.label :maturity_date %>:<br />  
+    <%= f.label "Maturity_date: (the date you want to stop adding to this account.)" %>:<br />  
     <%= f.text_field  :maturity_date, :value => @account.maturity_date.nil? ? "" : @account.maturity_date.strftime("%B %d, %Y") %><img src="/images/tooltip.png" class = "tooltip" title="The date by which you want to achieve this goal"/>
   </div>
   <div class="actions">

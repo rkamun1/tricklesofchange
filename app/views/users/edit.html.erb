@@ -1,5 +1,8 @@
 <h1>Edit user</h1>
-
+<div>
+  <%= gravatar_for @user %>
+  <%= link_to "change gravatar", "http://gravatar.com/emails", :target=>"_blank" %> (this will take you to the gravatar site)
+</div>
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
   <div class="field">
@@ -35,11 +38,6 @@
     <%= f.submit "Update" %> <%= link_to "cancel", current_user %>
   </div>
 <% end %>
-
-<div>
-  <%= gravatar_for @user %>
-  <%= link_to "change gravatar", "http://gravatar.com/emails" %> (this will take you to the gravatar site)
-</div>
 
 <%= link_to "delete profile", @user, :method => :delete, :confirm => "Are you sure you want to delete your entire profile? This action CANNOT be undone.",
                                     :title => "Delete #{@user.name}" %>
