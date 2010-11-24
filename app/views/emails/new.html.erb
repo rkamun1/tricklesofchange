@@ -23,5 +23,6 @@
   <p><%= f.submit %></p>
 <% end %>
 
-
+<% if admin? %>
 <p><%= link_to "Back to List", emails_path %></p>
+<% end %>
