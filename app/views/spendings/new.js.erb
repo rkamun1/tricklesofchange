@@ -1,0 +1,18 @@
+$('#popup').remove();
+$('#dialog').append('<div id="popup" class="round" title="Add an spending"><div class="popupBody"><%= escape_javascript(render "spending_form") %></div><div class="tipFooter"></div></div>')
+$('#dialog').dialog({  
+          autoOpen: false,
+			    modal: true,
+          height: 300,
+          width: 325,
+          show:"scale",
+          close: function(event, ui) {
+                          $('.button').show();
+                          $('#popup').remove();    
+                          }
+        });
+$('#dialog').dialog('open');
+$('#spending_spending_date').attr("onFocus","javascript:blur();");
+$('#spending_spending_date').datepicker({ minDate: -30, maxDate:0, dateFormat: 'MM d, yy' });
+tooltip_render();
+

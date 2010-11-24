@@ -1,0 +1,17 @@
+$('#popup').remove();
+$('#dialog').append('<div id="popup" class="round" title="Add an account"><div class="popupBody"><%= escape_javascript(render "account_form") %></div><div class="tipFooter"></div></div>')
+$('#dialog').dialog({  
+          autoOpen: false,
+			    modal: true,
+          height: 300,
+          width: 325,
+          show:"scale",
+          close: function(event, ui) {
+                          $('.button').show();
+                          $('#popup').remove();    
+                          }
+        });
+$('#dialog').dialog('open');
+$('#account_maturity_date').attr("onFocus","javascript:blur();");
+$('#account_maturity_date').datepicker({ minDate: 1, dateFormat: 'MM d, yy' });
+

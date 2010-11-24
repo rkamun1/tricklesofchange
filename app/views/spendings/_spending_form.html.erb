@@ -1,4 +1,4 @@
-<%= form_for(@spending) do |f| %>
+<%= form_for(@spending, :remote=>true) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
   <div class="field">
     <%= f.label :spending_date %>: <br/>
@@ -13,6 +13,6 @@
     <%= f.label @spending.user.unit,:class=>"unit" %><%= f.text_field :spending_amount %><img src="/images/tooltip.png" class = "tooltip" title="How much was spent."/>
   </div>
   <div class="actions">
-    <%= f.submit "commit" %> <%= link_to "cancel", current_user %>
+    <%= f.submit "commit" %> <%= link_to "cancel", current_user , :remote => true %>
   </div>
 <% end %>

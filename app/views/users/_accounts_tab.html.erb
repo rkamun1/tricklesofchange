@@ -1,0 +1,20 @@
+<div id = "accounts"> 
+  <div id="addaccount"><%= link_to "add an account", new_account_path, :remote => true, :class => "button" %></div>
+  <table id = "accountstable">
+    <tr class ="header">
+      <td class = "headercolumn round-top-5px">Details</td>
+      <td class = "headercolumn round-top-5px">Target</td>
+      <td class = "headercolumn round-top-5px">Allotment</td>
+      <td class = "headercolumn round-top-5px">Accrued</td>
+      <td class = "headercolumn round-top-5px">Maturity Date</td>
+      <td></td>
+    </tr> 
+    <% if @user.accounts.empty? %> 
+      <tr id = "empty_account_table">
+        <td>You have no listed accounts. Enter them now? Click "add an account" above</td>
+      </tr>
+    <% else %> 
+      <%= render @accounts %>
+    <%end%>
+  </table>
+</div>

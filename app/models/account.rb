@@ -47,7 +47,7 @@ class Account < ActiveRecord::Base
 
   def delete_from_stash
     user = self.user
-    if accrued > 0
+    if (accrued||0) > 0
       user.daily_stats.last.update_attribute(:days_stash, user.stash + accrued)
       user.update_attribute(:stash, user.daily_stats.last.days_stash)
     end

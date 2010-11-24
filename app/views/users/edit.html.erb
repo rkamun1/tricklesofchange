@@ -10,22 +10,26 @@
     <%= f.label :email %>:<br />
     <%= f.text_field :email %>
   </div>
-  <small>Please enter your old password or a new one to change it.</small>
+  
   <div class="field">
-    <%= f.label :password %>:<br />
+    <%= f.label :password %>: - enter your old password, to confirm changes, or a new one to change it.<br />
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm Password" %>:<br />
+    <%= f.label :password_confirmation, "Confirm Password" %>: - re-enter the password entered above.<br />
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="field">
     <%= f.label :timezone %>:<br />
 <%= time_zone_select( "user", "timezone", nil, :include_blank => true) %>
   </div>
+  <div class="field"> 
+    <%= f.label :daily_bank, "Your Daily Bank" %>:<br />
+    <%= f.text_field :daily_bank %>
+  </div>
   <div class="field">
-    <%= f.label "Currency" %><%= f.label :daily_bank, "Daily Bank" %>:<br />
-    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %><%= f.text_field :daily_bank %>
+    <%= f.label "Your Currency" %><br/>
+    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %>
   </div>
   <div class="actions">
     <%= f.submit "Update" %> <%= link_to "cancel", current_user %>
@@ -34,7 +38,7 @@
 
 <div>
   <%= gravatar_for @user %>
-  <a href="http://gravatar.com/emails">change</a> (this will take you to the gravatar site)
+  <%= link_to "change gravatar", "http://gravatar.com/emails" %> (this will take you to the gravatar site)
 </div>
 
 <%= link_to "delete profile", @user, :method => :delete, :confirm => "Are you sure you want to delete your entire profile? This action CANNOT be undone.",

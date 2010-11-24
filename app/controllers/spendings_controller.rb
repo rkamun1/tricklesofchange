@@ -5,38 +5,62 @@ class SpendingsController < ApplicationController
   def new
     @spending = current_user.spendings.build()
     @title = "new spending"
+    respond_to do |format|  
+     format.html  
+     format.js
+    end  
   end
 
   def create
     @spending = current_user.spendings.build(params[:spending])
     if @spending.save
       flash[:success] = "Your spending has been saved!"
-      redirect_to current_user
+      respond_to do |format|  
+       format.html{redirect_to current_user}
+       format.js
+      end 
     else
       @title = "new spending"
-      render 'new'
+      respond_to do |format|  
+       format.html{render 'new'}
+       format.js{render 'new'}
+      end  
     end
   end
   
   def edit
     @spending = Spending.find(params[:id])
     @title = "edit #{@spending.spending_details}"
+    respond_to do |format|  
+     format.html  
+     format.js{render 'new'}
+    end  
   end
   
   def update
     @spending = Spending.find(params[:id])
     if @spending.update_attributes(params[:spending])
       flash[:success] = "Spending updated."
-      redirect_to current_user
+      respond_to do |format|  
+       format.html{redirect_to current_user}
+       format.js
+      end 
     else
       @title = "Edit user"
-      render 'edit'
+      respond_to do |format|  
+       format.html{render 'edit'}
+       format.js{render 'new'}
+      end  
     end
   end  
 
   def destroy
-    Spending.find(params[:id]).destroy
-    redirect_to root_path
+    @spending = Spending.find(params[:id])
+    @spending.destroy
+    respond_to do |format|  
+       format.html{redirect_to root_path}
+       format.js 
+    end  
   end
   
   private

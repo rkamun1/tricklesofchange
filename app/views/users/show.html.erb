@@ -8,95 +8,23 @@
       <% if @user.invitation_limit || 0 > 0 %>
         <% if admin? %><strong>Invite a friend: </strong> <%= link_to "#{@user.invitation_limit} invitations left", new_invitation_path %> <br /><% end %>
       <% end %>
-      
       <strong>Daily Bank: </strong> <%= number_to_currency(@user.daily_bank, :unit => @user.unit || "$") %><br />
       <strong>Today's Balance: </strong> <%= number_to_currency(@user.spending_balance || @user.daily_bank, :unit => @user.unit || "$") %><br />
-      <strong>Stash: </strong> <%= number_to_currency(@user.stash || 0, :unit => @user.unit || "$") %><br />
-      <%= link_to "edit", edit_user_path(current_user) %> <%= link_to "reset", reset_path,
-                                 :confirm => "This will reset your stash and account accrued amounts to zero. You cannot undo this. Are you sure you want to proceed? ",
-                                 :title => "reset account?" %>
-    </div> <div id="chartdivborder" class="round">
-      <div id="chartdiv"  style="width:680px;"></div>
-    </div>
- 
+      <strong>Stash: </strong> <%= number_to_currency(@user.stash || 0, :unit => @user.unit || "$") %> <%= link_to "reset", reset_path,:confirm => "This will reset your stash and account accrued amounts to zero. You cannot undo this. Are you sure you want to proceed? ",:title => "reset account?" %>
+    </div> 
     <div id="thenumbers">
       <ul>
-		    <li><a href="#accounts" class = "hdr">Accounts</a><img src="/images/tooltip.png" class = "popup" title="click"  
-		    data-header="accounts" data-info="<p>Pick an item you would like to save towards, it may be a pair of jeans, a night out, a concert ticket...etc etc. Each item you choose is an account.</p><ul><li>Enter the target you would like to save towards. This is normally the cost of the account(the item you are spending on)</li><li>Enter the alloment. This is the percent of your daily unspent, that you would like to donate towards this account</li><li>The maturity date is the date that you intend to mature this account by. The date you intend to be done contributing to this account and reagy to use that money</li></ul><p>That's it!!! Every day, your daily unspent shall be split up between your accounts and you can just sit back and watch your money accrue towards your target!!</p>"/></li>
-		    <li><a href="#spendings" class = "hdr">Spending</a><img src="/images/tooltip.png" class = "popup" title="click"  data-header="spendings" data-info="<p>Enter your spendings; you may itemize each spending to increase accountablity, or you may simple have one or two entries depicting your days spendings."/></li>
+		    <li><a href="#chartdivborder">Chart</a></li>
+		    <%= render :partial => "accounts_header" %>
+		    <%= render :partial => "spendings_header" %>
 	    </ul>
-
-      <div id = "accounts"> 
-        <% if @user.accounts.empty? %>   
-          Enter your accounts here.........   
-        <% end %>
-        <div id="addaccount"><%= link_to "add an account", new_account_path %></div>
-        <% if !@user.accounts.empty? %>
-          <table id = "accountstable">
-            <tr class ="header">
-              <td class = "headercolumn round-top-5px">Details</td>
-              <td class = "headercolumn round-top-5px">Target</td>
-              <td class = "headercolumn round-top-5px">Allotment</td>
-              <td class = "headercolumn round-top-5px">Accrued</td>
-              <td class = "headercolumn round-top-5px">Maturity Date</td>
-              <td></td>
-            </tr>  
-            <%= render @accounts %>
-          </table>
-        <% end %>  
-       </div>
-    
-      <div id = "spendings"> 
-        <% if @user.spendings.empty? %>   
-          Enter your spendings here.........  
-        <% end %>
-        <div id="addspending"><%= link_to "add a spending", new_spending_path %></div>
-        <% if !@user.spendings.empty? %>
-          <table id = "spendingstable">
-            <tr class = "header">
-              <td class = "headercolumn round-top-5px">Date</td>
-              <td class = "headercolumn round-top-5px">Details</td>
-              <td class = "headercolumn round-top-5px">Amount</td>
-              <td></td>
-            </tr>  
-            <%= render @spendings %>
-          </table>  
-        <% end %>
-      </div>
+      <%= render :partial => "chart" %>
+      <%= render :partial => "accounts_tab" %>
+      <%= render :partial => "spendings_tab" %>
     </div>
   </div>
 </div>
 
 
- <script type="text/javascript" charset="utf-8">  
-  $(function () {  
-     new Highcharts.Chart({  
-       chart: { renderTo: 'chartdiv' },
-       title: { text: 'Spending Stats' },  
-       xAxis: { type: 'datetime' },  
-       yAxis: {  
-                title: { text: '<%= @user.unit || "$" %> '}   
-       },
-       tooltip: {
-         formatter: function() {
-                   return Highcharts.dateFormat('%A %B %e %Y',this.x) +': '+ '$:'+this.y;
-         }
-      },
-       series: [{  
-          name: "Daily Spending",
-          pointInterval: <%= 1.day * 1000 %>,
-          pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
-          data: <%= ((Time.now.midnight - 1.month).to_date..(Time.now.midnight).to_date).map { |date| @user.spending_on(date).to_f}.inspect %> ,
-          type: 'column', 
-	        color: '#AA4643'
-        },{
-        name: "Daily Stash",
-          pointInterval: <%= 1.day * 1000 %>,
-          pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
-          data: <%= ((Time.now.midnight - 1.month).to_date..(Time.now.midnight).to_date).map { |date| @user.stash_on(date).to_f}.inspect %>, 
-          color: '#4572A7'
-        }]       
-     });  
-   });  
-  </script> 
+ 
 

@@ -1,0 +1,17 @@
+//to do...
+
+$('#popup').remove();
+$('#dialog').append('<div id="popup" class="round" title="Change Gravatar"><div class="popupBody"><%= @result %></div><div class="tipFooter"></div></div>')
+$('#dialog').dialog({  
+          autoOpen: false,
+			    modal: true,
+          height: 300,
+          width: 325,
+          show:"scale",
+          close: function(event, ui) {
+                          $('.button').show();
+                          $('#popup').remove();    
+                          }
+        });
+$('#dialog').dialog('open');
+

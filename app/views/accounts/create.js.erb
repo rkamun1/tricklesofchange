@@ -1,0 +1,6 @@
+$('#dialog').dialog('close');
+$('tr[id=empty_account_table]').remove();
+$('#accountstable').append('<%= escape_javascript(render @account) %>');  
+
+
+

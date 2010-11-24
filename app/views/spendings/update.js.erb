@@ -1,0 +1,2 @@
+$('#dialog').dialog('close');
+$('#spending_<%= @spending.id %>').replaceWith('<%= escape_javascript(render @spending) %>');  

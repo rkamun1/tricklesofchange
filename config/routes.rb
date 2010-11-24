@@ -21,6 +21,7 @@ Tricklesofchange::Application.routes.draw do
   match '/about'  => 'pages#about'
   match '/forgot_password' => 'users#forgot_password'
   match '/reset' => 'users#reset'
+  match '/change_gravatar' => 'users#change_gravatar'
   match '/howitworks' => 'pages#howitworks'
   match '/terms' => 'pages#terms'
   

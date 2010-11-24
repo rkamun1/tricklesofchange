@@ -10,7 +10,7 @@ $(document).ready(function() {
       $('#spending_spending_date').datepicker({ minDate: -30, maxDate:0, dateFormat: 'MM d, yy' });
     });
 
-    //for the profile stats tabs
+    //for the profile tabs
     $(function() {
         $('#thenumbers').tabs();
     });

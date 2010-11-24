@@ -1,0 +1,18 @@
+<div id = "spendings"> 
+  <div id="addspending"><%= link_to "add a spending", new_spending_path, :remote => true, :class => "button"  %></div>
+  <table id = "spendingstable">
+    <tr class = "header">
+      <td class = "headercolumn round-top-5px">Details</td>
+      <td class = "headercolumn round-top-5px">Amount</td>
+      <td class = "headercolumn round-top-5px">Date</td>
+      <td></td>
+    </tr>  
+    <% if @user.spendings.empty? %> 
+      <tr id = "empty_spendings_table">
+        <td>You have no listed spendings. Enter them now? Click "add a spending" above</td>
+      </tr>
+    <% else %> 
+      <%= render @spendings %>
+    <%end%>
+  </table>  
+</div>

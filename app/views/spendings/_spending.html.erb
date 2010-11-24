@@ -1,10 +1,10 @@
 <%- row_class = cycle("odd", "even") -%>
-<tr class = "<%= row_class %>">
-  <td class="date"><%= spending.spending_date.strftime("%B %d , %Y") %></td>
+<tr id = "spending_<%= spending.id %>" class = "<%= row_class %>">
   <td class="details"><%= spending.spending_details %></td>
-  <td class="amount"><%= number_to_currency(spending.spending_amount, :unit => @user.unit || "$") %></td>
-  <td><%= link_to "edit", edit_spending_path(spending) %>
-  <%= link_to "delete", spending_path(spending), :method => :delete,
+  <td class="amount"><%= number_to_currency(spending.spending_amount, :unit => spending.user.unit || "$") %></td>
+  <td class="date"><%= spending.spending_date.strftime("%B %d , %Y") %></td>
+  <td><%= link_to "edit", edit_spending_path(spending), :remote => true %>
+  <%= link_to "delete", spending_path(spending), :method => :delete, :remote => true,
                                  :confirm => "You sure you want to delete #{spending.spending_details}",
                                  :title => "Delete #{spending.spending_details}" %></td>
   

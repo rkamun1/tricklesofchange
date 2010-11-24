@@ -87,6 +87,11 @@ puts @users.inspect
     @user.reset @user
     redirect_to root_path
   end
+  
+  def change_gravatar
+    @result = Net::HTTP.get(URI.parse('http://www.touchinspiration.com'))
+    puts "@result is #{@result.inspect}"
+  end
 
   private    
     def set_timzeone
