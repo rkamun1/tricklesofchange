@@ -1,7 +1,7 @@
 <h2> FAQs </h2>
 
 <% for faq in @faqs %>
-  <div id = "field"><h3><%= faq.question %></h3></div>
+  <div id = "field"><h3><%= raw faq.question %></h3></div>
   <div id = "field"><%= raw faq.answer %></div>
   <% if admin? %>
     <%= link_to "Edit", edit_faq_path(faq) %>
