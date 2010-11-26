@@ -144,7 +144,7 @@ logo{
 }
 
 #homepage{
-    height:230px;
+    height:250px;
 }
 
 #numbers{
@@ -153,7 +153,6 @@ logo{
 
 #signupforbeta{
     float:left;
-    padding-top:20px;
     width:350px;
     color:black;
 }
@@ -166,7 +165,6 @@ logo{
 }
 #signin{
     float:right;
-    padding-top:20px;
     width: 200px;
 }
 
