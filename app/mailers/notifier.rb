@@ -28,7 +28,7 @@ class Notifier < ActionMailer::Base
     @invitation = invitation 
     @signup_url = signup_url
     mail(:to => @invitation.recipient_email, 
-         :subject => "Welcome to tricklesofchange.com BETA.")
+         :subject => "Welcome to tricklesofchange.com.")
   end
 
   #send the inviter and the system a joined notification
