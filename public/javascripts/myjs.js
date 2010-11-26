@@ -33,7 +33,7 @@ $(document).ready(function() {
         $('#user_months_allowance').keyup(function() {
         if(!isNaN($('#user_months_allowance').val())){
             $('#user_daily_bank').removeClass("field_with_errors");
-            $('#user_daily_bank').val($('#user_months_allowance').val()/30);
+            $('#user_daily_bank').val(parseFloat($('#user_months_allowance').val()/30).toFixed(2));
         }
         else{
             $('#user_daily_bank').val("Monthly allowance must be a number");
