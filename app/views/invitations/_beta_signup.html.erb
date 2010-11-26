@@ -1,11 +1,12 @@
 <div id = "signupforbeta">
-    <h3>Ready to sign up? You're only moments away...</h3>
-    Enter your email address below to recieve a sign up email.
-    <%= form_for(Invitation.new) do |f| %>
-      <%= render 'shared/error_messages', :object => f.object %>
-      <p>
-        <%= f.label :recipient_email, "Email address" %>:<br />
-        <%= f.text_field :recipient_email %>
-        <%= f.submit "Send Email" %></p>
-    <% end %>
-  </div>
+  <p>Read the <%= link_to "how it works", howitworks_path %> section to see how this tool can help you build your purchasing power</p>
+  <h3>Ready to sign up? You're only moments away...</h3>
+  Enter your email address below to recieve a sign up email.
+  <%= form_for(Invitation.new) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+    <p>
+      <%= f.label :recipient_email, "Email address" %>:<br />
+      <%= f.text_field :recipient_email %>
+      <%= f.submit "Send Email" %></p>
+  <% end %>
+</div>
