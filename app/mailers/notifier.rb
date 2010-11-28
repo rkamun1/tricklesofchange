@@ -2,7 +2,9 @@ class Notifier < ActionMailer::Base
   layout 'notifier'
   
   default :bcc => 'info@tricklesofchange.com',
-          :from => 'no-reply@tricklesofchange.com'
+          :from => 'customerservice@tricklesofchange.com',
+          :reply_to => 'customerservice@tricklesofchange.com'
+  
 
   #send a forgotten password
   def forgotten_password(user, password)
@@ -19,7 +21,7 @@ class Notifier < ActionMailer::Base
     @invitation = invitation 
     @signup_url = signup_url
     mail(:to => @invitation.recipient_email, 
-         :subject => "You have been invited to tricklesofchange.com.")
+         :subject => "You have been invited to Tricklesofchange.")
   end
 
   #a new request notification to admin
@@ -28,7 +30,7 @@ class Notifier < ActionMailer::Base
     @invitation = invitation 
     @signup_url = signup_url
     mail(:to => @invitation.recipient_email, 
-         :subject => "Welcome to tricklesofchange.com.")
+         :subject => "Welcome to Tricklesofchange.")
   end
 
   #send the inviter and the system a joined notification
