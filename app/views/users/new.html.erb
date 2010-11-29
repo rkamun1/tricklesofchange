@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label "Currency" %> and <%= f.label :daily_bank, "Daily Bank" %> :<br /> 
-    <%= f.select :unit, options_for_select(%w{ $ £ KES}) %> <%= f.text_field :daily_bank %><img src="/images/tooltip.png" class = "tooltip" title="Your daily bank is a cash estimate that you would like not to exceed on a day-to-day basis."/> 
+    <%= f.select :unit, options_for_select(%w{ $ £ KES €}) %> <%= f.text_field :daily_bank %><img src="/images/tooltip.png" class = "tooltip" title="Your daily bank is a cash estimate that you would like not to exceed on a day-to-day basis."/> 
   </div>
   <div id="daily_bank_tip" class="round">TIP: If you cannot figure out a daily bank, enter your month's allowance below and we will suggest a daily bank for you. Remember: Your Daily Bank is a flexible number and you can change it at any time.</div>
   <div class="field">
