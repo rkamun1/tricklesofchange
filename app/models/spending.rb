@@ -20,7 +20,7 @@ class Spending < ActiveRecord::Base
   
   validates :user_id, :presence => true
   validates :spending_date, :presence => true,
-                            :date => { :before => Time.now,
+                            :date => { :before => Time.now.midnight + 1.day,
                                        :message => "the spending date cannot be newer than todays's date"}
 
   validate :join_date
