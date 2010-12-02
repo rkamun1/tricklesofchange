@@ -32,7 +32,7 @@
   </div>
   <div class="field">
     <%= f.label "Your Currency" %><br/>
-    <%= f.select :unit, options_for_select(%w{ $ £ KES €}) %>
+    <%= f.select :unit, options_for_select(%w{$ £ KES € ¥}) %>
   </div>
   <div class="actions">
     <%= f.submit "Update" %> <%= link_to "cancel", current_user %>
