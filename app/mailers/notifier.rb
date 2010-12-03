@@ -2,8 +2,7 @@ class Notifier < ActionMailer::Base
   layout 'notifier'
   
   default :bcc => 'info@tricklesofchange.com',
-          :from => 'customerservice@tricklesofchange.com',
-          :reply_to => 'customerservice@tricklesofchange.com'
+          :from => 'info@tricklesofchange.com'
   
 
   #send a forgotten password
@@ -17,7 +16,7 @@ class Notifier < ActionMailer::Base
   
   #send an invitaion
   def invitation invitation, signup_url
-    attachments.inline['newheader.png'] = #File.read(Rails.root.join('public/images/newheader.png'))
+    attachments.inline['newheader.png'] = File.read(Rails.root.join('public/images/newheader.png'))
     @invitation = invitation 
     @signup_url = signup_url
     mail(:to => @invitation.recipient_email, 
@@ -26,7 +25,7 @@ class Notifier < ActionMailer::Base
 
   #a new request notification to admin
   def new_request invitation, signup_url
-    attachments.inline['newheader.png'] = #File.read(Rails.root.join('public/images/newheader.png'))
+    attachments.inline['newheader.png'] = File.read(Rails.root.join('public/images/newheader.png'))
     @invitation = invitation 
     @signup_url = signup_url
     mail(:to => @invitation.recipient_email, 

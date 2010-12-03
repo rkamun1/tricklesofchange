@@ -55,5 +55,9 @@ module Tricklesofchange
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    #Settings for sending with postmark
+    config.action_mailer.delivery_method   = :postmark
+    config.action_mailer.postmark_settings = { :api_key => "e370ac60-d336-47d9-aaa9-a81b5a4e2e33" }
   end
 end

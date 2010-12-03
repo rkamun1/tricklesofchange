@@ -2,7 +2,6 @@ GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
   specs:
-    aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.0)
       actionpack (= 3.0.0)
@@ -55,6 +54,9 @@ GEM
     nifty-generators (0.4.0)
     nokogiri (1.4.3.1)
     polyglot (0.3.1)
+    postmark (0.9.5)
+      tmail
+    postmark-rails (0.4.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
@@ -87,6 +89,7 @@ GEM
       webrat (>= 0.7.0)
     spork (0.8.4)
     thor (0.14.0)
+    tmail (1.2.7.1)
     treetop (1.4.8)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
@@ -94,9 +97,6 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
-    whenever (0.5.3)
-      aaronh-chronic (>= 0.3.9)
-      activesupport (>= 2.3.4)
     will_paginate (3.0.pre2)
 
 PLATFORMS
@@ -110,9 +110,10 @@ DEPENDENCIES
   gravatar_image_tag
   mysql
   nifty-generators
+  postmark
+  postmark-rails (= 0.4.0)
   rails
   rspec (= 2.0.0.beta.18)
   rspec-rails (= 2.0.0.beta.18)
   spork (= 0.8.4)
-  whenever
   will_paginate (>= 3.0.pre)
