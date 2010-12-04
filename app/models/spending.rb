@@ -110,7 +110,8 @@ class Spending < ActiveRecord::Base
   
   def join_date
  #coz apparently I am too dumb to figure out the neg bool
-    if (!(spending_date.to_date + 1 > self.user.created_at.to_date) )
+puts "this is the spending_date #{spending_date} and created at #{self.user.created_at.to_date} and created at to local time #{self.user.created_at.localtime} and created at to local time #{self.user.created_at.localtime.to_date}"
+    if (spending_date.to_date < self.user.created_at.localtime.to_date)
       errors.add(:spending_date,"the spending date cannot be older than the date you joined tricklesofchange.com.")
     end
   end

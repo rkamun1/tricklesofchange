@@ -39,10 +39,10 @@ namespace :db do
       n = 1
       k = 31
       while k >= 0                            
-        p = 5 + rand(20)                    
+        p = rand(5)                    
         user.daily_stats.create!(:day => Date.today-k.day, 
                                 :days_spending => p,
-                                :days_stash => user.daily_stats.last.nil? ? 0:user.daily_stats.last.days_stash + 20 - p)   
+                                :days_stash => user.daily_stats.last.nil? ? 0:user.daily_stats.last.days_stash + 5 - p)   
         user.update_attribute(:stash,20 * n)
         n += 1
         k -= 1
