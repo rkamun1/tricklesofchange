@@ -22,7 +22,9 @@
 		    <%= render :partial => "accounts_header" %>
 		    <%= render :partial => "spendings_header" %>
 	    </ul>
-      <%= render :partial => "chart" %>
+      <div id="chartdivborder" class="round">
+        <%= render :partial => "chart" %>
+      </div>
       <%= render :partial => "accounts_tab" %>
       <%= render :partial => "spendings_tab" %>
     </div>

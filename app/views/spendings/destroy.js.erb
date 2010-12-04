@@ -1,1 +1,3 @@
 $('#spending_<%= @spending.id %>').remove();
+$('#chartdiv').remove();
+$('#chartdivborder').append('<%= escape_javascript(render "users/chart") %>');
