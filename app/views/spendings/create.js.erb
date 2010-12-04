@@ -3,3 +3,4 @@ $('tr[id=empty_spendings_table]').remove();
 $('#spendingstable').append('<%= escape_javascript(render @spending) %>');  
 $('#chartdiv').remove();
 $('#chartdivborder').append('<%= escape_javascript(render "users/chart") %>');
+$('#accountstable').replaceWith('<%= escape_javascript(render "users/accountstable") %>');

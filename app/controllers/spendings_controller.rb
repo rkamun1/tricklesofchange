@@ -14,6 +14,7 @@ class SpendingsController < ApplicationController
   def create
     @spending = current_user.spendings.build(params[:spending])
     @user = @spending.user
+    @accounts = @user.accounts
     if @spending.save
       flash[:success] = "Your spending has been saved!"
       respond_to do |format|  
@@ -41,6 +42,7 @@ class SpendingsController < ApplicationController
   def update
     @spending = Spending.find(params[:id])
     @user = @spending.user
+    @accounts = @user.accounts
     if @spending.update_attributes(params[:spending])
       flash[:success] = "Spending updated."
       respond_to do |format|  
@@ -59,6 +61,7 @@ class SpendingsController < ApplicationController
   def destroy
     @spending = Spending.find(params[:id])
     @user = @spending.user
+    @accounts = @user.accounts
     @spending.destroy
     respond_to do |format|  
        format.html{redirect_to root_path}
