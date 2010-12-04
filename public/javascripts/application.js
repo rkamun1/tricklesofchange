@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     $(function() {
         var s = window.location.pathname;
-        if(s == '/' || s.indexOf("/signup") === 0 || s.indexOf("/forgot_password") === 0 || s.indexOf("/join") === 0 || s.indexOf("/sessions") === 0)
+        if(s == '/' || s.indexOf("/signup") === 0 || s.indexOf("/forgot_password") === 0 || s.indexOf("/signin") === 0 || s.indexOf("/join") === 0 || s.indexOf("/sessions") === 0)
         {
             $('#signupbtn').hide();
         }
