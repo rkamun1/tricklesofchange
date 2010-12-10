@@ -2,3 +2,4 @@ $('#spending_<%= @spending.id %>').remove();
 $('#chartdiv').remove();
 $('#chartdivborder').append('<%= escape_javascript(render "users/chart") %>');
 $('#accountstable').replaceWith('<%= escape_javascript(render "users/accountstable") %>');
+$('#profile_summary').replaceWith('<%= escape_javascript(render "users/profile_summary") %>');
