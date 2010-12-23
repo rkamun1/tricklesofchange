@@ -108,6 +108,7 @@ class Spending < ActiveRecord::Base
     user.update_attribute(:stash, user.daily_stats.last.days_stash)
   end
   
+#this thing is killing me!!!
   def join_date
  #coz apparently I am too dumb to figure out the neg bool
 puts "this is the spending_date #{spending_date} and created at #{self.user.created_at.to_date} and created at to local time #{self.user.created_at.localtime} and created at to local time #{self.user.created_at.localtime.to_date}"
